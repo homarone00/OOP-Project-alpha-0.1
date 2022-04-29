@@ -1,9 +1,12 @@
 package swing;
 
 import swing.cells.RandomBracket;
+import utils.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainJFrame extends JFrame {
     private JTextField textField1;
@@ -62,6 +65,11 @@ public class MainJFrame extends JFrame {
         rollButton.addActionListener(e -> {
             rand20.initRand(rand100,rand2);
             System.out.println("Button pressed");
+            try{
+                System.out.println(WildMagicSt.description(DBManager.getConnection(), (rand20.getValue() - 1)/2, true));
+            }catch (SQLException err){
+                JOptionPane.showMessageDialog(null, err.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
         //fine parte di debug
 
@@ -71,6 +79,14 @@ public class MainJFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600, 400);
         setVisible(true);
+
+        //Settaggio del DB
+        try{
+            WildMagicSt.setDB();
+            System.out.println("DB fatto/trovato");
+        }catch (IOException | SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainJFrame::new);
