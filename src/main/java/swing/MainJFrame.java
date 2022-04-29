@@ -1,5 +1,7 @@
 package swing;
 
+import swing.cells.RandomBracket;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -49,9 +51,18 @@ public class MainJFrame extends JFrame {
         mainPanel.add(rightPanel,BorderLayout.LINE_END);
 
         //parte di debug
-        rightPanel.add(new JButton("D100"));
-        rightPanel.add(new JButton("Moneta"));
-        rightPanel.add(new JButton("D20"));
+        RandomBracket rand100=new RandomBracket(1,5);
+        RandomBracket rand2=new RandomBracket(1,2);
+        RandomBracket rand20=new RandomBracket(1,20);
+        rightPanel.add(rand100);
+        rightPanel.add(rand2);
+        rightPanel.add(rand20);
+        rand20.initRand(rand100,rand20);
+
+        rollButton.addActionListener(e -> {
+            rand20.initRand(rand100,rand2);
+            System.out.println("Button pressed");
+        });
         //fine parte di debug
 
         /*Chiamo i metodi di JFrame*/
