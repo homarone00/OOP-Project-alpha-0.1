@@ -22,10 +22,6 @@ public class AbilityPanel extends JLayeredPane {
         this.name=new JLabel(name);
     }
 
-    /**
-     *
-     * @return String
-     */
     public String getName(){
         return this.name.getText();
     }
