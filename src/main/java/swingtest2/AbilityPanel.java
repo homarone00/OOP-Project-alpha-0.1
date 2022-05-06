@@ -11,28 +11,22 @@ public class AbilityPanel extends JLayeredPane {
     /**
      * static attributes are used to define which type of cell is needed
      */
-    static final int STR = 1;
-    static final int DEX = 2;
-    static final int CON = 3;
-    static final int INT = 4;
-    static final int WIS = 5;
-    static final int CHA = 6;
-
 
     JTextField modifier;
     JTextPane value;
     int intValue;
-    JLabel name;
-    int intName;
+    JLabel label;
+    int intLabel;
 
     /**
-     * The constructor can only be called with a String parameter, which represents the name
+     * The constructor can only be called with a String parameter, representing the label, and an int, representing
+     * the intLabel
      */
-    AbilityPanel(String name){
+    AbilityPanel(String label){
         super();
         this.modifier=new JTextField();
         this.value=new JTextPane();
-        this.name=new JLabel(name);
+        this.label =new JLabel(label);
     }
 
     /**
@@ -56,25 +50,63 @@ public class AbilityPanel extends JLayeredPane {
     }
 
     /**
-     * @return an int representation of the name displayed on the cell
+     * @return a String representation of the label displayed on the cell
      */
-    @Override
-    public String getName(){
-        switch(intName) {
-            case STR:
+
+    public String getLabel(){
+        switch(this.intLabel) {
+            case MyCharacter.STR:
                 return "STRENGTH";
-            case DEX:
+            case MyCharacter.DEX:
                 return "DEXTERITY";
-            case CON:
+            case MyCharacter.CON:
                 return "CONSTITUTION";
-            case INT:
+            case MyCharacter.INT:
                 return "INTELLIGENCE";
-            case WIS:
+            case MyCharacter.WIS:
                 return "WISDOM";
-            case CHA:
+            case MyCharacter.CHA:
                 return "CHARISMA";
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.intLabel);
         }
-        return "ciao";
+    }
+
+    private void setIntLabel(int characteristic){
+        if (characteristic>= MyCharacter.STR && characteristic<=MyCharacter.CHA){
+            this.intLabel=characteristic;
+
+        }
+        else throw new IllegalArgumentException("Unexpected value: " + characteristic);
+    }
+
+    /**
+     * @return an int representation of the label displayed on the cell
+     */
+    public int getIntLabel(){
+        return this.intLabel;
+    }
+
+    /**
+     * the method automatically calls the setLabel method to automatically update the label
+     * @return
+     */
+    public int setLabel(int characteristic){
+        switch(characteristic) {
+            case MyCharacter.STR:
+                this.label.setText("STRENGTH");
+            case MyCharacter.DEX:
+                this.label.setText("DEXTERITY");
+            case MyCharacter.CON:
+                this.label.setText("CONSTITUTION");
+            case MyCharacter.INT:
+                this.label.setText("INTELLIGENCE");
+            case MyCharacter.WIS:
+                this.label.setText("WISDOM");
+            case MyCharacter.CHA:
+                this.label.setText("CHARISMA");
+            default: throw new IllegalArgumentException("Unexpected value: " + characteristic);
+        }
     }
 
 }
