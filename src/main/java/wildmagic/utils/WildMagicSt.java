@@ -1,11 +1,10 @@
-package utils;
+package wildmagic.utils;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class WildMagicSt {
     //Settaggio del database con relativa creazione della TABLE

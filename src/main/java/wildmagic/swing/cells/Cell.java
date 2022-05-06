@@ -1,6 +1,6 @@
-package swing.cells;
+package wildmagic.swing.cells;
 
-import exeptions.CellBooleanHasMultipleChactersException;
+import wildmagic.exeptions.CellBooleanHasMultipleChactersException;
 
 public interface Cell {
     int getNumber();

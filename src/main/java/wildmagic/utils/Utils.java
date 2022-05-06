@@ -1,4 +1,4 @@
-package utils;
+package wildmagic.utils;
 
 import java.io.File;
 

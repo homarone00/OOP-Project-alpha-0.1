@@ -1,7 +1,7 @@
-package swing;
+package wildmagic.swing;
 
-import swing.cells.DoubleCell;
-import swing.cells.SingleCell;
+import wildmagic.swing.cells.DoubleCell;
+import wildmagic.swing.cells.SingleCell;
 
 import javax.swing.*;
 import java.awt.*;

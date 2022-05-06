@@ -1,7 +1,7 @@
-package swing;
+package wildmagic.swing;
 
-import swing.cells.RandomBracket;
-import utils.*;
+import wildmagic.swing.cells.RandomBracket;
+import wildmagic.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +9,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainJFrame extends JFrame {
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-
     public MainJFrame() {
         // Preparo la barra dei menu
 
