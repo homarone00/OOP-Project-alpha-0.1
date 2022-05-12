@@ -1,8 +1,9 @@
 package swingtest2;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static java.lang.String.valueOf;
 
@@ -17,7 +18,7 @@ public class AbilityPanel extends JLayeredPane {
      * static attributes are used to define which type of cell is needed
      */
     JLabel modifier;
-    JTextPane value;
+    JTextField value;
     int intValue;
     JLabel label;
     /**
@@ -32,32 +33,39 @@ public class AbilityPanel extends JLayeredPane {
     AbilityPanel(int intLabel) {
         super();
         this.modifier = new JLabel();
-        this.value = new JTextPane();
+        this.value = new JTextField();
         this.label = new JLabel();
-
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createLineBorder(new Color(0x676767)));
 
         setValue(10);
         setLabel(intLabel);
 
-        setPreferredSize(new Dimension(80,30));
-        modifier.setBounds(7,7,getPreferredSize().width-7,getPreferredSize().height-7);
-        modifier.setFont(new Font("Comic Sans",Font.BOLD,20));
-        modifier.setBackground(new Color(255,255,255));
-        modifier.setVerticalTextPosition(JLabel.CENTER);
-        modifier.setHorizontalTextPosition(JLabel.CENTER);
-        add(modifier,0);
+        setPreferredSize(new Dimension(120,30));
+        modifier.setFont(new Font("Comic Sans",Font.BOLD,35));
+        modifier.setBackground(new Color(25,255,255));
+        modifier.setHorizontalAlignment(JLabel.CENTER);
+        modifier.setOpaque(true);
+        add(modifier,BorderLayout.CENTER);
 
-        label.setBounds(7,7,getPreferredSize().width-7,15);
-        label.setFont(new Font("Comic Sans", Font.BOLD,5));
+        label.setFont(new Font("Comic Sans", Font.BOLD,12));
         label.setBackground(new Color(192, 0, 0));
-        modifier.setVerticalTextPosition(JLabel.TOP);
-        modifier.setHorizontalTextPosition(JLabel.CENTER);
-        add(label,1);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        add(label,BorderLayout.NORTH);
 
-        value.setBounds(7,getPreferredSize().height-14,getPreferredSize().width-7,14);
-        value.setFont(new Font("Comic Sans", Font.BOLD,5));
+        JPanel grid3 =new JPanel(new GridLayout(1,3));
+        value.setFont(new Font("Comic Sans", Font.BOLD,15));
         value.setBackground(new Color(157, 157, 157));
-        add(value,1);
+        grid3.add(new JPanel());
+        grid3.add(value);
+        grid3.add(new JPanel());
+        add(grid3,BorderLayout.SOUTH);
+
+        value.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                setValue(getValue());
+            }
+        });
 
     }
 
@@ -113,7 +121,7 @@ public class AbilityPanel extends JLayeredPane {
             this.label.setText("STRENGTH");
         }
         else if(characteristic==MyCharacter.DEX){
-            this.label.setText("DEX");
+            this.label.setText("DEXTERITY");
         }
         else if(characteristic==MyCharacter.CON){
             this.label.setText("CONSTITUTION");

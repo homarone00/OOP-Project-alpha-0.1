@@ -12,6 +12,7 @@ public class MyJFrame extends JFrame {
         setSize(1400,800);
         setResizable(false);
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args){
