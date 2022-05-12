@@ -8,6 +8,12 @@ import javax.swing.*;
  */
 public class MyJFrame extends JFrame {
     public MyJFrame(){
-        this.add(new MyContentPane());
+        setContentPane(new MyContentPane());
+        setSize(400,300);
+        setVisible(true);
+    }
+
+    public static void main(String[] args){
+        new MyJFrame();
     }
 }
