@@ -109,22 +109,25 @@ public class AbilityPanel extends JLayeredPane {
      * @param characteristic only the values defined by the Character class attributes are valid
      */
     private void setLabel(int characteristic) {
-        switch (characteristic) {
-            case MyCharacter.STR:
-                this.label.setText("STRENGTH");
-            case MyCharacter.DEX:
-                this.label.setText("DEXTERITY");
-            case MyCharacter.CON:
-                this.label.setText("CONSTITUTION");
-            case MyCharacter.INT:
-                this.label.setText("INTELLIGENCE");
-            case MyCharacter.WIS:
-                this.label.setText("WISDOM");
-            case MyCharacter.CHA:
-                this.label.setText("CHARISMA");
-            default:
-                throw new IllegalArgumentException("Unexpected value for characteristic : " + characteristic);
+        if(characteristic==MyCharacter.STR){
+            this.label.setText("STRENGTH");
         }
+        else if(characteristic==MyCharacter.DEX){
+            this.label.setText("DEX");
+        }
+        else if(characteristic==MyCharacter.CON){
+            this.label.setText("CONSTITUTION");
+        }
+        else if(characteristic==MyCharacter.INT){
+            this.label.setText("INTELLIGENCE");
+        }
+        else if(characteristic==MyCharacter.WIS){
+            this.label.setText("WISDOM");
+        }
+        else if(characteristic==MyCharacter.CHA){
+            this.label.setText("CHARISMA");
+        }
+        else throw new IllegalArgumentException("Unexpected value for characteristic : " + characteristic);
     }
 
     /**

@@ -9,7 +9,8 @@ import javax.swing.*;
 public class MyJFrame extends JFrame {
     public MyJFrame(){
         setContentPane(new MyContentPane());
-        setSize(400,300);
+        setSize(1400,800);
+        setResizable(false);
         setVisible(true);
     }
 
