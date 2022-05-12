@@ -8,6 +8,14 @@ import javax.swing.*;
  */
 public class MyJFrame extends JFrame {
     public MyJFrame(){
-        this.add(new MyContentPane());
+        setContentPane(new MyContentPane());
+        setSize(1400,800);
+        setResizable(false);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args){
+        new MyJFrame();
     }
 }
