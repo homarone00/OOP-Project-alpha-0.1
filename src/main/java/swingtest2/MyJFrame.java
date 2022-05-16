@@ -10,6 +10,12 @@ public class MyJFrame extends JFrame {
     public MyJFrame(){
         setContentPane(new MyContentPane());
         setSize(1400,800);
+
+        MyJMenuBar jMenuBar=new MyJMenuBar();
+        setJMenuBar(jMenuBar);
+        jMenuBar.setVisible(true);
+
+        //these methods must always be the last
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
