@@ -8,6 +8,8 @@ public class MyCharacter {
     static final int WIS = 5;
     static final int CHA = 6;
 
+    int lv = 5;
+
     int str = 10;
     int dex = 10;
     int con = 10;
@@ -15,10 +17,60 @@ public class MyCharacter {
     int wis = 10;
     int cha = 10;
 
-    boolean[] comp = {true, false, false, true, true, false};
+    Boolean strComp = true;
+    Boolean dexComp = false;
+    Boolean conComp = false;
+    Boolean ingComp = true;
+    Boolean wisComp = true;
+    Boolean chaComp = false;
 
-    public boolean[] getComp() {
-        return comp;
+
+    public void setStrComp(Boolean strComp) {
+        this.strComp = strComp;
+    }
+
+    public void setDexComp(Boolean dexComp) {
+        this.dexComp = dexComp;
+    }
+
+    public void setConComp(Boolean conComp) {
+        this.conComp = conComp;
+    }
+
+    public void setIngComp(Boolean ingComp) {
+        this.ingComp = ingComp;
+    }
+
+    public void setWisComp(Boolean wisComp) {
+        this.wisComp = wisComp;
+    }
+
+    public void setChaComp(Boolean chaComp) {
+        this.chaComp = chaComp;
+    }
+
+    public Boolean getStrComp() {
+        return strComp;
+    }
+
+    public Boolean getDexComp() {
+        return dexComp;
+    }
+
+    public Boolean getConComp() {
+        return conComp;
+    }
+
+    public Boolean getIngComp() {
+        return ingComp;
+    }
+
+    public Boolean getWisComp() {
+        return wisComp;
+    }
+
+    public Boolean getChaComp() {
+        return chaComp;
     }
 
     /**
