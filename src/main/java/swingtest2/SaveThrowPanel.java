@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class SaveThrowPanel extends JPanel implements MouseListener{
+public class SaveThrowPanel extends JPanel implements MouseListener, WindowListener {
     JPanel saving = new JPanel();
     JRadioButton rbstr = new JRadioButton("Strenght");
     JRadioButton rbdex = new JRadioButton("Dexterity");
@@ -21,6 +23,7 @@ public class SaveThrowPanel extends JPanel implements MouseListener{
     JLabel lbcon = new JLabel("15");
     JLabel sett = new JLabel("ciao");
 
+    CompetenceFrame fComp;
     MyCharacter ch = new MyCharacter();
 
     public SaveThrowPanel() {
@@ -48,12 +51,14 @@ public class SaveThrowPanel extends JPanel implements MouseListener{
         rbing.setOpaque(false);
         rbcha.setOpaque(false);
         rbcon.setOpaque(false);
+
         rbstr.setSelected(true);
         rbdex.setSelected(false);
         rbwis.setSelected(true);
         rbing.setSelected(false);
         rbcha.setSelected(true);
         rbcon.setSelected(false);
+
         rbstr.setFocusable(false);
         rbdex.setFocusable(false);
         rbwis.setFocusable(false);
@@ -98,35 +103,31 @@ public class SaveThrowPanel extends JPanel implements MouseListener{
         saving.add(rbcha);
         saving.add(lbcon);
 
-        lbUpdate(ch);
+        lbUpdate();
 
     }
 
-    public void lbUpdate(MyCharacter i){
-        lbstr.setText(String.valueOf(i.getModStr()));
-        lbdex.setText(String.valueOf(i.getModDex()));
-        lbcon.setText(String.valueOf(i.getModCon()));
-        lbwis.setText(String.valueOf(i.getModWis()));
-        lbing.setText(String.valueOf(i.getModInt()));
-        lbcha.setText(String.valueOf(i.getModCha()));
-        rbstr.setSelected(i.getComp()[0]);
-        rbdex.setSelected(i.getComp()[1]);
-        rbcon.setSelected(i.getComp()[2]);
-        rbwis.setSelected(i.getComp()[3]);
-        rbing.setSelected(i.getComp()[4]);
-        rbcha.setSelected(i.getComp()[5]);
+    public void lbUpdate(){
+        lbstr.setText(String.valueOf(ch.getModStr()));
+        lbdex.setText(String.valueOf(ch.getModDex()));
+        lbcon.setText(String.valueOf(ch.getModCon()));
+        lbwis.setText(String.valueOf(ch.getModWis()));
+        lbing.setText(String.valueOf(ch.getModInt()));
+        lbcha.setText(String.valueOf(ch.getModCha()));
+        rbstr.setSelected(ch.getStrComp());
+        rbdex.setSelected(ch.getDexComp());
+        rbcon.setSelected(ch.getConComp());
+        rbwis.setSelected(ch.getWisComp());
+        rbing.setSelected(ch.getIngComp());
+        rbcha.setSelected(ch.getChaComp());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == sett)
         {
-            JFrame checkpage = new JFrame();
-            checkpage.setSize(200,200);
-            checkpage.setVisible(true);
-
-
-
+            fComp = new CompetenceFrame(ch);
+            fComp.addWindowListener(this);
         }
     }
 
@@ -148,5 +149,41 @@ public class SaveThrowPanel extends JPanel implements MouseListener{
         /*
           contratio di maouse entered
          */
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        if(e.getSource() == fComp)
+        {
+            lbUpdate();
+        }
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        if(e.getSource() == fComp)
+        {
+            lbUpdate();
+        }
     }
 }
