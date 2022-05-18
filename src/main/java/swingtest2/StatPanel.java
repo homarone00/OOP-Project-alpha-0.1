@@ -305,5 +305,4 @@ public class StatPanel extends JLayeredPane{
             setValue(value);
         }
     }
-
 }
