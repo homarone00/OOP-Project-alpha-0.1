@@ -2,73 +2,104 @@ package swingtest2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * This is the contentPane of our MyJFrame
  * @author omarc
  */
-public class MyContentPane extends JLayeredPane {
+public class MyContentPane extends JPanel implements KeyListener {
+    StatPanel strPanel;
+    StatPanel dexPanel;
+    StatPanel conPanel;
+    StatPanel intPanel;
+    StatPanel wisPanel;
+    StatPanel chaPanel;
+
+    JTextField nameText;
     public MyContentPane(){
         super();
         this.setLayout(new BorderLayout());
-        JPanel foreground=new JPanel(new BorderLayout());
-        //da modificare il setBounds
-        this.setPreferredSize(new Dimension(1400,700));
-        foreground.setBounds(0,0,1400,700);
-        JPanel background=new JPanel(new BorderLayout());
-        background.setBounds(0,0,1400,700);
+        JPanel nameStatAbilityPanel=new JPanel(new BorderLayout(5,5));
+        JPanel namePanel=new JPanel(new BorderLayout()){
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                g.setColor(Color.white);
+                super.paintComponent(g);
+                g.fillRoundRect(0,0,getSize().width,getSize().height,30,30);
+                g.setColor(oldColor);
+            }
+        };
+        JPanel abilityPanel;
 
-        JPanel grid1=new JPanel(new GridLayout(6,1,15,15));
-        AbilityPanel strPanel=new AbilityPanel(1);
-        AbilityPanel dexPanel=new AbilityPanel(2);
-        AbilityPanel conPanel=new AbilityPanel(3);
-        AbilityPanel intPanel=new AbilityPanel(4);
-        AbilityPanel wisPanel=new AbilityPanel(5);
-        AbilityPanel chaPanel=new AbilityPanel(6);
-        grid1.add(strPanel);
-        strPanel.revalidate();
-        strPanel.repaint();
-        grid1.add(dexPanel);
-        grid1.add(conPanel);
-        grid1.add(intPanel);
-        grid1.add(wisPanel);
-        grid1.add(chaPanel);
+        //Left stat grid initialization
+        JPanel statGrid =new JPanel(new GridLayout(6,1,5,5));
+        strPanel=new StatPanel(1);
+        dexPanel=new StatPanel(2);
+        conPanel=new StatPanel(3);
+        intPanel=new StatPanel(4);
+        wisPanel=new StatPanel(5);
+        chaPanel=new StatPanel(6);
 
-        foreground.add(grid1,BorderLayout.WEST);
-        JPanel panel2=new JPanel();
-        panel2.setBackground(Color.green);
-        foreground.add(panel2,BorderLayout.CENTER);
+        statGrid.add(strPanel);
+        statGrid.add(dexPanel);
+        statGrid.add(conPanel);
+        statGrid.add(intPanel);
+        statGrid.add(wisPanel);
+        statGrid.add(chaPanel);
 
-        JPanel centerPanel=new JPanel(new BorderLayout());
-        JPanel throwPanel=new JPanel(new GridBagLayout());
-        JPanel saveThrowPanel=new SaveThrowPanel();
-        throwPanel.add(saveThrowPanel);
-        centerPanel.add(throwPanel,BorderLayout.WEST);
-        foreground.add(centerPanel);
+        strPanel.value.addKeyListener(this);
 
-        JPanel roundedRect1=new JPanel();
-        roundedRect1.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel roundedRect2=new JPanel();
-        roundedRect2.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel roundedRect3=new JPanel();
-        roundedRect3.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel roundedRect4=new JPanel();
-        roundedRect4.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel roundedRect5=new JPanel();
-        roundedRect5.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel roundedRect6=new JPanel();
-        roundedRect6.setBorder(new MyRoundedBorder(Color.white,1,30));
-        JPanel backgroundGrid=new JPanel(new GridLayout(6,1,15,15));
-        backgroundGrid.add(roundedRect1);
-        backgroundGrid.add(roundedRect2);
-        backgroundGrid.add(roundedRect3);
-        backgroundGrid.add(roundedRect4);
-        backgroundGrid.add(roundedRect5);
-        backgroundGrid.add(roundedRect6);
-        background.add(backgroundGrid,BorderLayout.WEST);
+        //background initialization
+        namePanel.setBackground(new Color(0xDADADA));
+        statGrid.setBackground(namePanel.getBackground());
+        nameStatAbilityPanel.setBackground(namePanel.getBackground());
 
-        //add(background,1);
-        add(foreground,2);
-        this.moveToFront(foreground);
+        //icons
+
+        //name field initialization
+        nameText=new JTextField("Default Name");
+        nameText.setBorder(new MyRoundedBorder(namePanel.getBackground(),0,2));
+        nameText.setFont(new Font("Comic Sans",Font.BOLD,20));
+        nameText.setHorizontalAlignment(JTextField.CENTER);
+        nameText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(nameText.getText().length()>=27){
+                    e.consume();
+                }
+            }
+        });
+        nameText.setOpaque(false);
+        namePanel.setPreferredSize(new Dimension(getPreferredSize().width,50));
+        namePanel.add(nameText,BorderLayout.CENTER);
+
+        //adding all components to the ContentPane
+        add(nameStatAbilityPanel,BorderLayout.WEST);
+        nameStatAbilityPanel.add(statGrid,BorderLayout.WEST);
+        JPanel placeHolder =new JPanel();
+        placeHolder.setBackground(Color.green);
+        add(placeHolder,BorderLayout.CENTER);
+        nameStatAbilityPanel.add(namePanel,BorderLayout.NORTH);
+        nameStatAbilityPanel.add(new SaveThrowPanel(),BorderLayout.CENTER);
+
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if(e.getKeyChar()== KeyEvent.VK_UP){
+            strPanel.value.requestFocusInWindow();
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }

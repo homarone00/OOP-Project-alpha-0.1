@@ -12,7 +12,7 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class AbilityPanel extends JLayeredPane implements MouseListener{
+public class StatPanel extends JLayeredPane{
     /**
      * static attributes are used to define which type of cell is needed
      */
@@ -31,7 +31,7 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
      * the intLabel
      */
-    AbilityPanel(int intLabel) {
+    StatPanel(int intLabel) {
         super();
         this.jl_minus =new JLabel(){
             public void paintComponent(Graphics g){
@@ -45,9 +45,22 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
                 g.drawString("-",x+getSize().height/2+2-6,getSize().height/2+5);
                 g.setColor(oldColor);
             }
-
         };
+
+        jl_minus.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int value=getValue();
+                if(value>0){
+                    value--;
+                    setValue(value);
+                }
+                else throw new IllegalArgumentException("The mouseClicked method of jl_minus tried to decrease the " +
+                        "value, but it was already negative");
+            }
+        });
+
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         this.jl_plus =new JLabel(){
             public void paintComponent(Graphics g){
                 Color oldColor=g.getColor();
@@ -62,6 +75,15 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
             }
         };
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jl_plus.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int value=getValue();
+                if(value<99){
+                    value++;
+                    setValue(value);
+                }
+            }
+        });
 
         this.modifier = new JLabel();
         this.value = new JTextField(){
@@ -109,12 +131,10 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
 
         JPanel bottomGrid =new JPanel(new GridLayout(1,3));
         value.setFont(new Font("Comic Sans", Font.BOLD,15));
-        value.setBackground(new Color(231, 231, 231));
         bottomGrid.add(jl_minus);
         bottomGrid.add(value);
         bottomGrid.add(jl_plus);
-        bottomGrid.setBackground(new Color(255,255,255));
-        bottomGrid.setOpaque(true);
+        bottomGrid.setOpaque(false);
 
         c.fill=GridBagConstraints.HORIZONTAL;
         c.gridy=2;
@@ -122,26 +142,34 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
         c.gridx=0;
         add(bottomGrid,c);
 
+        value.setBorder(new MyRoundedBorder(new Color(215, 215, 215),2,5));
+        value.setHorizontalAlignment(JTextField.CENTER);
         value.addActionListener(actionValue->{
             try{
                 setValue(getValue());
+                modifier.requestFocus();
             }
             catch (IllegalArgumentException e){
                 JOptionPane.showMessageDialog(null,"You can't have negative/string stats in D&D!");
             }
         });
-
+        value.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                value.selectAll();
+            }
+        });
         value.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent event){
                 char c= event.getKeyChar();
                 if(!(Character.isDigit(c)||c==KeyEvent.VK_DELETE)){
                     event.consume();
                 }
+                if(value.getText().length()>=2&&c!=KeyEvent.VK_DELETE&&!(value.getSelectedText().length()>=1)){
+                    event.consume();
+                }
             }
         });
-
-
-
     }
 
     /**
@@ -261,9 +289,8 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
         g.setColor(oldColor);
     }
 
-    @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == jl_minus)
+        if(e.getSource().equals(jl_minus))
         {
             int value=getValue();
             if (value !=0) {
@@ -279,19 +306,4 @@ public class AbilityPanel extends JLayeredPane implements MouseListener{
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
 }

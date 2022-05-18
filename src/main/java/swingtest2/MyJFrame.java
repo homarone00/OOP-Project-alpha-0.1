@@ -16,7 +16,7 @@ public class MyJFrame extends JFrame {
         jMenuBar.setVisible(true);
 
         //these methods must always be the last
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

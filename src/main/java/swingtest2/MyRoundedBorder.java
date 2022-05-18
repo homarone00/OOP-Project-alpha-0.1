@@ -46,7 +46,6 @@ public class MyRoundedBorder extends AbstractBorder {
             }
             int offset = lineSize/2;
             g2d.drawRoundRect(x+offset, y+offset, width-lineSize, height-lineSize, cornerSize, cornerSize);
-            g2d.fillRoundRect(x+offset, y+offset, width-lineSize, height-lineSize, cornerSize, cornerSize);
         }
         finally {
             g2d.setPaint(oldPaint);
