@@ -12,7 +12,7 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class AbilityPanel extends JLayeredPane {
+public class AbilityPanel extends JLayeredPane implements MouseListener{
     /**
      * static attributes are used to define which type of cell is needed
      */
@@ -24,8 +24,8 @@ public class AbilityPanel extends JLayeredPane {
      * The values used for intLabel are defined by the static attributes of the Character class
      */
     int intLabel;
-    JButton jb_plus;
-    JButton jb_minus;
+    JLabel jl_plus;
+    JLabel jl_minus;
 
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
@@ -33,83 +33,94 @@ public class AbilityPanel extends JLayeredPane {
      */
     AbilityPanel(int intLabel) {
         super();
-        this.jb_minus=new JButton("-");
-        this.jb_plus=new JButton("+");
+        this.jl_minus =new JLabel(){
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                g.setColor(new Color(232, 232, 232));
+                super.paintComponent(g);
+                int x=(getSize().width-getSize().height)/2;
+                g.fillOval(x,0,getSize().height,getSize().height);
+                g.setColor(Color.black);
+                g.setFont(new Font("Comic Sans",Font.BOLD,20));
+                g.drawString("-",x+getSize().height/2+2-6,getSize().height/2+5);
+                g.setColor(oldColor);
+            }
+
+        };
+        jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.jl_plus =new JLabel(){
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                g.setColor(new Color(232, 232, 232));
+                super.paintComponent(g);
+                int x=(getSize().width-getSize().height)/2;
+                g.fillOval(x,0,getSize().height,getSize().height);
+                g.setColor(Color.black);
+                g.setFont(new Font("Comic Sans",Font.BOLD,20));
+                g.drawString("+",x+getSize().height/2+2-8,getSize().height/2+7);
+                g.setColor(oldColor);
+            }
+        };
+        jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         this.modifier = new JLabel();
         this.value = new JTextField(){
-
         };
-        this.label = new JLabel();
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(new Color(0x676767)));
+        this.label = new JLabel(){
+        };
+        setLayout(new GridBagLayout());
+        this.setOpaque(false);
 
         setValue(10);
         setLabel(intLabel);
 
-        setPreferredSize(new Dimension(120,30));
+        GridBagConstraints c=new GridBagConstraints();
+        setPreferredSize(new Dimension(120,70));
         modifier.setFont(new Font("Comic Sans",Font.BOLD,35));
         modifier.setBackground(new Color(255, 255, 255));
         modifier.setHorizontalAlignment(JLabel.CENTER);
         modifier.setOpaque(true);
-        add(modifier,BorderLayout.CENTER);
 
-        JPanel grid1=new JPanel(new GridBagLayout());
-        GridBagConstraints c=new GridBagConstraints();
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridy=1;
+        c.gridx=0;
+        c.weighty=10;
+        add(modifier,c);
+
+        JPanel topGrid =new JPanel(new GridBagLayout());
+        topGrid.setOpaque(false);
         label.setFont(new Font("Comic Sans", Font.BOLD,12));
-        label.setBackground(new Color(231, 231, 231));
-        label.setOpaque(true);
+        label.setOpaque(false);
         label.setHorizontalAlignment(JLabel.CENTER);
 
         c.weightx=10;
         c.gridx=1;
         c.fill=GridBagConstraints.VERTICAL;
-        grid1.add(label,c);
+        topGrid.add(label,c);
 
-        c.weightx=2;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridy=0;
+        c.weighty=2;
         c.gridx=0;
-        c.fill=GridBagConstraints.VERTICAL;
-        grid1.add(new JPanel(),c);
+        add(topGrid,c);
 
-        c.weightx=2;
-        c.gridx=2;
-        c.fill=GridBagConstraints.VERTICAL;
-        grid1.add(new JPanel(),c);
-        add(grid1,BorderLayout.NORTH);
+        jl_plus.setFont(new Font("Comic Sans",Font.BOLD,9));
+        jl_minus.setFont(new Font("Comic Sans",Font.BOLD,9));
 
-        jb_plus.setBackground(new Color(194, 194, 194));
-        jb_plus.setOpaque(true);
-        jb_plus.setFocusable(false);
-        jb_plus.setFont(new Font("Comic Sans",Font.BOLD,9));
-
-        jb_minus.setBackground(new Color(194, 194, 194));
-        jb_minus.setOpaque(true);
-        jb_minus.setFocusable(false);
-        jb_minus.setFont(new Font("Comic Sans",Font.BOLD,9));
-
-        jb_minus.addActionListener(minus->{
-            int value=getValue();
-            if (value !=0) {
-                value--;
-                setValue(value);
-            }
-        });
-
-        jb_plus.addActionListener(plus->{
-            int value=getValue();
-            value++;
-            setValue(value);
-        });
-
-        JPanel grid3 =new JPanel(new GridLayout(1,3));
+        JPanel bottomGrid =new JPanel(new GridLayout(1,3));
         value.setFont(new Font("Comic Sans", Font.BOLD,15));
         value.setBackground(new Color(231, 231, 231));
-        grid3.add(jb_minus);
-        grid3.add(value);
-        grid3.add(jb_plus);
-        grid3.setBackground(new Color(255,255,255));
-        grid3.setOpaque(true);
-        add(grid3,BorderLayout.SOUTH);
+        bottomGrid.add(jl_minus);
+        bottomGrid.add(value);
+        bottomGrid.add(jl_plus);
+        bottomGrid.setBackground(new Color(255,255,255));
+        bottomGrid.setOpaque(true);
+
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridy=2;
+        c.weighty=2;
+        c.gridx=0;
+        add(bottomGrid,c);
 
         value.addActionListener(actionValue->{
             try{
@@ -240,5 +251,47 @@ public class AbilityPanel extends JLayeredPane {
             setModifier(value/2-5);
         }
         else throw new IllegalArgumentException("value = "+ value +"must be -ge than 0");
+    }
+
+    public void paintComponent(Graphics g){
+        Color oldColor=g.getColor();
+        g.setColor(Color.white);
+        super.paintComponent(g);
+        g.fillRoundRect(0,0,getSize().width,getSize().height,30,30);
+        g.setColor(oldColor);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource() == jl_minus)
+        {
+            int value=getValue();
+            if (value !=0) {
+                value--;
+                setValue(value);
+            }
+        }
+        if(e.getSource() == jl_plus)
+        {
+            int value=getValue();
+            value++;
+            setValue(value);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

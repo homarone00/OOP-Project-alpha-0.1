@@ -8,8 +8,8 @@ import javax.swing.*;
  */
 public class MyJFrame extends JFrame {
     public MyJFrame(){
-        setContentPane(new MyContentPane());
         setSize(1400,800);
+        setContentPane(new MyContentPane());
 
         MyJMenuBar jMenuBar=new MyJMenuBar();
         setJMenuBar(jMenuBar);
