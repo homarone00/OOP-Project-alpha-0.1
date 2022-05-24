@@ -34,22 +34,23 @@ public class MyRoundedBorder extends AbstractBorder {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        Graphics2D g2d = (Graphics2D)g;
-        Paint oldPaint = g2d.getPaint();
-        Stroke oldStroke = g2d.getStroke();
+        Graphics2D g2D = (Graphics2D)g;
+        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Paint oldPaint = g2D.getPaint();
+        Stroke oldStroke = g2D.getStroke();
         try {
             if(paint!=null){
-                g2d.setPaint(paint);
+                g2D.setPaint(paint);
             }
             else{
-                g2d.setPaint(c.getForeground());
+                g2D.setPaint(c.getForeground());
             }
             int offset = lineSize/2;
-            g2d.drawRoundRect(x+offset, y+offset, width-lineSize, height-lineSize, cornerSize, cornerSize);
+            g2D.drawRoundRect(x+offset, y+offset, width-lineSize, height-lineSize, cornerSize, cornerSize);
         }
         finally {
-            g2d.setPaint(oldPaint);
-            g2d.setStroke(oldStroke);
+            g2D.setPaint(oldPaint);
+            g2D.setStroke(oldStroke);
         }
     }
 

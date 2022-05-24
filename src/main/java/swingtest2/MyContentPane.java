@@ -25,6 +25,8 @@ public class MyContentPane extends JPanel implements KeyListener {
         JPanel nameStatAbilityPanel=new JPanel(new BorderLayout(5,5));
         JPanel namePanel=new JPanel(new BorderLayout()){
             public void paintComponent(Graphics g){
+                Graphics2D g2D=(Graphics2D)g;
+                g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor=g.getColor();
                 g.setColor(Color.white);
                 super.paintComponent(g);
@@ -60,7 +62,7 @@ public class MyContentPane extends JPanel implements KeyListener {
         //icons
 
         //name field initialization
-        nameText=new JTextField("Default Name");
+        nameText=new JTextField("Davide sfaticatino");
         nameText.setBorder(new MyRoundedBorder(namePanel.getBackground(),0,2));
         nameText.setFont(new Font("Comic Sans",Font.BOLD,20));
         nameText.setHorizontalAlignment(JTextField.CENTER);

@@ -12,7 +12,7 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class StatPanel extends JLayeredPane{
+public class StatPanel extends JLayeredPane implements FocusListener{
     /**
      * static attributes are used to define which type of cell is needed
      */
@@ -35,6 +35,8 @@ public class StatPanel extends JLayeredPane{
         super();
         this.jl_minus =new JLabel(){
             public void paintComponent(Graphics g){
+                Graphics2D g2D=(Graphics2D)g;
+                g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor=g.getColor();
                 g.setColor(new Color(232, 232, 232));
                 super.paintComponent(g);
@@ -63,6 +65,8 @@ public class StatPanel extends JLayeredPane{
 
         this.jl_plus =new JLabel(){
             public void paintComponent(Graphics g){
+                Graphics2D g2D=(Graphics2D)g;
+                g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor=g.getColor();
                 g.setColor(new Color(232, 232, 232));
                 super.paintComponent(g);
@@ -170,6 +174,7 @@ public class StatPanel extends JLayeredPane{
                 }
             }
         });
+        value.addFocusListener(this);
     }
 
     /**
@@ -282,6 +287,8 @@ public class StatPanel extends JLayeredPane{
     }
 
     public void paintComponent(Graphics g){
+        Graphics2D g2D=(Graphics2D)g;
+        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color oldColor=g.getColor();
         g.setColor(Color.white);
         super.paintComponent(g);
@@ -304,5 +311,14 @@ public class StatPanel extends JLayeredPane{
             value++;
             setValue(value);
         }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        setValue(getValue());
     }
 }
