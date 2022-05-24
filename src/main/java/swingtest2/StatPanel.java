@@ -1,6 +1,7 @@
 package swingtest2;
 
 import javax.swing.*;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,7 +13,7 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class StatPanel extends JLayeredPane implements FocusListener{
+public class StatPanel extends JLayeredPane implements FocusListener {
     /**
      * static attributes are used to define which type of cell is needed
      */
@@ -33,128 +34,111 @@ public class StatPanel extends JLayeredPane implements FocusListener{
      */
     StatPanel(int intLabel) {
         super();
-        this.jl_minus =new JLabel(){
-            public void paintComponent(Graphics g){
-                Graphics2D g2D=(Graphics2D)g;
+        this.jl_minus = new JLabel() {
+            public void paintComponent(Graphics g) {
+                Graphics2D g2D = (Graphics2D) g;
                 g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color oldColor=g.getColor();
+                Color oldColor = g.getColor();
                 g.setColor(new Color(232, 232, 232));
                 super.paintComponent(g);
-                int x=(getSize().width-getSize().height)/2;
-                g.fillOval(x,0,getSize().height,getSize().height);
+                int x = (getSize().width - getSize().height) / 2;
+                g.fillOval(x, 0, getSize().height, getSize().height);
                 g.setColor(Color.black);
-                g.setFont(new Font("Comic Sans",Font.BOLD,20));
-                g.drawString("-",x+getSize().height/2+2-6,getSize().height/2+5);
+                g.setFont(new Font("Comic Sans", Font.BOLD, 20));
+                g.drawString("-", x + getSize().height / 2 + 2 - 6, getSize().height / 2 + 5);
                 g.setColor(oldColor);
             }
         };
-
         jl_minus.addMouseListener(new MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                int value=getValue();
-                if(value>0){
+                int value = getValue();
+                if (value > 0) {
                     value--;
                     setValue(value);
-                }
-                else throw new IllegalArgumentException("The mouseClicked method of jl_minus tried to decrease the " +
-                        "value, but it was already negative");
+                } else
+                    throw new IllegalArgumentException("The mouseClicked method of jl_minus tried to decrease the " + "value, but it was already negative");
             }
         });
-
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        this.jl_plus =new JLabel(){
-            public void paintComponent(Graphics g){
-                Graphics2D g2D=(Graphics2D)g;
+        this.jl_plus = new JLabel() {
+            public void paintComponent(Graphics g) {
+                Graphics2D g2D = (Graphics2D) g;
                 g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color oldColor=g.getColor();
+                Color oldColor = g.getColor();
                 g.setColor(new Color(232, 232, 232));
                 super.paintComponent(g);
-                int x=(getSize().width-getSize().height)/2;
-                g.fillOval(x,0,getSize().height,getSize().height);
+                int x = (getSize().width - getSize().height) / 2;
+                g.fillOval(x, 0, getSize().height, getSize().height);
                 g.setColor(Color.black);
-                g.setFont(new Font("Comic Sans",Font.BOLD,20));
-                g.drawString("+",x+getSize().height/2+2-8,getSize().height/2+7);
+                g.setFont(new Font("Comic Sans", Font.BOLD, 20));
+                g.drawString("+", x + getSize().height / 2 + 2 - 8, getSize().height / 2 + 7);
                 g.setColor(oldColor);
             }
         };
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jl_plus.addMouseListener(new MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                int value=getValue();
-                if(value<99){
+                int value = getValue();
+                if (value < 99) {
                     value++;
                     setValue(value);
                 }
             }
         });
-
         this.modifier = new JLabel();
-        this.value = new JTextField(){
+        this.value = new JTextField() {
         };
-        this.label = new JLabel(){
-        };
+        this.label = new JLabel();
         setLayout(new GridBagLayout());
         this.setOpaque(false);
-
         setValue(10);
         setLabel(intLabel);
-
-        GridBagConstraints c=new GridBagConstraints();
-        setPreferredSize(new Dimension(120,70));
-        modifier.setFont(new Font("Comic Sans",Font.BOLD,35));
+        GridBagConstraints c = new GridBagConstraints();
+        setPreferredSize(new Dimension(120, 70));
+        modifier.setFont(new Font("Comic Sans", Font.BOLD, 35));
         modifier.setBackground(new Color(255, 255, 255));
         modifier.setHorizontalAlignment(JLabel.CENTER);
         modifier.setOpaque(true);
-
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridy=1;
-        c.gridx=0;
-        c.weighty=10;
-        add(modifier,c);
-
-        JPanel topGrid =new JPanel(new GridBagLayout());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 1;
+        c.gridx = 0;
+        c.weighty = 10;
+        add(modifier, c);
+        JPanel topGrid = new JPanel(new GridBagLayout());
         topGrid.setOpaque(false);
-        label.setFont(new Font("Comic Sans", Font.BOLD,12));
+        label.setFont(new Font("Comic Sans", Font.BOLD, 12));
         label.setOpaque(false);
         label.setHorizontalAlignment(JLabel.CENTER);
-
-        c.weightx=10;
-        c.gridx=1;
-        c.fill=GridBagConstraints.VERTICAL;
-        topGrid.add(label,c);
-
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridy=0;
-        c.weighty=2;
-        c.gridx=0;
-        add(topGrid,c);
-
-        jl_plus.setFont(new Font("Comic Sans",Font.BOLD,9));
-        jl_minus.setFont(new Font("Comic Sans",Font.BOLD,9));
-
-        JPanel bottomGrid =new JPanel(new GridLayout(1,3));
-        value.setFont(new Font("Comic Sans", Font.BOLD,15));
+        c.weightx = 10;
+        c.gridx = 1;
+        c.fill = GridBagConstraints.VERTICAL;
+        topGrid.add(label, c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 0;
+        c.weighty = 2;
+        c.gridx = 0;
+        add(topGrid, c);
+        jl_plus.setFont(new Font("Comic Sans", Font.BOLD, 9));
+        jl_minus.setFont(new Font("Comic Sans", Font.BOLD, 9));
+        JPanel bottomGrid = new JPanel(new GridLayout(1, 3));
+        value.setFont(new Font("Comic Sans", Font.BOLD, 15));
         bottomGrid.add(jl_minus);
         bottomGrid.add(value);
         bottomGrid.add(jl_plus);
         bottomGrid.setOpaque(false);
-
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridy=2;
-        c.weighty=2;
-        c.gridx=0;
-        add(bottomGrid,c);
-
-        value.setBorder(new MyRoundedBorder(new Color(215, 215, 215),2,5));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 2;
+        c.weighty = 2;
+        c.gridx = 0;
+        add(bottomGrid, c);
+        value.setBorder(new MyRoundedBorder(new Color(215, 215, 215), 2, 5));
         value.setHorizontalAlignment(JTextField.CENTER);
-        value.addActionListener(actionValue->{
-            try{
+        value.addActionListener(actionValue -> {
+            try {
                 setValue(getValue());
                 modifier.requestFocus();
-            }
-            catch (IllegalArgumentException e){
-                JOptionPane.showMessageDialog(null,"You can't have negative/string stats in D&D!");
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "You can't have negative/string stats in D&D!");
             }
         });
         value.addMouseListener(new MouseAdapter() {
@@ -164,12 +148,12 @@ public class StatPanel extends JLayeredPane implements FocusListener{
             }
         });
         value.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent event){
-                char c= event.getKeyChar();
-                if(!(Character.isDigit(c)||c==KeyEvent.VK_DELETE)){
+            public void keyTyped(KeyEvent event) {
+                char c = event.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_DELETE)) {
                     event.consume();
                 }
-                if(value.getText().length()>=2&&c!=KeyEvent.VK_DELETE&&!(value.getSelectedText().length()>=1)){
+                if (value.getText().length() >= 2 && c != KeyEvent.VK_DELETE && !(value.getSelectedText().length() >= 1)) {
                     event.consume();
                 }
             }
@@ -225,25 +209,20 @@ public class StatPanel extends JLayeredPane implements FocusListener{
      * @param characteristic only the values defined by the Character class attributes are valid
      */
     private void setLabel(int characteristic) {
-        if(characteristic==MyCharacter.STR){
+        if (characteristic == MyCharacter.STR) {
             this.label.setText("STRENGTH");
-        }
-        else if(characteristic==MyCharacter.DEX){
+        } else if (characteristic == MyCharacter.DEX) {
             this.label.setText("DEXTERITY");
-        }
-        else if(characteristic==MyCharacter.CON){
+        } else if (characteristic == MyCharacter.CON) {
             this.label.setText("CONSTITUTION");
-        }
-        else if(characteristic==MyCharacter.INT){
+        } else if (characteristic == MyCharacter.INT) {
             this.label.setText("INTELLIGENCE");
-        }
-        else if(characteristic==MyCharacter.WIS){
+        } else if (characteristic == MyCharacter.WIS) {
             this.label.setText("WISDOM");
-        }
-        else if(characteristic==MyCharacter.CHA){
+        } else if (characteristic == MyCharacter.CHA) {
             this.label.setText("CHARISMA");
-        }
-        else throw new IllegalArgumentException("Unexpected value for characteristic : " + characteristic);
+        } else
+            throw new IllegalArgumentException("Unexpected value for characteristic : " + characteristic);
     }
 
     /**
@@ -272,42 +251,39 @@ public class StatPanel extends JLayeredPane implements FocusListener{
 
     /**
      * this method automatically updates the modifier, using the setModifier method
-     * @param value
      */
-    public void setValue(int value){
-        if(value>=0){
+    public void setValue(int value) {
+        if (value >= 0) {
             this.value.setText(valueOf(value));
-            this.intValue=value;
-            if(value<10&&value%2==1){
+            this.intValue = value;
+            if (value < 10 && value % 2 == 1) {
                 value--;
             }
-            setModifier(value/2-5);
-        }
-        else throw new IllegalArgumentException("value = "+ value +"must be -ge than 0");
+            setModifier(value / 2 - 5);
+        } else
+            throw new IllegalArgumentException("value = " + value + "must be -ge than 0");
     }
 
-    public void paintComponent(Graphics g){
-        Graphics2D g2D=(Graphics2D)g;
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color oldColor=g.getColor();
+        Color oldColor = g.getColor();
         g.setColor(Color.white);
         super.paintComponent(g);
-        g.fillRoundRect(0,0,getSize().width,getSize().height,30,30);
+        g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
         g.setColor(oldColor);
     }
 
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource().equals(jl_minus))
-        {
-            int value=getValue();
-            if (value !=0) {
+        if (e.getSource().equals(jl_minus)) {
+            int value = getValue();
+            if (value != 0) {
                 value--;
                 setValue(value);
             }
         }
-        if(e.getSource() == jl_plus)
-        {
-            int value=getValue();
+        if (e.getSource() == jl_plus) {
+            int value = getValue();
             value++;
             setValue(value);
         }
