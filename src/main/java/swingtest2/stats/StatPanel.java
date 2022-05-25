@@ -1,7 +1,9 @@
-package swingtest2;
+package swingtest2.stats;
+
+import swingtest2.MyCharacter;
+import swingtest2.MyRoundedBorder;
 
 import javax.swing.*;
-import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -13,78 +15,36 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class StatPanel extends JLayeredPane implements FocusListener {
+public class StatPanel extends JPanel implements FocusListener,MouseListener {
     /**
      * static attributes are used to define which type of cell is needed
      */
     JLabel modifier;
-    JTextField value;
+    public JTextField value;
     int intValue;
     JLabel label;
     /**
      * The values used for intLabel are defined by the static attributes of the Character class
      */
     int intLabel;
-    JLabel jl_plus;
-    JLabel jl_minus;
+    PlusMinusLabel jl_plus;
+    PlusMinusLabel jl_minus;
 
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
      * the intLabel
      */
-    StatPanel(int intLabel) {
+    public StatPanel(int intLabel) {
         super();
-        this.jl_minus = new JLabel() {
-            public void paintComponent(Graphics g) {
-                Graphics2D g2D = (Graphics2D) g;
-                g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color oldColor = g.getColor();
-                g.setColor(new Color(232, 232, 232));
-                super.paintComponent(g);
-                int x = (getSize().width - getSize().height) / 2;
-                g.fillOval(x, 0, getSize().height, getSize().height);
-                g.setColor(Color.black);
-                g.setFont(new Font("Comic Sans", Font.BOLD, 20));
-                g.drawString("-", x + getSize().height / 2 + 2 - 6, getSize().height / 2 + 5);
-                g.setColor(oldColor);
-            }
+        this.jl_minus = new PlusMinusLabel("-") {
         };
-        jl_minus.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int value = getValue();
-                if (value > 0) {
-                    value--;
-                    setValue(value);
-                } else
-                    throw new IllegalArgumentException("The mouseClicked method of jl_minus tried to decrease the " + "value, but it was already negative");
-            }
-        });
+        jl_minus.addMouseListener(this);
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.jl_plus = new JLabel() {
-            public void paintComponent(Graphics g) {
-                Graphics2D g2D = (Graphics2D) g;
-                g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color oldColor = g.getColor();
-                g.setColor(new Color(232, 232, 232));
-                super.paintComponent(g);
-                int x = (getSize().width - getSize().height) / 2;
-                g.fillOval(x, 0, getSize().height, getSize().height);
-                g.setColor(Color.black);
-                g.setFont(new Font("Comic Sans", Font.BOLD, 20));
-                g.drawString("+", x + getSize().height / 2 + 2 - 8, getSize().height / 2 + 7);
-                g.setColor(oldColor);
-            }
+        this.jl_plus = new PlusMinusLabel("+") {
+
         };
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jl_plus.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int value = getValue();
-                if (value < 99) {
-                    value++;
-                    setValue(value);
-                }
-            }
-        });
+        jl_plus.addMouseListener(this);
         this.modifier = new JLabel();
         this.value = new JTextField() {
         };
@@ -286,6 +246,53 @@ public class StatPanel extends JLayeredPane implements FocusListener {
             int value = getValue();
             value++;
             setValue(value);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (e.getSource().equals(jl_minus)) {
+            jl_minus.pressed=true;
+            jl_minus.repaint();
+        }
+        if (e.getSource() == jl_plus) {
+            jl_plus.pressed=true;
+            jl_plus.repaint();
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getSource().equals(jl_minus)) {
+            jl_minus.pressed=false;
+            jl_minus.repaint();
+        }
+        if (e.getSource() == jl_plus) {
+            jl_plus.pressed=false;
+            jl_plus.repaint();
+        }
+    }
+    @Override
+    public void mouseEntered(MouseEvent e){
+        if (e.getSource().equals(jl_minus)) {
+            jl_minus.entered=true;
+            jl_minus.repaint();
+        }
+        if (e.getSource() == jl_plus) {
+            jl_plus.entered=true;
+            jl_plus.repaint();
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e){
+        if (e.getSource().equals(jl_minus)) {
+            jl_minus.entered=false;
+            jl_minus.repaint();
+        }
+        if (e.getSource() == jl_plus) {
+            jl_plus.entered=false;
+            jl_plus.repaint();
         }
     }
 

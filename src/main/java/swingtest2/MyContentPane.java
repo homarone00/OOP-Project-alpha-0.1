@@ -1,5 +1,7 @@
 package swingtest2;
 
+import swingtest2.stats.StatPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -76,7 +78,7 @@ public class MyContentPane extends JPanel implements KeyListener {
         add(nameStatAbilityPanel, BorderLayout.WEST);
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
         JPanel placeHolder = new JPanel();
-        placeHolder.setBackground(Color.green);
+        placeHolder.setBackground(Color.black);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         nameStatAbilityPanel.add(new SaveThrowPanel(), BorderLayout.CENTER);
