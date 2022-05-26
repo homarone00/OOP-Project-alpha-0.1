@@ -1,4 +1,4 @@
-package wildmagic.utils;
+package wildmagic_old.utils;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,18 +15,18 @@ public class WildMagicSt {
             WildMagicSt.createTable(DBManager.getConnection());
     }
 
-    //Creazione della TABLE wildmagic
+    //Creazione della TABLE wildmagic_old
     public static void createTable(Connection connection) throws SQLException, IOException{
-        try (PreparedStatement dropTable = connection.prepareStatement("DROP TABLE IF EXISTS wildmagic")) {
+        try (PreparedStatement dropTable = connection.prepareStatement("DROP TABLE IF EXISTS wildmagic_old")) {
             dropTable.executeUpdate();
         }
 
-        try (PreparedStatement createTable = connection.prepareStatement("CREATE TABLE wildmagic (id INTEGER, tr VARCHAR" +
+        try (PreparedStatement createTable = connection.prepareStatement("CREATE TABLE wildmagic_old (id INTEGER, tr VARCHAR" +
                 "(1), desc VARCHAR(1000), PRIMARY KEY (id, tr))")) {
             createTable.executeUpdate();
         }
 
-        try (PreparedStatement insertWM = connection.prepareStatement("INSERT INTO wildmagic (id, tr, desc) VALUES" +
+        try (PreparedStatement insertWM = connection.prepareStatement("INSERT INTO wildmagic_old (id, tr, desc) VALUES" +
                 " (?, ?, ?)")){
 
             String pathName=
@@ -54,7 +54,7 @@ public class WildMagicSt {
         }else{
             c="F";
         }
-        String s = String.format("SELECT desc FROM wildmagic WHERE wildmagic.id = %d and wildmagic.tr = '%s'", n, c);
+        String s = String.format("SELECT desc FROM wildmagic_old WHERE wildmagic_old.id = %d and wildmagic_old.tr = '%s'", n, c);
         try(PreparedStatement getWildMagic = connection.prepareStatement(s)) {
             try (ResultSet rs = getWildMagic.executeQuery()) {
                 return rs.getString("desc");

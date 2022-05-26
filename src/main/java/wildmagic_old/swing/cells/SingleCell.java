@@ -1,6 +1,6 @@
-package wildmagic.swing.cells;
+package wildmagic_old.swing.cells;
 
-import wildmagic.exeptions.CellBooleanHasMultipleChactersException;
+import wildmagic_old.exeptions.CellBooleanHasMultipleChactersException;
 
 import javax.swing.*;
 import java.awt.*;

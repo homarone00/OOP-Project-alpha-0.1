@@ -1,6 +1,6 @@
-package swingtest2;
+package Project_take1.toplevel_containers;
 
-import swingtest2.resources.Palettes;
+import Project_take1.resources.Palettes;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

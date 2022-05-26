@@ -1,8 +1,7 @@
-package swingtest2.stats;
+package Project_take1.bottomlevel_containers;
 
-import swingtest2.MyCharacter;
-import swingtest2.MyRoundedBorder;
-import swingtest2.resources.Palettes;
+import Project_take1.MyCharacter;
+import Project_take1.resources.Palettes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,8 +27,8 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
      * The values used for intLabel are defined by the static attributes of the Character class
      */
     int intLabel;
-    PlusMinusLabel jl_plus;
-    PlusMinusLabel jl_minus;
+    CircularLabel jl_plus;
+    CircularLabel jl_minus;
     Palettes palettes;
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
@@ -38,11 +37,11 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
     public StatPanel(int intLabel) {
         super();
         this.palettes= Palettes.getInstance();
-        this.jl_minus = new PlusMinusLabel("-") {
+        this.jl_minus = new CircularLabel("-",-4,+5) {
         };
         jl_minus.addMouseListener(this);
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.jl_plus = new PlusMinusLabel("+") {
+        this.jl_plus = new CircularLabel("+",-7,+7) {
 
         };
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -99,7 +98,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
                 setValue(getValue());
                 modifier.requestFocus();
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "You can't have negative/string stats in D&D!");
+                JOptionPane.showMessageDialog(null, "You can't have negative/string bottomlevel_containers in D&D!");
             }
         });
         value.addMouseListener(new MouseAdapter() {

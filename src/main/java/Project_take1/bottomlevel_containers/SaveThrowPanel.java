@@ -1,4 +1,7 @@
-package swingtest2;
+package Project_take1.bottomlevel_containers;
+
+import Project_take1.MyCharacter;
+import Project_take1.bottomlevel_containers.CompetenceFrame;
 
 import javax.swing.*;
 import java.awt.*;

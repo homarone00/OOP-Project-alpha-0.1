@@ -1,4 +1,6 @@
-package swingtest2;
+package Project_take1.bottomlevel_containers;
+
+import Project_take1.MyCharacter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,10 +27,8 @@ public class CompetenceFrame extends JFrame implements ActionListener {
         super("Modify Competence");
 
         f = new JPanel();
-        /**
-         * Checkboxes that indicates thh various character stats
-         */
 
+         // Checkboxes that indicates the various character bottomlevel_containers
         cbStr = new JCheckBox("Strength");
         cbDex = new JCheckBox("Dexterity");
         cbCon = new JCheckBox("Constitution");
@@ -47,9 +47,7 @@ public class CompetenceFrame extends JFrame implements ActionListener {
         cbCha.setBounds(10,170,100,20);
         btUpdate.setBounds(150,170,100,25);
 
-        /**
-         * The selected checkboxes indicates the competence in that stat
-         */
+         //The selected checkboxes indicate the competence in that stat
 
         cbStr.setSelected(c.getStrComp());
         cbDex.setSelected(c.getDexComp());

@@ -1,7 +1,8 @@
-package swingtest2;
+package Project_take1.toplevel_containers;
 
-import swingtest2.resources.Palettes;
-import swingtest2.stats.StatPanel;
+import Project_take1.bottomlevel_containers.SaveThrowPanel;
+import Project_take1.resources.Palettes;
+import Project_take1.bottomlevel_containers.StatPanel;
 
 import javax.swing.*;
 import java.awt.*;

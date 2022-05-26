@@ -1,4 +1,4 @@
-package wildmagic.swing.cells;
+package wildmagic_old.swing.cells;
 import java.awt.*;
 import java.util.Random;
 import javax.swing.*;

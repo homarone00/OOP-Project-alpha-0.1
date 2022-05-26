@@ -1,4 +1,4 @@
-package swingtest2.resources;
+package Project_take1.resources;
 
 import java.awt.*;
 

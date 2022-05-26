@@ -1,7 +1,7 @@
-package wildmagic.swing;
+package wildmagic_old.swing;
 
-import wildmagic.swing.cells.RandomBracket;
-import wildmagic.utils.*;
+import wildmagic_old.swing.cells.RandomBracket;
+import wildmagic_old.utils.*;
 
 import javax.swing.*;
 import java.awt.*;

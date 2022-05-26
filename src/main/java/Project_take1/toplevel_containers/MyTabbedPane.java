@@ -1,4 +1,6 @@
-package swingtest2;
+package Project_take1.toplevel_containers;
+
+import Project_take1.toplevel_containers.MyContentPane;
 
 import javax.swing.*;
 

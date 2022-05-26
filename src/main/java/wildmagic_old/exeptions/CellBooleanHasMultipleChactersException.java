@@ -1,4 +1,4 @@
-package wildmagic.exeptions;
+package wildmagic_old.exeptions;
 
 public class CellBooleanHasMultipleChactersException extends Exception{
     public CellBooleanHasMultipleChactersException(String message) {

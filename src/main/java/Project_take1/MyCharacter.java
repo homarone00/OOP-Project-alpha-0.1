@@ -1,4 +1,4 @@
-package swingtest2;
+package Project_take1;
 
 public class MyCharacter {
     public static final int STR = 1;
