@@ -1,5 +1,6 @@
 package swingtest2;
 
+import swingtest2.resources.Palettes;
 import swingtest2.stats.StatPanel;
 
 import javax.swing.*;
@@ -21,22 +22,27 @@ public class MyContentPane extends JPanel implements KeyListener {
     StatPanel wisPanel;
     StatPanel chaPanel;
     JTextField nameText;
+    Palettes palettes;
+    JPanel namePanel;
 
     public MyContentPane() {
         super();
+        palettes=Palettes.getInstance();
         this.setLayout(new BorderLayout());
         JPanel nameStatAbilityPanel = new JPanel(new BorderLayout(5, 5));
-        JPanel namePanel = new JPanel(new BorderLayout()) {
+        namePanel = new JPanel(new BorderLayout()) {
+            @Override
             public void paintComponent(Graphics g) {
+                super.paintComponent(g);
                 Graphics2D g2D = (Graphics2D) g;
                 g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor = g.getColor();
-                g.setColor(Color.white);
-                super.paintComponent(g);
+                g.setColor(palettes.panel());
                 g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
                 g.setColor(oldColor);
             }
         };
+        this.setOpaque(true);
         JPanel abilityPanel;
         //Left stat grid initialization
         JPanel statGrid = new JPanel(new GridLayout(6, 1, 5, 5));
@@ -54,13 +60,14 @@ public class MyContentPane extends JPanel implements KeyListener {
         statGrid.add(chaPanel);
         strPanel.value.addKeyListener(this);
         //background initialization
-        namePanel.setBackground(new Color(0xDADADA));
-        statGrid.setBackground(namePanel.getBackground());
-        nameStatAbilityPanel.setBackground(namePanel.getBackground());
+        namePanel.setOpaque(false);
+        statGrid.setOpaque(false);
+        nameStatAbilityPanel.setOpaque(false);
         //icons
         //name field initialization
-        nameText = new JTextField("Davide sfaticatino");
-        nameText.setBorder(new MyRoundedBorder(namePanel.getBackground(), 0, 2));
+        nameText = new JTextField("Default Name");
+        nameText.setBorder(null);
+        nameText.setOpaque(false);
         nameText.setFont(new Font("Comic Sans", Font.BOLD, 20));
         nameText.setHorizontalAlignment(JTextField.CENTER);
         nameText.addKeyListener(new KeyAdapter() {
@@ -81,7 +88,10 @@ public class MyContentPane extends JPanel implements KeyListener {
         placeHolder.setBackground(Color.black);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
-        nameStatAbilityPanel.add(new SaveThrowPanel(), BorderLayout.CENTER);
+        SaveThrowPanel saveThrowPanel=new SaveThrowPanel();
+        saveThrowPanel.setBackground(palettes.panel());
+        saveThrowPanel.setForeground(palettes.text());
+        nameStatAbilityPanel.add(saveThrowPanel, BorderLayout.CENTER);
     }
 
     @Override
@@ -97,5 +107,17 @@ public class MyContentPane extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+    public void updateColors(){
+        strPanel.updateColors();
+        dexPanel.updateColors();
+        conPanel.updateColors();
+        intPanel.updateColors();
+        wisPanel.updateColors();
+        chaPanel.updateColors();
+        namePanel.repaint();
+        nameText.setForeground(palettes.text());
+        this.setBackground(palettes.background());
+
     }
 }

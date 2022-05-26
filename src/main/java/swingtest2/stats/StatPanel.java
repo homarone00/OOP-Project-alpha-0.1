@@ -2,6 +2,7 @@ package swingtest2.stats;
 
 import swingtest2.MyCharacter;
 import swingtest2.MyRoundedBorder;
+import swingtest2.resources.Palettes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
     /**
      * static attributes are used to define which type of cell is needed
      */
-    JLabel modifier;
+    JLabel modifier = new JLabel();
     public JTextField value;
     int intValue;
     JLabel label;
@@ -29,13 +30,14 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
     int intLabel;
     PlusMinusLabel jl_plus;
     PlusMinusLabel jl_minus;
-
+    Palettes palettes;
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
      * the intLabel
      */
     public StatPanel(int intLabel) {
         super();
+        this.palettes= Palettes.getInstance();
         this.jl_minus = new PlusMinusLabel("-") {
         };
         jl_minus.addMouseListener(this);
@@ -45,7 +47,6 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         };
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jl_plus.addMouseListener(this);
-        this.modifier = new JLabel();
         this.value = new JTextField() {
         };
         this.label = new JLabel();
@@ -56,9 +57,8 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         GridBagConstraints c = new GridBagConstraints();
         setPreferredSize(new Dimension(120, 70));
         modifier.setFont(new Font("Comic Sans", Font.BOLD, 35));
-        modifier.setBackground(new Color(255, 255, 255));
         modifier.setHorizontalAlignment(JLabel.CENTER);
-        modifier.setOpaque(true);
+        modifier.setOpaque(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridy = 1;
         c.gridx = 0;
@@ -91,7 +91,8 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         c.weighty = 2;
         c.gridx = 0;
         add(bottomGrid, c);
-        value.setBorder(new MyRoundedBorder(new Color(215, 215, 215), 2, 5));
+        value.setBorder(new MyRoundedBorder(palettes.border(), 2, 5));
+        value.setOpaque(false);
         value.setHorizontalAlignment(JTextField.CENTER);
         value.addActionListener(actionValue -> {
             try {
@@ -113,7 +114,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
                 if (!(Character.isDigit(c) || c == KeyEvent.VK_DELETE)) {
                     event.consume();
                 }
-                if (value.getText().length() >= 2 && c != KeyEvent.VK_DELETE && !(value.getSelectedText().length() >= 1)) {
+                if (value.getText().length() >= 2 && c != KeyEvent.VK_DELETE && (value.getSelectedText()==null)) {
                     event.consume();
                 }
             }
@@ -135,7 +136,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
      */
     protected void setModifier(int modifier) {
         if (modifier >= 0) {
-            this.modifier.setText("+" + valueOf(modifier));
+            this.modifier.setText("+" + modifier);
         } else {
             this.modifier.setText(valueOf(modifier));
         }
@@ -145,22 +146,15 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
      * @return a String representation of the label displayed on the cell
      */
     public String getLabel() {
-        switch (this.intLabel) {
-            case MyCharacter.STR:
-                return "STRENGTH";
-            case MyCharacter.DEX:
-                return "DEXTERITY";
-            case MyCharacter.CON:
-                return "CONSTITUTION";
-            case MyCharacter.INT:
-                return "INTELLIGENCE";
-            case MyCharacter.WIS:
-                return "WISDOM";
-            case MyCharacter.CHA:
-                return "CHARISMA";
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.intLabel);
-        }
+        return switch (this.intLabel) {
+            case MyCharacter.STR -> "STRENGTH";
+            case MyCharacter.DEX -> "DEXTERITY";
+            case MyCharacter.CON -> "CONSTITUTION";
+            case MyCharacter.INT -> "INTELLIGENCE";
+            case MyCharacter.WIS -> "WISDOM";
+            case MyCharacter.CHA -> "CHARISMA";
+            default -> throw new IllegalStateException("Unexpected value: " + this.intLabel);
+        };
     }
 
     /**
@@ -228,7 +222,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color oldColor = g.getColor();
-        g.setColor(Color.white);
+        g.setColor(palettes.panel());
         super.paintComponent(g);
         g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
         g.setColor(oldColor);
@@ -303,5 +297,15 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
     @Override
     public void focusLost(FocusEvent e) {
         setValue(getValue());
+    }
+
+    /**
+     * this method updates the colors that cannot be updated with the repaint() method
+     */
+    public void updateColors(){
+        modifier.setForeground(palettes.text());
+        label.setForeground(palettes.text());
+        value.setBorder(new MyRoundedBorder(palettes.border(), 2, 5));
+        value.setForeground(palettes.text());
     }
 }
