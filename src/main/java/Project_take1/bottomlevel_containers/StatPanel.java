@@ -1,7 +1,7 @@
 package Project_take1.bottomlevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.Palettes;
+import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,44 +15,47 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class StatPanel extends JPanel implements FocusListener,MouseListener {
+public class StatPanel extends JPanel implements FocusListener,MouseListener,UpdatablePanel {
     /**
      * static attributes are used to define which type of cell is needed
      */
     JLabel modifier = new JLabel();
+
     public JTextField value;
     int intValue;
+
     JLabel label;
     /**
      * The values used for intLabel are defined by the static attributes of the Character class
      */
     int intLabel;
+
     CircularLabel jl_plus;
     CircularLabel jl_minus;
-    Palettes palettes;
+
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
      * the intLabel
      */
     public StatPanel(int intLabel) {
         super();
-        this.palettes= Palettes.getInstance();
-        this.jl_minus = new CircularLabel("-",-4,+5) {
-        };
-        jl_minus.addMouseListener(this);
-        jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.jl_plus = new CircularLabel("+",-7,+7) {
-
-        };
-        jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jl_plus.addMouseListener(this);
-        this.value = new JTextField() {
-        };
-        this.label = new JLabel();
         setLayout(new GridBagLayout());
         this.setOpaque(false);
+
+        this.jl_minus = new CircularLabel("-",-4,+5);
+        jl_minus.addMouseListener(this);
+        jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.jl_plus = new CircularLabel("+",-7,+7);
+
+        jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jl_plus.addMouseListener(this);
+        this.value = new JTextField();
+        this.label = new JLabel();
+
+
         setValue(10);
         setLabel(intLabel);
+
         GridBagConstraints c = new GridBagConstraints();
         setPreferredSize(new Dimension(120, 70));
         modifier.setFont(new Font("Comic Sans", Font.BOLD, 35));
@@ -77,6 +80,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         c.weighty = 2;
         c.gridx = 0;
         add(topGrid, c);
+
         jl_plus.setFont(new Font("Comic Sans", Font.BOLD, 9));
         jl_minus.setFont(new Font("Comic Sans", Font.BOLD, 9));
         JPanel bottomGrid = new JPanel(new GridLayout(1, 3));
@@ -90,7 +94,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
         c.weighty = 2;
         c.gridx = 0;
         add(bottomGrid, c);
-        value.setBorder(new MyRoundedBorder(palettes.border(), 2, 5));
+        value.setBorder(new MyRoundedBorder(getPalette().border(), 2, 5));
         value.setOpaque(false);
         value.setHorizontalAlignment(JTextField.CENTER);
         value.addActionListener(actionValue -> {
@@ -217,16 +221,6 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
             throw new IllegalArgumentException("value = " + value + "must be -ge than 0");
     }
 
-    public void paintComponent(Graphics g) {
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color oldColor = g.getColor();
-        g.setColor(palettes.panel());
-        super.paintComponent(g);
-        g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
-        g.setColor(oldColor);
-    }
-
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(jl_minus)) {
             int value = getValue();
@@ -302,9 +296,23 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener {
      * this method updates the colors that cannot be updated with the repaint() method
      */
     public void updateColors(){
-        modifier.setForeground(palettes.text());
-        label.setForeground(palettes.text());
-        value.setBorder(new MyRoundedBorder(palettes.border(), 2, 5));
-        value.setForeground(palettes.text());
+        modifier.setForeground(getPalette().text());
+        label.setForeground(getPalette().text());
+        value.setBorder(new MyRoundedBorder(getPalette().border(), 2, 5));
+        value.setForeground(getPalette().text());
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Color oldColor = g.getColor();
+        g.setColor(getPalette().panel());
+        super.paintComponent(g);
+        g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
+        g.setColor(oldColor);
+    }
+    public Palette getPalette(){
+        return Palette.getInstance();
     }
 }

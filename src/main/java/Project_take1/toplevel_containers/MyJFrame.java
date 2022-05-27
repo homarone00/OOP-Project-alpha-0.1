@@ -1,8 +1,9 @@
 package Project_take1.toplevel_containers;
 
-import Project_take1.resources.Palettes;
+import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,9 +15,9 @@ import java.awt.event.ActionListener;
 public class MyJFrame extends JFrame implements ActionListener {
     MyTabbedPane contentPane;
     MyJMenuBar jMenuBar;
-    Palettes palettes;
-    public MyJFrame() {
-        palettes=Palettes.getInstance();
+    Palette palette;
+    public MyJFrame(){
+        palette = Palette.getInstance();
         contentPane=new MyTabbedPane();
         jMenuBar=new MyJMenuBar();
         jMenuBar.menu_2_1.addActionListener(this);
@@ -27,6 +28,7 @@ public class MyJFrame extends JFrame implements ActionListener {
         setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
         //these methods must always be the last
+        setMinimumSize(new Dimension(1100,800));
         setResizable(true);
         setVisible(true);
 
@@ -44,15 +46,15 @@ public class MyJFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.jMenuBar.getMenu_2_1()){
-            palettes.setDefaultMode();
+            palette.setDefaultMode();
             updateColors();
         }
         if(e.getSource()==this.jMenuBar.getMenu_2_2()){
-            palettes.setDarkMode();
+            palette.setDarkMode();
             updateColors();
         }
         if(e.getSource()==this.jMenuBar.getMenu_2_3()){
-            palettes.setPinkMode();
+            palette.setPinkMode();
             updateColors();
         }
     }

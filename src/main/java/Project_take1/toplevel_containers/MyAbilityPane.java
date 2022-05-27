@@ -1,7 +1,8 @@
 package Project_take1.toplevel_containers;
 
 import Project_take1.bottomlevel_containers.SaveThrowPanel;
-import Project_take1.resources.Palettes;
+import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.Palette;
 import Project_take1.bottomlevel_containers.StatPanel;
 
 import javax.swing.*;
@@ -11,11 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * This is the contentPane of our MyJFrame
+ * This is the first contentPane of our MyJFrame
  *
  * @author omarc
  */
-public class MyContentPane extends JPanel implements KeyListener {
+public class MyAbilityPane extends JPanel implements KeyListener, PalettablePanel {
     StatPanel strPanel;
     StatPanel dexPanel;
     StatPanel conPanel;
@@ -23,12 +24,10 @@ public class MyContentPane extends JPanel implements KeyListener {
     StatPanel wisPanel;
     StatPanel chaPanel;
     JTextField nameText;
-    Palettes palettes;
     JPanel namePanel;
 
-    public MyContentPane() {
+    public MyAbilityPane() {
         super();
-        palettes=Palettes.getInstance();
         this.setLayout(new BorderLayout());
         JPanel nameStatAbilityPanel = new JPanel(new BorderLayout(5, 5));
         namePanel = new JPanel(new BorderLayout()) {
@@ -38,7 +37,7 @@ public class MyContentPane extends JPanel implements KeyListener {
                 Graphics2D g2D = (Graphics2D) g;
                 g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor = g.getColor();
-                g.setColor(palettes.panel());
+                g.setColor(getPalette().panel());
                 g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
                 g.setColor(oldColor);
             }
@@ -90,8 +89,8 @@ public class MyContentPane extends JPanel implements KeyListener {
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         SaveThrowPanel saveThrowPanel=new SaveThrowPanel();
-        saveThrowPanel.setBackground(palettes.panel());
-        saveThrowPanel.setForeground(palettes.text());
+        saveThrowPanel.setBackground(getPalette().panel());
+        saveThrowPanel.setForeground(getPalette().text());
         nameStatAbilityPanel.add(saveThrowPanel, BorderLayout.CENTER);
     }
 
@@ -117,8 +116,11 @@ public class MyContentPane extends JPanel implements KeyListener {
         wisPanel.updateColors();
         chaPanel.updateColors();
         namePanel.repaint();
-        nameText.setForeground(palettes.text());
-        this.setBackground(palettes.background());
+        nameText.setForeground(getPalette().text());
+        this.setBackground(getPalette().background());
 
+    }
+    public Palette getPalette() {
+        return Palette.getInstance();
     }
 }
