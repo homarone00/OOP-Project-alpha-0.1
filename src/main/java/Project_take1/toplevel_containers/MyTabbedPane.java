@@ -1,5 +1,6 @@
 package Project_take1.toplevel_containers;
 
+import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.JTabPanel;
 import Project_take1.bottomlevel_containers.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
@@ -20,9 +21,9 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
     JTabPanel tabButton_2;
     JPanel placeHolderPanel;
 
-    public MyTabbedPane(){
+    public MyTabbedPane(MyCharacter myCharacter){
         setLayout(new BorderLayout());
-        abilityTab=new MyAbilityPane();
+        abilityTab=new MyAbilityPane(myCharacter);
         add(abilityTab,BorderLayout.CENTER);
 
 
@@ -36,7 +37,16 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
         this.setBackground(getPalette().background());
 
         //tabsPanel
-        tabsPanel=new JPanel(new GridBagLayout());
+        tabsPanel=new JPanel(new GridBagLayout()){
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                Color oldColor=g.getColor();
+                g.setColor(getPalette().background());
+                g.fillRect(0, 0, getSize().width, 10);
+                g.setColor(oldColor);
+            }
+
+        };
         tabsPanel.setPreferredSize(new Dimension(getPreferredSize().width,45));
         add(tabsPanel,BorderLayout.SOUTH);
         tabsPanel.setBackground(getPalette().darker_background());

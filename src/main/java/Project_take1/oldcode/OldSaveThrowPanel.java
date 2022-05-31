@@ -1,4 +1,4 @@
-package Project_take1.bottomlevel_containers;
+/*package Project_take1.oldcode;
 
 import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.CompetenceFrame;
@@ -69,9 +69,9 @@ public class SaveThrowPanel extends JPanel implements MouseListener, WindowListe
         rbcha.setFocusable(false);
         rbcon.setFocusable(false);
 
-        /*
+
           rimuovo i mouse listener per renderli immodificabili
-         */
+
 
         for (MouseListener al : rbstr.getMouseListeners()) {
             rbstr.removeMouseListener(al);
@@ -117,10 +117,10 @@ public class SaveThrowPanel extends JPanel implements MouseListener, WindowListe
         lbwis.setText(String.valueOf(ch.getModWis()));
         lbing.setText(String.valueOf(ch.getModInt()));
         lbcha.setText(String.valueOf(ch.getModCha()));
-        rbstr.setSelected(ch.getStrComp());
-        rbdex.setSelected(ch.getDexComp());
-        rbcon.setSelected(ch.getConComp());
-        rbwis.setSelected(ch.getWisComp());
+        rbstr.setSelected(ch.getStrProf());
+        rbdex.setSelected(ch.getDexProf());
+        rbcon.setSelected(ch.getConProf());
+        rbwis.setSelected(ch.getWisProf());
         rbing.setSelected(ch.getIngComp());
         rbcha.setSelected(ch.getChaComp());
     }
@@ -149,9 +149,9 @@ public class SaveThrowPanel extends JPanel implements MouseListener, WindowListe
 
     @Override
     public void mouseExited(MouseEvent e) {
-        /*
+
           contratio di maouse entered
-         */
+
     }
 
     @Override
@@ -190,3 +190,4 @@ public class SaveThrowPanel extends JPanel implements MouseListener, WindowListe
         }
     }
 }
+*/

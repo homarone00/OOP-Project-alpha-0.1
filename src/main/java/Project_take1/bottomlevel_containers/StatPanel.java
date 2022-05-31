@@ -11,7 +11,7 @@ import static java.lang.String.valueOf;
 
 /**
  * Square cell that contains an ability <br>
- * Only the value can be edited using the GUI
+ * Only the name can be edited using the GUI
  *
  * @author Omar Carpentiero
  */
@@ -42,10 +42,10 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
         setLayout(new GridBagLayout());
         this.setOpaque(false);
 
-        this.jl_minus = new CircularLabel("-",-4,+5);
+        this.jl_minus = new CircularLabel("-",-4,+5,20);
         jl_minus.addMouseListener(this);
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        this.jl_plus = new CircularLabel("+",-7,+7);
+        this.jl_plus = new CircularLabel("+",-7,+7,20);
 
         jl_plus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         jl_plus.addMouseListener(this);
@@ -150,13 +150,13 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
      */
     public String getLabel() {
         return switch (this.intLabel) {
-            case MyCharacter.STR -> "STRENGTH";
-            case MyCharacter.DEX -> "DEXTERITY";
-            case MyCharacter.CON -> "CONSTITUTION";
-            case MyCharacter.INT -> "INTELLIGENCE";
-            case MyCharacter.WIS -> "WISDOM";
-            case MyCharacter.CHA -> "CHARISMA";
-            default -> throw new IllegalStateException("Unexpected value: " + this.intLabel);
+            case MyCharacter.STRENGTH -> "STRENGTH";
+            case MyCharacter.DEXTERITY -> "DEXTERITY";
+            case MyCharacter.CONSTITUTION -> "CONSTITUTION";
+            case MyCharacter.INTELLIGENCE -> "INTELLIGENCE";
+            case MyCharacter.WISDOM -> "WISDOM";
+            case MyCharacter.CHARISMA -> "CHARISMA";
+            default -> throw new IllegalStateException("Unexpected name: " + this.intLabel);
         };
     }
 
@@ -166,20 +166,20 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
      * @param characteristic only the values defined by the Character class attributes are valid
      */
     private void setLabel(int characteristic) {
-        if (characteristic == MyCharacter.STR) {
+        if (characteristic == MyCharacter.STRENGTH) {
             this.label.setText("STRENGTH");
-        } else if (characteristic == MyCharacter.DEX) {
+        } else if (characteristic == MyCharacter.DEXTERITY) {
             this.label.setText("DEXTERITY");
-        } else if (characteristic == MyCharacter.CON) {
+        } else if (characteristic == MyCharacter.CONSTITUTION) {
             this.label.setText("CONSTITUTION");
-        } else if (characteristic == MyCharacter.INT) {
+        } else if (characteristic == MyCharacter.INTELLIGENCE) {
             this.label.setText("INTELLIGENCE");
-        } else if (characteristic == MyCharacter.WIS) {
+        } else if (characteristic == MyCharacter.WISDOM) {
             this.label.setText("WISDOM");
-        } else if (characteristic == MyCharacter.CHA) {
+        } else if (characteristic == MyCharacter.CHARISMA) {
             this.label.setText("CHARISMA");
         } else
-            throw new IllegalArgumentException("Unexpected value for characteristic : " + characteristic);
+            throw new IllegalArgumentException("Unexpected name for characteristic : " + characteristic);
     }
 
     /**
@@ -193,11 +193,11 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
      * the method automatically calls the setLabel method to automatically update the label
      */
     private void setIntLabel(int characteristic) {
-        if (characteristic >= MyCharacter.STR && characteristic <= MyCharacter.CHA) {
+        if (characteristic >= MyCharacter.STRENGTH && characteristic <= MyCharacter.CHARISMA) {
             this.intLabel = characteristic;
             setLabel(characteristic);
         } else
-            throw new IllegalArgumentException("Unexpected value for characteristic: " + characteristic);
+            throw new IllegalArgumentException("Unexpected name for characteristic: " + characteristic);
     }
 
     public int getValue() {
@@ -218,7 +218,7 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
             }
             setModifier(value / 2 - 5);
         } else
-            throw new IllegalArgumentException("value = " + value + "must be -ge than 0");
+            throw new IllegalArgumentException("name = " + value + "must be -ge than 0");
     }
 
     public void mouseClicked(MouseEvent e) {

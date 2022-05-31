@@ -31,12 +31,6 @@ public class JTabPanel extends JPanel implements PalettablePanel {
         if(isActive()){
             g.setColor(getPalette().background());
         }
-        if(isEntered()){
-            g.setColor(getPalette().button_entered());
-        }
-        if(isPressed()){
-            g.setColor(getPalette().button_pressed());
-        }
         g.fillRoundRect(5, 5, getSize().width-10, getSize().height-10, 10, 10);
         g.setColor(getPalette().text());
         g.setFont(new Font("Comic Sans", Font.BOLD, 20));

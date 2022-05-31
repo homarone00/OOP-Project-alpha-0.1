@@ -13,9 +13,11 @@ public class CircularLabel extends JLabel implements PalettablePanel {
     String value;
     int xOffset;
     int yOffset;
+    int fontSize;
 
-    public CircularLabel(String value, int xOffset, int yOffset) {
+    public CircularLabel(String value, int xOffset, int yOffset, int fontSize) {
         setValue(value);
+        this.fontSize=fontSize;
         setPressed(false);
         setEntered(false);
         setxOffset(xOffset);
@@ -50,7 +52,7 @@ public class CircularLabel extends JLabel implements PalettablePanel {
         g2D.drawOval(x, 1, getSize().height - 3, getSize().height - 3);
 
         g.setColor(getPalette().text());
-        g.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        g.setFont(new Font("Comic Sans", Font.BOLD, fontSize));
         g.drawString(value, x + getSize().height / 2 + xOffset, getSize().height / 2 + yOffset);
         g.setColor(oldColor);
     }

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * A frame for changing the character competence
  */
-public class CompetenceFrame extends JFrame implements ActionListener {
+public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
 
     JPanel f;
     MyCharacter c;
@@ -48,14 +48,14 @@ public class CompetenceFrame extends JFrame implements ActionListener {
         btUpdate.setBounds(150,170,100,25);
 
          //The selected checkboxes indicate the competence in that stat
-
-        cbStr.setSelected(c.getStrComp());
-        cbDex.setSelected(c.getDexComp());
-        cbCon.setSelected(c.getConComp());
+        /*
+        cbStr.setSelected(c.getStrProf());
+        cbDex.setSelected(c.getDexProf());
+        cbCon.setSelected(c.getConProf());
         cbIng.setSelected(c.getIngComp());
-        cbWis.setSelected(c.getWisComp());
+        cbWis.setSelected(c.getWisProf());
         cbCha.setSelected(c.getChaComp());
-
+        */
         cbStr.setFocusable(false);
         cbDex.setFocusable(false);
         cbCon.setFocusable(false);
@@ -64,7 +64,7 @@ public class CompetenceFrame extends JFrame implements ActionListener {
         cbCha.setFocusable(false);
         btUpdate.setFocusable(false);
 
-        btUpdate.addActionListener(this);
+        //btUpdate.addActionListener(this);
 
         f.add(cbStr);
         f.add(cbDex);
@@ -81,19 +81,21 @@ public class CompetenceFrame extends JFrame implements ActionListener {
         this.setSize(300,250);
         this.setVisible(true);
     }
-
+    /*
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btUpdate)
         {
-            c.setStrComp(cbStr.isSelected());
-            c.setDexComp(cbDex.isSelected());
-            c.setConComp(cbCon.isSelected());
+            c.setStrProf(cbStr.isSelected());
+            c.setDexProf(cbDex.isSelected());
+            c.setConProf(cbCon.isSelected());
             c.setIngComp(cbIng.isSelected());
-            c.setWisComp(cbWis.isSelected());
+            c.setWisProf(cbWis.isSelected());
             c.setChaComp(cbCha.isSelected());
 
             this.dispose();
         }
     }
+
+     */
 }

@@ -1,6 +1,6 @@
 package Project_take1.toplevel_containers;
 
-import Project_take1.bottomlevel_containers.SaveThrowPanel;
+import Project_take1.MyCharacter;
 import Project_take1.resources.graphics.PalettablePanel;
 import Project_take1.resources.graphics.Palette;
 import Project_take1.bottomlevel_containers.StatPanel;
@@ -17,6 +17,7 @@ import java.awt.event.KeyListener;
  * @author omarc
  */
 public class MyAbilityPane extends JPanel implements KeyListener, PalettablePanel {
+    MyCharacter myCharacter;
     StatPanel strPanel;
     StatPanel dexPanel;
     StatPanel conPanel;
@@ -26,8 +27,9 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
     JTextField nameText;
     JPanel namePanel;
 
-    public MyAbilityPane() {
+    public MyAbilityPane(MyCharacter myCharacter) {
         super();
+        this.myCharacter=myCharacter;
         this.setLayout(new BorderLayout());
         JPanel nameStatAbilityPanel = new JPanel(new BorderLayout(5, 5));
         namePanel = new JPanel(new BorderLayout()) {
@@ -43,7 +45,6 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
             }
         };
         this.setOpaque(true);
-        JPanel abilityPanel;
         //Left stat grid initialization
         JPanel statGrid = new JPanel(new GridLayout(6, 1, 5, 5));
         strPanel = new StatPanel(1);
@@ -88,7 +89,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         placeHolder.setBackground(Color.black);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
-        SaveThrowPanel saveThrowPanel=new SaveThrowPanel();
+        SaveThrowPanel saveThrowPanel=new SaveThrowPanel(myCharacter);
         saveThrowPanel.setBackground(getPalette().panel());
         saveThrowPanel.setForeground(getPalette().text());
         nameStatAbilityPanel.add(saveThrowPanel, BorderLayout.CENTER);

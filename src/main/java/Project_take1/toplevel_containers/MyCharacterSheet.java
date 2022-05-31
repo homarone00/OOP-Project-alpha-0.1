@@ -1,5 +1,6 @@
 package Project_take1.toplevel_containers;
 
+import Project_take1.MyCharacter;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
@@ -12,13 +13,13 @@ import java.awt.event.ActionListener;
  *
  * @author Omar Carpentiero
  */
-public class MyJFrame extends JFrame implements ActionListener {
+public class MyCharacterSheet extends JFrame implements ActionListener {
     MyTabbedPane contentPane;
     MyJMenuBar jMenuBar;
     Palette palette;
-    public MyJFrame(){
+    public MyCharacterSheet(MyCharacter myCharacter){
         palette = Palette.getInstance();
-        contentPane=new MyTabbedPane();
+        contentPane=new MyTabbedPane(myCharacter);
         jMenuBar=new MyJMenuBar();
         jMenuBar.menu_2_1.addActionListener(this);
         jMenuBar.menu_2_2.addActionListener(this);
@@ -37,7 +38,8 @@ public class MyJFrame extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new MyJFrame();
+        MyCharacter myCharacter=new MyCharacter();
+        new MyCharacterSheet(myCharacter);
     }
     public void updateColors(){
         this.repaint();
