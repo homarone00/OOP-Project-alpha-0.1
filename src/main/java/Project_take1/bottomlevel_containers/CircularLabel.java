@@ -89,6 +89,10 @@ public class CircularLabel extends JLabel implements PalettablePanel {
         this.yOffset = yOffset;
     }
 
+    @Override
+    public void updateColors() {
+    }
+
     public Palette getPalette() {
         return Palette.getInstance();
     }

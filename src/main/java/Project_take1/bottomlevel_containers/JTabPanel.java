@@ -77,7 +77,8 @@ public class JTabPanel extends JPanel implements PalettablePanel {
         this.yOffset = yOffset;
     }
 
-    public Palette getPalette(){
-        return Palette.getInstance();
+    @Override
+    public void updateColors() {
     }
+
 }

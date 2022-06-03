@@ -6,7 +6,7 @@ import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 
-public class SingleAbilityPanel extends JPanel implements PalettablePanel, UpdatablePanel {
+public class SingleAbilityPanel extends JPanel implements PalettablePanel {
     int baseStat;
     boolean competence;
     String name;

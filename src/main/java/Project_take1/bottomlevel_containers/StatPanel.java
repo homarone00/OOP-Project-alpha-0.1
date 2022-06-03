@@ -1,7 +1,8 @@
 package Project_take1.bottomlevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.MyRoundedBorder;
+import Project_take1.resources.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ import static java.lang.String.valueOf;
  *
  * @author Omar Carpentiero
  */
-public class StatPanel extends JPanel implements FocusListener,MouseListener,UpdatablePanel {
+public class StatPanel extends RoundedJPanel implements FocusListener,MouseListener {
     /**
      * static attributes are used to define which type of cell is needed
      */
@@ -304,15 +305,8 @@ public class StatPanel extends JPanel implements FocusListener,MouseListener,Upd
 
     @Override
     public void paintComponent(Graphics g) {
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color oldColor = g.getColor();
-        g.setColor(getPalette().panel());
+        this.arcHeight=30;
+        this.arcWidth=30;
         super.paintComponent(g);
-        g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
-        g.setColor(oldColor);
-    }
-    public Palette getPalette(){
-        return Palette.getInstance();
     }
 }
