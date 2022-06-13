@@ -4,7 +4,7 @@ import Project_take1.MyCharacter;
 
 import java.awt.font.TextHitInfo;
 
-public class ListAbility extends AbstractAbility{
+public class ListAbility extends AbstractCompAbility{
     boolean expertise;
     boolean competence;
     int bonus=0;
@@ -15,14 +15,6 @@ public class ListAbility extends AbstractAbility{
         this.expertise=expertise;
         this.myCharacter=myCharacter;
         setBaseModifier();
-    }
-
-    public boolean hasCompetence(){
-        return competence;
-    }
-
-    public void setCompetence(boolean competence){
-        this.competence=competence;
     }
 
     public boolean hasExpertise(){
@@ -37,10 +29,10 @@ public class ListAbility extends AbstractAbility{
     public int getModifier() {
         int profBonus=myCharacter.getProfBonus();
         int modifier=getBaseModifier()+bonus;
-        if(competence==true){
+        if(competence){
             modifier+=profBonus;
         }
-        if(expertise==true){
+        if(expertise){
             modifier+=profBonus;
         }
         return modifier;

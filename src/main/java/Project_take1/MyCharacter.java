@@ -1,9 +1,6 @@
 package Project_take1;
 
-import Project_take1.abilities.Ability;
-import Project_take1.abilities.BaseAbility;
-import Project_take1.abilities.ListAbility;
-import Project_take1.abilities.SaveAbility;
+import Project_take1.abilities.*;
 
 import java.util.ArrayList;
 
@@ -171,11 +168,11 @@ public class MyCharacter {
          this.charisma=new BaseAbility(this,10,CHARISMA);
 
          this.strength_save =new SaveAbility(this,"Strength",true,STRENGTH_SAVE);
-         this.dexterity_save=new SaveAbility(this,"Strength",true,DEXTERITY_SAVE);
-         this.constitution_save=new SaveAbility(this,"Strength",true,CONSTITUTION_SAVE);
-         this.intelligence_save=new SaveAbility(this,"Strength",true,INTELLIGENCE_SAVE);
-         this.wisdom_save=new SaveAbility(this,"Strength",true,WISDOM_SAVE);
-         this.charisma_save=new SaveAbility(this,"Strength",true,CHARISMA_SAVE);
+         this.dexterity_save=new SaveAbility(this,"Dexterity",true,DEXTERITY_SAVE);
+         this.constitution_save=new SaveAbility(this,"Constitution",true,CONSTITUTION_SAVE);
+         this.intelligence_save=new SaveAbility(this,"Intelligence",true,INTELLIGENCE_SAVE);
+         this.wisdom_save=new SaveAbility(this,"Wisdom",true,WISDOM_SAVE);
+         this.charisma_save=new SaveAbility(this,"Charisma",true,CHARISMA_SAVE);
 
          this.acrobatics=new ListAbility(this,"Acrobatics",true,true,ACROBATICS);
          this.animal_handling=new ListAbility(this,"Animal Handling",true,true,ANIMAL_HANDLING);
@@ -222,9 +219,125 @@ public class MyCharacter {
                     " MyCharacter.STRENGTH < STAT < MyCharacter.CHARISMA");
         }
     }
-    public Ability getAbility(int STAT){
-        //da editare
-        return null;
+    public SaveAbility getSaveAbility(int STAT){
+        if (STAT == STRENGTH_SAVE) {
+            return strength_save;
+        }
+        if (STAT == DEXTERITY_SAVE) {
+            return dexterity_save;
+        }
+        if (STAT == CONSTITUTION_SAVE) {
+            return constitution_save;
+        }
+        if (STAT == INTELLIGENCE_SAVE) {
+            return intelligence_save;
+        }
+        if (STAT == WISDOM_SAVE) {
+            return wisdom_save;
+        }
+        if (STAT == CHARISMA_SAVE) {
+            return charisma_save;
+        }
+        else{
+            throw new IllegalArgumentException("STAT field in MyCharacter.BaseAbility(int STAT); can only be" +
+                    " MyCharacter.STRENGTH_SAVE < STAT < MyCharacter.CHARISMA_SAVE");
+        }
+    }
+
+    public ListAbility getListAbility(int STAT)
+    {
+        if(STAT == ACROBATICS)
+        {
+            return acrobatics;
+        }
+        if(STAT == ANIMAL_HANDLING)
+        {
+            return animal_handling;
+        }
+        if(STAT == ARCANA)
+        {
+            return arcana;
+        }
+        if(STAT == ATHLETICS)
+        {
+            return athletics;
+        }
+        if(STAT == DECEPTION)
+        {
+            return deception;
+        }
+        if(STAT == HISTORY)
+        {
+            return history;
+        }
+        if(STAT == INSIGHT)
+        {
+            return insight;
+        }
+        if(STAT == INTIMIDATION)
+        {
+            return intimidation;
+        }
+        if(STAT == INVESTIGATION)
+        {
+            return investigation;
+        }
+        if(STAT == MEDICINE)
+        {
+            return medicine;
+        }
+        if(STAT == NATURE)
+        {
+            return nature;
+        }
+        if(STAT == PERCEPTION)
+        {
+            return  perception;
+        }
+        if(STAT == PERFORMANCE)
+        {
+            return performance;
+        }
+        if(STAT == PERSUASION)
+        {
+            return persuasion;
+        }
+        if(STAT == RELIGION)
+        {
+            return religion;
+        }
+        if(STAT == SLEIGHT_OF_HAND)
+        {
+            return sleight_of_hand;
+        }
+        if(STAT == STEALTH)
+        {
+            return stealth;
+        }
+        if(STAT == SURVIVAL)
+        {
+            return survival;
+        }
+        else
+        {
+            throw new IllegalArgumentException("STAT field in MyCharacter.ListAbility(int STAT); can only be" +
+                    " MyCharacter.ACROBATICS< STAT < MyCharacter.SURVIVAL");
+        }
+    }
+
+    public AbstractCompAbility getCompAbility(int STAT)
+    {
+        try {
+            return getListAbility(STAT);
+        }catch (IllegalArgumentException e) {
+            try {
+                return getSaveAbility(STAT);
+            }
+            catch (IllegalArgumentException x)
+            {
+                throw new IllegalArgumentException("STAT field in MyCharacter.getCompAbility; out of range");
+            }
+        }
     }
     public int getAbilityModifier(int STAT){
         //da editare

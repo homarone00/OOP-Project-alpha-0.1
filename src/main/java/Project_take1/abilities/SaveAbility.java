@@ -2,7 +2,7 @@ package Project_take1.abilities;
 
 import Project_take1.MyCharacter;
 
-public class SaveAbility extends AbstractAbility{
+public class SaveAbility extends AbstractCompAbility{
     boolean competence;
     int bonus=0;
     public SaveAbility(MyCharacter myCharacter,String abilityName, boolean competence, int STAT){
@@ -12,12 +12,6 @@ public class SaveAbility extends AbstractAbility{
         this.myCharacter=myCharacter;
         setBaseModifier();
 
-    }
-    public void setCompetence(boolean competence){
-        this.competence=competence;
-    }
-    public boolean hasCompetence(){
-        return competence;
     }
 
     public int getBonus() {
@@ -32,7 +26,7 @@ public class SaveAbility extends AbstractAbility{
 
     public int getModifier() {
         int profBonus=myCharacter.getProfBonus();
-        if(competence==true){
+        if(competence){
             return getBaseModifier()+profBonus+bonus;
         }
         else{
