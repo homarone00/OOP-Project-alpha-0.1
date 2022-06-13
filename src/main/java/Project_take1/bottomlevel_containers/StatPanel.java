@@ -43,7 +43,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
         setLayout(new GridBagLayout());
         this.setOpaque(false);
 
-        this.jl_minus = new CircularLabel("-",-4,+5,20);
+        this.jl_minus = new CircularLabel("-",-5,+5,20);
         jl_minus.addMouseListener(this);
         jl_minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.jl_plus = new CircularLabel("+",-7,+7,20);

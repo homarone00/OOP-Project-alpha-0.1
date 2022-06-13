@@ -12,14 +12,14 @@ import java.awt.*;
 public abstract class RoundedJPanel extends JPanel implements PalettablePanel{
     protected int arcWidth;
     protected int arcHeight;
-    private boolean customPainted=false;
-    private Color customColor;
+    protected boolean customPainted=false;
+    protected Color customColor;
     public void paintComponent(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color oldColor = g.getColor();
         if(!customPainted){
-            g.setColor(getPalette().panel);
+            g.setColor(getPalette().panel());
         }
         if(customPainted){
             g.setColor(customColor);

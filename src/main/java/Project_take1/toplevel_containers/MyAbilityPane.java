@@ -30,7 +30,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
     public MyAbilityPane(MyCharacter myCharacter) {
         super();
         this.myCharacter=myCharacter;
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(10,10));
         JPanel nameStatAbilityPanel = new JPanel(new BorderLayout(5, 5));
         namePanel = new JPanel(new BorderLayout()) {
             @Override
@@ -82,11 +82,14 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         nameText.setOpaque(false);
         namePanel.setPreferredSize(new Dimension(getPreferredSize().width, 50));
         namePanel.add(nameText, BorderLayout.CENTER);
+
         //adding all components to the ContentPane
         add(nameStatAbilityPanel, BorderLayout.WEST);
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
-        JPanel placeHolder = new JPanel();
-        placeHolder.setBackground(Color.black);
+        JPanel placeHolder = new JPanel(new BorderLayout(10,10));
+        JPanel newPlaceHolder=new JPanel();
+        placeHolder.add(newPlaceHolder,BorderLayout.CENTER);
+        placeHolder.add(new SecondGrid(),BorderLayout.WEST);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         SaveThrowPanel saveThrowPanel=new SaveThrowPanel(myCharacter);
