@@ -12,16 +12,36 @@ public class SingleAbilityPanel extends JPanel implements PalettablePanel {
     boolean competence;
     String name;
     JLabel lbName;
+    JLabel lbValue;
     CompPointLabel clComp;
 
     public SingleAbilityPanel(MyCharacter myCharacter, int baseStat) {
+        super();
         this.baseStat = baseStat;
         this.setName();
         this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
         this.lbName = new JLabel(name);
+        this.lbValue = new JLabel(String.valueOf(myCharacter.getCompAbility(baseStat).getModifier()));
         this.clComp = new CompPointLabel(competence);
-        //da gestire la grafica
 
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.ipadx = 50;
+        this.add(clComp, c);
+        c.anchor = GridBagConstraints.WEST;
+        c.gridx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(lbName, c);
+        c.gridx = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.ipadx = 0;
+        c.anchor = GridBagConstraints.EAST;
+        lbValue.setHorizontalAlignment(JLabel.RIGHT);
+        this.add(lbValue, c);
+        this.setMaximumSize(new Dimension(1500,1500));
+        this.setSize(1500,1500);
     }
 
     void setName(){

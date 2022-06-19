@@ -40,19 +40,19 @@ public class MyCharacter {
     public static final int SURVIVAL=28;
 
     //da aggiungere UUID
-    int lvl;
-    int maxHp;
-    int currentHp;
-    int temporary_hp;
-    int profBonus;
-    int ca;
+    int lvl = 1;
+    int maxHp = 15;
+    int currentHp = 15;
+    int temporary_hp = 0;
+    int profBonus = 1;
+    int ca = 14;
 
-    int intStrength;
-    int intDexterity;
-    int intConstitution;
-    int intIntelligence;
-    int intWisdom;
-    int intCharisma;
+    int intStrength = 10;
+    int intDexterity = 10;
+    int intConstitution = 10;
+    int intIntelligence = 10;
+    int intWisdom = 10;
+    int intCharisma = 10;
 
     BaseAbility strength;
     BaseAbility dexterity;
@@ -339,9 +339,31 @@ public class MyCharacter {
             }
         }
     }
+
+    public AbstractAbility getAbility(int STAT)
+    {
+        try{
+            return getBaseAbility(STAT);
+        }
+        catch (IllegalArgumentException e)
+        {
+            try {
+                return getCompAbility(STAT);
+            }
+            catch (IllegalArgumentException ex)
+            {
+                throw new IllegalArgumentException("STAT field in MyCharacter.getAbility; out of range");
+            }
+        }
+    }
     public int getAbilityModifier(int STAT){
-        //da editare
-        return 0;
+        try {
+            return getAbility(STAT).getModifier();
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("STAT field in MyCharacter.getAbilityModifier; out of range");
+        }
     }
     public int getProfBonus(){
         return profBonus;

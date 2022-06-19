@@ -20,24 +20,36 @@ public class CompPointLabel extends JLabel implements PalettablePanel {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 
+        int r = 4;
+
 
         Color oldColor = g.getColor();
         g.setColor(getPalette().text());
 
-        int r = 5;
-
         if(comp)
         {
-            g.fillOval(getSize().width / 2 - r, getSize().height / 2 - r, r * 2, r * 2);
+            g2D.fillOval(6, getSize().height / 2 - r, r * 2, r * 2);
         }
         g2D.setStroke(new BasicStroke(2));
-        g2D.drawOval(getSize().width / 2 - r, getSize().height / 2 - r, r * 2, r * 2);
+        g2D.drawOval(6, getSize().height / 2 - r, r * 2, r * 2);
 
         g.setColor(oldColor);
+        this.setOpaque(false);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(15,15);
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(15,15);
     }
 
     @Override
     public void updateColors() {
+
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CircularLabel extends JLabel implements PalettablePanel {
 
     public CircularLabel(String value, int xOffset, int yOffset, int fontSize) {
         setValue(value);
-        this.fontSize=fontSize;
+        this.fontSize = fontSize;
         setPressed(false);
         setEntered(false);
         setxOffset(xOffset);
