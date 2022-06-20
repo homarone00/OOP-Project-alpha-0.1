@@ -39,12 +39,12 @@ public class CompPointLabel extends JLabel implements PalettablePanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(15,15);
+        return new Dimension(15,20);
     }
 
     @Override
     public Dimension getMinimumSize() {
-        return new Dimension(15,15);
+        return new Dimension(15,20);
     }
 
     @Override

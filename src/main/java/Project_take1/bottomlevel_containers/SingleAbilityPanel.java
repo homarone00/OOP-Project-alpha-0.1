@@ -3,11 +3,12 @@ package Project_take1.bottomlevel_containers;
 import Project_take1.MyCharacter;
 import Project_take1.resources.graphics.PalettablePanel;
 import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SingleAbilityPanel extends JPanel implements PalettablePanel {
+public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel {
     int baseStat;
     boolean competence;
     String name;
@@ -21,27 +22,31 @@ public class SingleAbilityPanel extends JPanel implements PalettablePanel {
         this.setName();
         this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
         this.lbName = new JLabel(name);
+        lbName.setFont(new Font("Comic Sans", Font.BOLD, 15));
         this.lbValue = new JLabel(String.valueOf(myCharacter.getCompAbility(baseStat).getModifier()));
+        lbValue.setFont(new Font("Comic Sans", Font.BOLD, 15));
         this.clComp = new CompPointLabel(competence);
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
 
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 1;
-        c.ipadx = 50;
-        this.add(clComp, c);
-        c.anchor = GridBagConstraints.WEST;
-        c.gridx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        this.add(lbName, c);
-        c.gridx = 2;
-        c.fill = GridBagConstraints.NONE;
-        c.ipadx = 0;
-        c.anchor = GridBagConstraints.EAST;
-        lbValue.setHorizontalAlignment(JLabel.RIGHT);
-        this.add(lbValue, c);
-        this.setMaximumSize(new Dimension(1500,1500));
-        this.setSize(1500,1500);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        layout.setHorizontalGroup(
+                layout.createSequentialGroup()
+                        .addComponent(clComp)
+                        .addComponent(lbValue)
+                        .addComponent(lbName)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING))
+        );
+
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(clComp)
+                                .addComponent(lbValue)
+                                .addComponent(lbName))
+        );
     }
 
     void setName(){
@@ -86,5 +91,12 @@ public class SingleAbilityPanel extends JPanel implements PalettablePanel {
     @Override
     public Palette getPalette() {
         return Palette.getInstance();
+    }
+
+    @Override
+    public void paintComponents(Graphics g) {
+        this.arcHeight=30;
+        this.arcWidth=30;
+        super.paintComponent(g);
     }
 }

@@ -20,7 +20,6 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
     public SaveThrowPanel(MyCharacter myCharacter) {
         super();
         this.myCharacter=myCharacter;
-        setPreferredSize(new Dimension(200,getPreferredSize().height));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         strSave = new SingleAbilityPanel(myCharacter, MyCharacter.STRENGTH_SAVE);
@@ -30,11 +29,12 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         wisSave = new SingleAbilityPanel(myCharacter, MyCharacter.WISDOM_SAVE);
         chaSave = new SingleAbilityPanel(myCharacter, MyCharacter.CHARISMA_SAVE);
         JLabel title = new JLabel("Saving Throws");
-        title.setFont(new Font("Comic Sans", Font.BOLD, 25));
+        title.setOpaque(false);
+        title.setFont(new Font("Comic Sans", Font.BOLD, 20));
         c.gridx = 1;
         c.gridy = 0;
         this.add(title, c);
-        mainPanel = new JPanel(new GridLayout(6,1,5,5));
+        mainPanel = new JPanel(new GridLayout(6,1,1,1));
         c.gridy = 1;
         c.gridx = 1;
         c.fill = GridBagConstraints.BOTH;
@@ -46,6 +46,7 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         mainPanel.add(wisSave);
         mainPanel.add(chaSave);
         this.add(mainPanel, c);
+        this.setOpaque(true);
     }
 
     @Override
