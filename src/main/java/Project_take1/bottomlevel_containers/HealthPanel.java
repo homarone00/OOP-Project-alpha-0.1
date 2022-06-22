@@ -18,13 +18,12 @@ public class HealthPanel extends RoundedJPanel implements PalettablePanel {
 
     public HealthPanel(boolean temporary){
         super();
-
         this.temporary=temporary;
         setMaxHealth(100);
         setCurrentHealth(10);
-        this.setLayout(new BorderLayout());
         setPreferredSize(new Dimension(70,100));
         currentHealthPanel.setOpaque(false);
+        JPanel contentPanel=new JPanel(new BorderLayout());
 
 
         JPanel healthPanel=new JPanel(new BorderLayout());
@@ -32,11 +31,18 @@ public class HealthPanel extends RoundedJPanel implements PalettablePanel {
         maxHealthPanel.setPreferredSize(new Dimension(50,50));
 
         currentHealthPanel.setBorder(new MyRoundedBorder(getPalette().border(),3,20));
+
+        JPanel buttonGrid=new JPanel(new GridLayout(2,1));
+
+        //adding phase
         healthPanel.add(currentHealthPanel,BorderLayout.CENTER);
         healthPanel.add(maxHealthPanel,BorderLayout.SOUTH);
 
-        add(healthPanel,BorderLayout.CENTER);
-        setSize(new Dimension(getPreferredSize()));
+        buttonGrid.add(plusLabel);
+        buttonGrid.add(minusLabel);
+        contentPanel.add(healthPanel,BorderLayout.CENTER);
+        contentPanel.add(buttonGrid,BorderLayout.EAST);
+        add(contentPanel);
     }
 
     public int getMaxHealth() {

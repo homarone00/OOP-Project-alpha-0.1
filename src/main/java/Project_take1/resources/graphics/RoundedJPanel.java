@@ -38,5 +38,10 @@ public abstract class RoundedJPanel extends JPanel implements PalettablePanel{
         this.customPainted=false;
     }
 
+    protected void setArcs(int arcWidth, int arcHeight){
+        this.arcWidth=arcWidth;
+        this.arcHeight=arcHeight;
+    }
+
 
 }

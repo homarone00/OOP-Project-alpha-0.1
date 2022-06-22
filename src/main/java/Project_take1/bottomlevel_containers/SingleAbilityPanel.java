@@ -86,17 +86,13 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
 
     @Override
     public void updateColors() {
-    }
-
-    @Override
-    public Palette getPalette() {
-        return Palette.getInstance();
+        this.lbName.setForeground(getPalette().text());
+        this.lbValue.setForeground(getPalette().text());
     }
 
     @Override
     public void paintComponents(Graphics g) {
-        this.arcHeight=30;
-        this.arcWidth=30;
+        setArcs(30,30);
         super.paintComponent(g);
     }
 }

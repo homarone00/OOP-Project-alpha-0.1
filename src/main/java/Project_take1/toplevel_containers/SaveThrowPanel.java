@@ -51,6 +51,8 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
 
     @Override
     public void updateColors() {
+        strSave.updateColors();
+        //eccetera :)
     }
 
     @Override

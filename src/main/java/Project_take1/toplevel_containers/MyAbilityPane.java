@@ -89,7 +89,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         JPanel placeHolder = new JPanel(new BorderLayout(10,10));
         JPanel newPlaceHolder=new JPanel();
         placeHolder.add(newPlaceHolder,BorderLayout.CENTER);
-        placeHolder.add(new SecondGrid(),BorderLayout.WEST);
+        placeHolder.add(new SecondColumn(),BorderLayout.WEST);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         SaveThrowPanel saveThrowPanel=new SaveThrowPanel(myCharacter);
