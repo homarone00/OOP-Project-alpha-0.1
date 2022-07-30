@@ -22,12 +22,12 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
         this.arcWidth = 20;
         this.baseStat = baseStat;
         this.setName();
-        this.setPreferredSize(new Dimension(140,40));
+        this.setPreferredSize(new Dimension(150,47));
         this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
         this.lbName = new JLabel(name);
-        lbName.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        lbName.setFont(new Font("Comic Sans", Font.BOLD, 13));
         this.lbValue = new JLabel(String.valueOf(myCharacter.getCompAbility(baseStat).getModifier()));
-        lbValue.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        lbValue.setFont(new Font("Comic Sans", Font.BOLD, 13));
         lbValue.setOpaque(false);
         this.clComp = new CompPointLabel(competence);
         GroupLayout layout = new GroupLayout(this);
@@ -41,7 +41,6 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
                         .addComponent(clComp)
                         .addComponent(lbValue)
                         .addComponent(lbName)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING))
         );
 
         layout.setVerticalGroup(
