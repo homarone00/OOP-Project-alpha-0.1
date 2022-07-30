@@ -18,13 +18,17 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
 
     public SingleAbilityPanel(MyCharacter myCharacter, int baseStat) {
         super();
+        this.arcHeight = 20;
+        this.arcWidth = 20;
         this.baseStat = baseStat;
         this.setName();
+        this.setPreferredSize(new Dimension(140,40));
         this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
         this.lbName = new JLabel(name);
-        lbName.setFont(new Font("Comic Sans", Font.BOLD, 15));
+        lbName.setFont(new Font("Comic Sans", Font.BOLD, 10));
         this.lbValue = new JLabel(String.valueOf(myCharacter.getCompAbility(baseStat).getModifier()));
-        lbValue.setFont(new Font("Comic Sans", Font.BOLD, 15));
+        lbValue.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        lbValue.setOpaque(false);
         this.clComp = new CompPointLabel(competence);
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -79,7 +83,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
             case MyCharacter.STEALTH -> name = "Stealth";
             case MyCharacter.SURVIVAL -> name = "Survival";
             //a sysout print in case of error
-            default -> System.out.println("Error, index out of range");
+            default -> throw new IllegalArgumentException("Index out of range");
         }
 
     }

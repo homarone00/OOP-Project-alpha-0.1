@@ -28,10 +28,10 @@ public class CompPointLabel extends JLabel implements PalettablePanel {
 
         if(comp)
         {
-            g2D.fillOval(6, getSize().height / 2 - r, r * 2, r * 2);
+            g2D.fillOval(5, getSize().height / 2 - r, r * 2, r * 2);
         }
         g2D.setStroke(new BasicStroke(2));
-        g2D.drawOval(6, getSize().height / 2 - r, r * 2, r * 2);
+        g2D.drawOval(5, getSize().height / 2 - r, r * 2, r * 2);
 
         g.setColor(oldColor);
         this.setOpaque(false);
@@ -39,12 +39,12 @@ public class CompPointLabel extends JLabel implements PalettablePanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(15,20);
+        return new Dimension(15,15);
     }
 
     @Override
     public Dimension getMinimumSize() {
-        return new Dimension(15,20);
+        return new Dimension(15,15);
     }
 
     @Override

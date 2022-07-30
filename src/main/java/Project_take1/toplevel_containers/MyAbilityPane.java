@@ -92,10 +92,30 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         placeHolder.add(new SecondColumn(),BorderLayout.WEST);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
-        SaveThrowPanel saveThrowPanel=new SaveThrowPanel(myCharacter);
-        saveThrowPanel.setBackground(getPalette().panel());
-        saveThrowPanel.setForeground(getPalette().text());
-        nameStatAbilityPanel.add(saveThrowPanel, BorderLayout.CENTER);
+        //Commento separatorio
+        JPanel saveSkillPanel = new JPanel();
+        GroupLayout layout = new GroupLayout(saveSkillPanel);
+        saveSkillPanel.setLayout(layout);
+        SkillPanel skillPanel = new SkillPanel(myCharacter);
+        SaveThrowPanel savePanel = new SaveThrowPanel(myCharacter);
+        saveSkillPanel.add(savePanel);
+        saveSkillPanel.add(skillPanel);
+        skillPanel.setOpaque(true);
+        savePanel.setOpaque(true);
+
+        layout.setHorizontalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(savePanel)
+                                .addComponent(skillPanel))
+        );
+
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addComponent(savePanel)
+                        .addComponent(skillPanel)
+        );
+        nameStatAbilityPanel.add(saveSkillPanel, BorderLayout.CENTER);
     }
 
     @Override
