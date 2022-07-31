@@ -55,7 +55,7 @@ public class SkillPanel extends JPanel implements PalettablePanel{
         survival = new SingleAbilityPanel(this.myCharacter, MyCharacter.SURVIVAL);
         JLabel title = new JLabel("Skills");
         title.setHorizontalAlignment(JLabel.CENTER);
-        title.setOpaque(true);
+        title.setOpaque(false);
         title.setFont(new Font("Comic Sans", Font.BOLD, 20));
         c.gridx = 1;
         c.gridy = 0;
@@ -85,7 +85,7 @@ public class SkillPanel extends JPanel implements PalettablePanel{
         mainPanel.add(stealth);
         mainPanel.add(survival);
         this.add(mainPanel, c);
-        this.setOpaque(true);
+        this.setBackground(Color.GREEN);
     }
 
     @Override

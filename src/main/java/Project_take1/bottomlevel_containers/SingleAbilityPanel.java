@@ -22,7 +22,8 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
         this.arcWidth = 20;
         this.baseStat = baseStat;
         this.setName();
-        this.setPreferredSize(new Dimension(150,47));
+        this.setPreferredSize(new Dimension(165,47));
+        this.setMinimumSize(new Dimension(160, 40));
         this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
         this.lbName = new JLabel(name);
         lbName.setFont(new Font("Comic Sans", Font.BOLD, 13));
@@ -35,6 +36,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
 
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
+        layout.linkSize(clComp, lbValue);
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
@@ -50,6 +52,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
                                 .addComponent(lbValue)
                                 .addComponent(lbName))
         );
+        this.setOpaque(false);
     }
 
     void setName(){

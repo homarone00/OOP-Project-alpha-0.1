@@ -29,7 +29,7 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         wisSave = new SingleAbilityPanel(this.myCharacter, MyCharacter.WISDOM_SAVE);
         chaSave = new SingleAbilityPanel(this.myCharacter, MyCharacter.CHARISMA_SAVE);
         JLabel title = new JLabel("Saving Throws");
-        title.setOpaque(true);
+        title.setOpaque(false);
         title.setVerticalAlignment(JLabel.NORTH);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("Comic Sans", Font.BOLD, 20));
@@ -51,6 +51,59 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         mainPanel.add(chaSave);
         this.add(mainPanel, c);
         this.setOpaque(true);
+        this.setBackground(Color.yellow);
+
+        /*
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.linkSize(strSave, dexSave, conSave, intSave, wisSave, chaSave);
+        layout.setAutoCreateGaps(true);
+
+        GroupLayout.SequentialGroup h1Group = layout.createSequentialGroup();
+        h1Group.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(strSave)
+                        .addComponent(conSave)
+                        .addComponent(wisSave)
+        );
+        h1Group.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(dexSave)
+                        .addComponent(intSave)
+                        .addComponent(chaSave)
+        );
+        GroupLayout.SequentialGroup h2Group = layout.createSequentialGroup();
+
+        h2Group.addGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(title)
+                        .addGroup(h1Group)
+        );
+        layout.setHorizontalGroup(h2Group);
+
+        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+
+        vGroup.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(title)
+        );
+        vGroup.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(strSave)
+                        .addComponent(dexSave)
+        );
+        vGroup.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(conSave)
+                        .addComponent(intSave)
+        );
+        vGroup.addGroup(
+                layout.createParallelGroup()
+                        .addComponent(wisSave)
+                        .addComponent(chaSave)
+        );
+        layout.setVerticalGroup(vGroup);
+         */
     }
 
     @Override
