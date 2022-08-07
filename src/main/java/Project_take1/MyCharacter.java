@@ -45,7 +45,7 @@ public class MyCharacter {
     int currentHp = 15;
     int temporary_hp = 0;
     int profBonus = 1;
-    int ca = 14;
+    int ac = 14;
 
     int intStrength = 10;
     int intDexterity = 10;
@@ -369,5 +369,11 @@ public class MyCharacter {
         return profBonus;
     }
 
+    public int getLvl() {
+        return lvl;
+    }
 
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
 }
