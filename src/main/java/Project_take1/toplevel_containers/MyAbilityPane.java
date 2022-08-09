@@ -26,6 +26,9 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
     StatPanel chaPanel;
     JTextField nameText;
     JPanel namePanel;
+    SecondColumn secondColumn;
+    SkillPanel skillPanel;
+    SaveThrowPanel savePanel;
 
     public MyAbilityPane(MyCharacter myCharacter) {
         super();
@@ -45,6 +48,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
             }
         };
         this.setOpaque(true);
+        this.setBackground(getPalette().background());
         //Left stat grid initialization
         JPanel statGrid = new JPanel(new GridLayout(6, 1, 5, 5));
         strPanel = new StatPanel(1);
@@ -87,19 +91,20 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         add(nameStatAbilityPanel, BorderLayout.WEST);
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
         JPanel placeHolder = new JPanel(new BorderLayout(10,10));
-        JPanel newPlaceHolder=new JPanel();
+        JLabel newPlaceHolder=new JLabel("hello");
         placeHolder.add(newPlaceHolder,BorderLayout.CENTER);
-        placeHolder.add(new SecondColumn(),BorderLayout.WEST);
+        secondColumn= new SecondColumn(myCharacter);
+        placeHolder.add(secondColumn,BorderLayout.WEST);
         add(placeHolder, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         //Commento separatorio
-        SkillPanel skillPanel = new SkillPanel(myCharacter);
-        SaveThrowPanel savePanel = new SaveThrowPanel(myCharacter);
+        skillPanel = new SkillPanel(myCharacter);
+        savePanel = new SaveThrowPanel(myCharacter);
         JPanel saveSkillPanel = new JPanel();
         saveSkillPanel.setBackground(getPalette().background());
         GroupLayout layout = new GroupLayout(saveSkillPanel);
         saveSkillPanel.setLayout(layout);
-        saveSkillPanel.setOpaque(true);
+        saveSkillPanel.setOpaque(false);
         saveSkillPanel.add(savePanel);
         saveSkillPanel.add(skillPanel);
 
@@ -141,12 +146,12 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         intPanel.updateColors();
         wisPanel.updateColors();
         chaPanel.updateColors();
+        secondColumn.updateColors();
         namePanel.repaint();
         nameText.setForeground(getPalette().text());
+        skillPanel.updateColors();
+        savePanel.updateColors();
         this.setBackground(getPalette().background());
 
-    }
-    public Palette getPalette() {
-        return Palette.getInstance();
     }
 }

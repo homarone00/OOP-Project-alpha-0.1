@@ -17,10 +17,11 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
     MyTabbedPane contentPane;
     MyJMenuBar jMenuBar;
     Palette palette;
-    public MyCharacterSheet(MyCharacter myCharacter){
+
+    public MyCharacterSheet(MyCharacter myCharacter) {
         palette = Palette.getInstance();
-        contentPane=new MyTabbedPane(myCharacter);
-        jMenuBar=new MyJMenuBar();
+        contentPane = new MyTabbedPane(myCharacter);
+        jMenuBar = new MyJMenuBar();
         jMenuBar.menu_2_1.addActionListener(this);
         jMenuBar.menu_2_2.addActionListener(this);
         jMenuBar.menu_2_3.addActionListener(this);
@@ -29,7 +30,7 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
         setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
         //these methods must always be the last
-        setMinimumSize(new Dimension(1100,800));
+        setMinimumSize(new Dimension(1100, 800));
         setResizable(true);
         setVisible(true);
 
@@ -38,24 +39,39 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        MyCharacter myCharacter=new MyCharacter();
+        try {
+            // Roba che in un qualche modo funziona (non presa da stack overflow)
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException e) {
+            // handle exception (maybe)
+        } catch (ClassNotFoundException e) {
+            // handle exception (come on)
+        } catch (InstantiationException e) {
+            // handle exception (really?)
+        } catch (IllegalAccessException e) {
+            // handle exception ( :C )
+        }
+        MyCharacter myCharacter = new MyCharacter();
         new MyCharacterSheet(myCharacter);
     }
-    public void updateColors(){
+
+    public void updateColors() {
         this.repaint();
         contentPane.updateColors();
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==this.jMenuBar.getMenu_2_1()){
+        if (e.getSource() == this.jMenuBar.getMenu_2_1()) {
             palette.setDefaultMode();
             updateColors();
         }
-        if(e.getSource()==this.jMenuBar.getMenu_2_2()){
+        if (e.getSource() == this.jMenuBar.getMenu_2_2()) {
             palette.setDarkMode();
             updateColors();
         }
-        if(e.getSource()==this.jMenuBar.getMenu_2_3()){
+        if (e.getSource() == this.jMenuBar.getMenu_2_3()) {
             palette.setPinkMode();
             updateColors();
         }

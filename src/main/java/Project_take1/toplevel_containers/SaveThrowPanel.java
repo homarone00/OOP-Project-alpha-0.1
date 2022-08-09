@@ -17,6 +17,7 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
     SingleAbilityPanel wisSave;
     SingleAbilityPanel chaSave;
     JPanel mainPanel;
+    JLabel title;
     public SaveThrowPanel(MyCharacter myCharacter) {
         super();
         this.myCharacter=myCharacter;
@@ -28,7 +29,7 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         intSave = new SingleAbilityPanel(this.myCharacter, MyCharacter.INTELLIGENCE_SAVE);
         wisSave = new SingleAbilityPanel(this.myCharacter, MyCharacter.WISDOM_SAVE);
         chaSave = new SingleAbilityPanel(this.myCharacter, MyCharacter.CHARISMA_SAVE);
-        JLabel title = new JLabel("Saving Throws");
+        title = new JLabel("Saving Throws");
         title.setOpaque(false);
         title.setVerticalAlignment(JLabel.NORTH);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -109,7 +110,13 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
     @Override
     public void updateColors() {
         strSave.updateColors();
-        //eccetera :)
+        dexSave.updateColors();
+        conSave.updateColors();
+        intSave.updateColors();
+        wisSave.updateColors();
+        chaSave.updateColors();
+        title.setForeground(getPalette().text());
+        setBackground(getPalette().background());
     }
 
     @Override

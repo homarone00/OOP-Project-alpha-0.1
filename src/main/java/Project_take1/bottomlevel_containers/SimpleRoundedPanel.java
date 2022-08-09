@@ -1,31 +1,36 @@
 package Project_take1.bottomlevel_containers;
 
+import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.Palette;
 import Project_take1.resources.graphics.RoundedJPanel;
 import org.intellij.lang.annotations.JdkConstants;
 
 import javax.swing.*;
 import java.awt.*;
 //this RoundedJPanel only has one big label, for the nomber of the stat, and one small label, to define the name of it
-public class SimpleRoundedPanel extends RoundedJPanel {
+public class SimpleRoundedPanel extends RoundedJPanel implements PalettablePanel {
     JLabel numberLabel;
     JLabel nameLabel;
     public SimpleRoundedPanel(String name, String number,int arcWidth,int arcHeight){
+        super();
         this.arcWidth=arcWidth;
         this.arcHeight=arcHeight;
 
-        JLabel numberLabel=new JLabel();
-        JLabel nameLabel =new JLabel();
+        numberLabel=new JLabel();
+        nameLabel =new JLabel();
         numberLabel.setText(number);
         nameLabel.setText(name);
 
         JPanel contentPanel=new JPanel(new GridBagLayout());
-        contentPanel.setPreferredSize(new Dimension(50,60));
+        this.setPreferredSize(new Dimension(150,60));
+        contentPanel.setPreferredSize(new Dimension(this.getPreferredSize().width,this.getPreferredSize().height));
+        this.setOpaque(false);
         contentPanel.setOpaque(false);
         GridBagConstraints c=new GridBagConstraints();
 
         numberLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         numberLabel.setHorizontalAlignment(JLabel.CENTER);
-        c.weighty=10;
+        c.weighty=8;
         c.weightx=5;
         c.gridy=0;
         c.fill=GridBagConstraints.BOTH;
@@ -34,7 +39,7 @@ public class SimpleRoundedPanel extends RoundedJPanel {
 
         nameLabel.setFont(new Font("Comic Sans",Font.BOLD,10));
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
-        c.weighty=1;
+        c.weighty=2;
         c.gridy=1;
         c.weightx=5;
         contentPanel.add(nameLabel,c);
@@ -44,20 +49,22 @@ public class SimpleRoundedPanel extends RoundedJPanel {
 
     //Constructor for panel with only one label
     public SimpleRoundedPanel(String name,int arcWidth,int arcHeight){
+        super();
         this.arcWidth=arcWidth;
         this.arcHeight=arcHeight;
 
-        JLabel nameLabel =new JLabel();
+        nameLabel =new JLabel();
+        numberLabel=new JLabel();
         nameLabel.setText(name);
 
         JPanel contentPanel=new JPanel();
-        contentPanel.setPreferredSize(new Dimension(50,60));
+        contentPanel.setPreferredSize(new Dimension(150,60));
         contentPanel.setOpaque(false);
 
         nameLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        nameLabel.setPreferredSize(new Dimension(50,30));
+        nameLabel.setPreferredSize(new Dimension(150,45));
         contentPanel.add(nameLabel);
 
         add(contentPanel);
@@ -99,12 +106,17 @@ public class SimpleRoundedPanel extends RoundedJPanel {
 
     }
 
-    @Override
-    public void updateColors() {
-    }
+
 
     public void setNameAlignement(int horizontalAlignment,int verticalAlignment){
         nameLabel.setHorizontalAlignment(horizontalAlignment);
         nameLabel.setVerticalAlignment(verticalAlignment);
     }
+
+    @Override
+    public void updateColors() {
+        numberLabel.setForeground(getPalette().text());
+        nameLabel.setForeground(getPalette().text());
+    }
+
 }

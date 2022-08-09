@@ -14,6 +14,9 @@ public abstract class RoundedJPanel extends JPanel implements PalettablePanel{
     protected int arcHeight;
     protected boolean customPainted=false;
     protected Color customColor;
+    public RoundedJPanel(){
+        super(new FlowLayout());
+    }
     public void paintComponent(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

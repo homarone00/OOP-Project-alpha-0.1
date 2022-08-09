@@ -4,8 +4,6 @@ import Project_take1.MyCharacter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * A frame for changing the character competence
@@ -13,7 +11,7 @@ import java.awt.event.ActionListener;
 public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
 
     JPanel f;
-    MyCharacter c;
+    MyCharacter myCharacter;
     JCheckBox cbStr;
     JCheckBox cbDex;
     JCheckBox cbCon;
@@ -37,7 +35,7 @@ public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
         cbCha = new JCheckBox("Charisma");
         btUpdate = new JButton("Update");
 
-        this.c = c;
+        this.myCharacter = c;
 
         cbStr.setBounds(10,20,100,20);
         cbDex.setBounds(10,50,100,20);
@@ -49,12 +47,12 @@ public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
 
          //The selected checkboxes indicate the competence in that stat
         /*
-        cbStr.setSelected(c.getStrProf());
-        cbDex.setSelected(c.getDexProf());
-        cbCon.setSelected(c.getConProf());
-        cbIng.setSelected(c.getIngComp());
-        cbWis.setSelected(c.getWisProf());
-        cbCha.setSelected(c.getChaComp());
+        cbStr.setSelected(myCharacter.getStrProf());
+        cbDex.setSelected(myCharacter.getDexProf());
+        cbCon.setSelected(myCharacter.getConProf());
+        cbIng.setSelected(myCharacter.getIngComp());
+        cbWis.setSelected(myCharacter.getWisProf());
+        cbCha.setSelected(myCharacter.getChaComp());
         */
         cbStr.setFocusable(false);
         cbDex.setFocusable(false);
@@ -86,12 +84,12 @@ public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btUpdate)
         {
-            c.setStrProf(cbStr.isSelected());
-            c.setDexProf(cbDex.isSelected());
-            c.setConProf(cbCon.isSelected());
-            c.setIngComp(cbIng.isSelected());
-            c.setWisProf(cbWis.isSelected());
-            c.setChaComp(cbCha.isSelected());
+            myCharacter.setStrProf(cbStr.isSelected());
+            myCharacter.setDexProf(cbDex.isSelected());
+            myCharacter.setConProf(cbCon.isSelected());
+            myCharacter.setIngComp(cbIng.isSelected());
+            myCharacter.setWisProf(cbWis.isSelected());
+            myCharacter.setChaComp(cbCha.isSelected());
 
             this.dispose();
         }

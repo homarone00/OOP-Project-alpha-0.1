@@ -29,6 +29,7 @@ public class SkillPanel extends JPanel implements PalettablePanel{
     SingleAbilityPanel sleightHand;
     SingleAbilityPanel stealth;
     SingleAbilityPanel survival;
+    JLabel title;
 
     public SkillPanel(MyCharacter myCharacter){
         super();
@@ -53,7 +54,8 @@ public class SkillPanel extends JPanel implements PalettablePanel{
         sleightHand = new SingleAbilityPanel(this.myCharacter, MyCharacter.SLEIGHT_OF_HAND);
         stealth = new SingleAbilityPanel(this.myCharacter, MyCharacter.STEALTH);
         survival = new SingleAbilityPanel(this.myCharacter, MyCharacter.SURVIVAL);
-        JLabel title = new JLabel("Skills");
+        title = new JLabel("Skills");
+        title.setForeground(getPalette().text());
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setOpaque(false);
         title.setFont(new Font("Comic Sans", Font.BOLD, 20));
@@ -90,7 +92,25 @@ public class SkillPanel extends JPanel implements PalettablePanel{
 
     @Override
     public void updateColors(){
-
+        acrobatics.updateColors();
+        animalHand.updateColors();
+        arcana.updateColors();
+        athletics.updateColors();
+        deception.updateColors();
+        history.updateColors();
+        insight.updateColors();
+        intimidation.updateColors();
+        investigation.updateColors();
+        medicine.updateColors();
+        nature.updateColors();
+        perception.updateColors();
+        performance.updateColors();
+        persuasion.updateColors();
+        religion.updateColors();
+        sleightHand.updateColors();
+        stealth.updateColors();
+        survival.updateColors();
+        title.setForeground(getPalette().text());
     }
 
     @Override

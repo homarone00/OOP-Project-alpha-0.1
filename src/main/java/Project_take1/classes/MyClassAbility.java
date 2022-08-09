@@ -21,9 +21,9 @@ public class MyClassAbility {
    istruzioni all'uso.
    nel costruttore dell'abilità, dichiarare se quell'abilità dipende da uno dei seguenti attributi
    della classe.
-  nel caso dipendesse da due, il costruttore li sommerà fra di loro
-  è obbligatorio specificare un coefficiente moltiplicativo.
-  STATIC permette di specificare qualsiasi numero da aggiungere, da inserire nell'attributo MOLT corrispondente
+   nel caso dipendesse da due, il costruttore li sommerà fra di loro
+   è obbligatorio specificare un coefficiente moltiplicativo.
+   STATIC permette di specificare qualsiasi numero da aggiungere, da inserire nell'attributo MOLT corrispondente
     */
     public static final int STRENGTH = 1;
     public static final int DEXTERITY = 2;
@@ -66,8 +66,16 @@ public class MyClassAbility {
         catch (IllegalArgumentException e){
             throw new IllegalArgumentException("ATTR_1 in the constructor of the MyClassAbility class isn't valid");
         }
+        int stat2;
+        try{
+            stat2=getStat(ATTR_2);
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("ATTR_2 in the constructor of the MyClassAbility class isn't valid");
+        }
         int num1=stat1*MOLT_1;
-        setNumberOfUses(num1);
+        int num2=stat2*MOLT_2;
+        setNumberOfUses(num1+num2);
     }
     /*
     this was part of the three constructors. It was moved not to duplicate code

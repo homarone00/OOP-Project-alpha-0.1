@@ -5,7 +5,7 @@ import Project_take1.abilities.*;
 import java.util.ArrayList;
 
 public class MyCharacter {
-    //static STATS
+    //static STATS (STATESTEKS!)
     public static final int STRENGTH = 1;
     public static final int DEXTERITY = 2;
     public static final int CONSTITUTION = 3;
@@ -40,12 +40,14 @@ public class MyCharacter {
     public static final int SURVIVAL=28;
 
     //da aggiungere UUID
-    int lvl = 1;
+    int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
     int temporary_hp = 0;
+    int initiative=4;
     int profBonus = 1;
     int ac = 14;
+    int speed=9;
 
     int intStrength = 10;
     int intDexterity = 10;
@@ -87,10 +89,9 @@ public class MyCharacter {
     ListAbility stealth;
     ListAbility survival;
 
-    ArrayList<? extends Ability> AbilityList;
-
     public MyCharacter() {
          abilityInit();
+         charInit();
     }
 
 
@@ -194,7 +195,9 @@ public class MyCharacter {
          this.survival=new ListAbility(this,"Survival",true,true,SURVIVAL);
 
     }
+    public void charInit(){
 
+    }
     public BaseAbility getBaseAbility(int STAT) {
         if (STAT == STRENGTH) {
             return strength;
@@ -375,5 +378,27 @@ public class MyCharacter {
 
     public void setLvl(int lvl) {
         this.lvl = lvl;
+    }
+
+    public int getAc() {
+        return ac;
+    }
+
+    public void setAc(int ac) {
+        this.ac = ac;
+    }
+    public int getInitiative(){
+        return initiative;
+    }
+    public void setInitiative(int initiative){
+        this.initiative=initiative;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

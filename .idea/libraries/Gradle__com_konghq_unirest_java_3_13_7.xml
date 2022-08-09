@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.konghq:unirest-java:3.13.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.konghq/unirest-java/3.13.7/ccba7c62e07f933fa27a4f46c581160784194f22/unirest-java-3.13.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.konghq/unirest-java/3.13.7/4e6617fef567fc4b925b46d16b682bcdb754008e/unirest-java-3.13.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
