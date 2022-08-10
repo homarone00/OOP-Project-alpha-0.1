@@ -1,8 +1,7 @@
 package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.PalettablePanel;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.bottomlevel_containers.StatPanel;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ import java.awt.event.KeyListener;
  *
  * @author omarc
  */
-public class MyAbilityPane extends JPanel implements KeyListener, PalettablePanel {
+public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel {
     MyCharacter myCharacter;
     StatPanel strPanel;
     StatPanel dexPanel;
@@ -30,7 +29,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
     SkillPanel skillPanel;
     SaveThrowPanel savePanel;
 
-    public MyAbilityPane(MyCharacter myCharacter) {
+    public MyAbilityPane(MyCharacter myCharacter,MyTabbedPane myTabbedPane) {
         super();
         this.myCharacter=myCharacter;
         this.setLayout(new BorderLayout(10,10));
@@ -51,12 +50,12 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         this.setBackground(getPalette().background());
         //Left stat grid initialization
         JPanel statGrid = new JPanel(new GridLayout(6, 1, 5, 5));
-        strPanel = new StatPanel(1);
-        dexPanel = new StatPanel(2);
-        conPanel = new StatPanel(3);
-        intPanel = new StatPanel(4);
-        wisPanel = new StatPanel(5);
-        chaPanel = new StatPanel(6);
+        strPanel = new StatPanel(MyCharacter.STRENGTH, myCharacter);
+        dexPanel = new StatPanel(MyCharacter.DEXTERITY, myCharacter);
+        conPanel = new StatPanel(MyCharacter.CONSTITUTION, myCharacter);
+        intPanel = new StatPanel(MyCharacter.INTELLIGENCE, myCharacter);
+        wisPanel = new StatPanel(MyCharacter.WISDOM, myCharacter);
+        chaPanel = new StatPanel(MyCharacter.CHARISMA, myCharacter);
         statGrid.add(strPanel);
         statGrid.add(dexPanel);
         statGrid.add(conPanel);
@@ -153,5 +152,18 @@ public class MyAbilityPane extends JPanel implements KeyListener, PalettablePane
         savePanel.updateColors();
         this.setBackground(getPalette().background());
 
+    }
+
+    @Override
+    public void updatePanel() {
+        strPanel.updatePanel();
+        dexPanel.updatePanel();
+        conPanel.updatePanel();
+        intPanel.updatePanel();
+        wisPanel.updatePanel();
+        chaPanel.updatePanel();
+        secondColumn.updatePanel();
+        skillPanel.updatePanel();
+        savePanel.updatePanel();
     }
 }

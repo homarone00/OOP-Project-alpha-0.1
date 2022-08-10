@@ -1,12 +1,11 @@
 package Project_take1.bottomlevel_containers;
 
-import Project_take1.resources.graphics.PalettablePanel;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.UpdatablePanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JTabPanel extends JPanel implements PalettablePanel {
+public class JTabPanel extends JPanel implements UpdatablePanel {
     boolean pressed;
     boolean entered;
     boolean active;
@@ -79,6 +78,11 @@ public class JTabPanel extends JPanel implements PalettablePanel {
 
     @Override
     public void updateColors() {
+    }
+
+    @Override
+    public void updatePanel() {
+
     }
 
 }

@@ -3,15 +3,13 @@ package Project_take1.abilities;
 import Project_take1.MyCharacter;
 
 public class SaveAbility extends AbstractCompAbility{
-    boolean competence;
-    int bonus=0;
-    public SaveAbility(MyCharacter myCharacter,String abilityName, boolean competence, int STAT){
+    int bonus;
+    public SaveAbility(MyCharacter myCharacter, String abilityName, boolean proficiency, int STAT){
         this.abilityName=abilityName;
         this.STAT=STAT;
-        this.competence=competence;
+        this.proficiency = proficiency;
         this.myCharacter=myCharacter;
-        setBaseModifier();
-
+        setModifier();
     }
 
     public int getBonus() {
@@ -25,12 +23,15 @@ public class SaveAbility extends AbstractCompAbility{
     @Override
 
     public int getModifier() {
-        int profBonus=myCharacter.getProfBonus();
-        if(competence){
-            return getBaseModifier()+profBonus+bonus;
+        return modifier;
+    }
+    @Override
+    public void setModifier(){
+        int profBonus=0;
+        int stat=MyCharacter.getCorrespondingStat(STAT);
+        if(hasProficiency()){
+            profBonus =myCharacter.getProfBonus();
         }
-        else{
-            return getBaseModifier()+bonus;
-        }
+        modifier=profBonus+myCharacter.getBaseAbility(stat).getModifier();
     }
 }

@@ -10,18 +10,18 @@ public class BaseAbility extends AbstractAbility{
                     " < STAT < MyCharacter.CHARISMA");
         }
         this.value=value;
-        this.baseModifier=value/2-5;
+        setModifier();
         this.STAT=STAT;
     }
 
     @Override
     public int getModifier() {
-       return getBaseModifier();
+       return modifier;
     }
 
-
-    public void setBaseModifier(){
-        this.baseModifier=value/2-5;
+    @Override
+    public void setModifier(){
+        this.modifier=value/2-5;
     }
     public int getValue() {
         return value;
@@ -29,5 +29,6 @@ public class BaseAbility extends AbstractAbility{
 
     public void setValue(int value) {
         this.value = value;
+        setModifier();
     }
 }

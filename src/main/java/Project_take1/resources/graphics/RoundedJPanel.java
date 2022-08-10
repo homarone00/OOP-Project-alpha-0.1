@@ -5,11 +5,11 @@ import java.awt.*;
 
 /**
  * this class allows you to automatically implement the getPalette() default method forces the user to write the
- * updateColors() method (via the PalettablePanel interface).
+ * updateColors() method (via the UpdatablePanel interface).
  * the default color is the panel color found in the Palette class;
  * You can change that by calling the setAsCustomPainted(Color c) method in the subclass constructor :) .
  */
-public abstract class RoundedJPanel extends JPanel implements PalettablePanel{
+public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
     protected int arcWidth;
     protected int arcHeight;
     protected boolean customPainted=false;

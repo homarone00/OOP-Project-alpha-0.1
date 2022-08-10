@@ -1,7 +1,8 @@
 package Project_take1.resources.graphics;
 
-public interface PalettablePanel {
+public interface UpdatablePanel {
     void updateColors();
+    void updatePanel();
     default Palette getPalette(){
         return Palette.getInstance();
     }

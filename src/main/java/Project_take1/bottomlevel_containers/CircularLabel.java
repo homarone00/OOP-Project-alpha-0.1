@@ -1,13 +1,13 @@
 package Project_take1.bottomlevel_containers;
 
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class CircularLabel extends JLabel implements PalettablePanel {
+public class CircularLabel extends JLabel implements UpdatablePanel {
     boolean pressed;
     boolean entered;
     String value;
@@ -91,6 +91,11 @@ public class CircularLabel extends JLabel implements PalettablePanel {
 
     @Override
     public void updateColors() {
+    }
+
+    @Override
+    public void updatePanel() {
+
     }
 
     public Palette getPalette() {

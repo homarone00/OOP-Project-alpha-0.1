@@ -2,13 +2,13 @@ package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.SingleAbilityPanel;
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SaveThrowPanel extends JPanel implements PalettablePanel {
+public class SaveThrowPanel extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
     SingleAbilityPanel strSave;
     SingleAbilityPanel dexSave;
@@ -117,6 +117,16 @@ public class SaveThrowPanel extends JPanel implements PalettablePanel {
         chaSave.updateColors();
         title.setForeground(getPalette().text());
         setBackground(getPalette().background());
+    }
+
+    @Override
+    public void updatePanel() {
+        strSave.updatePanel();
+        dexSave.updatePanel();
+        conSave.updatePanel();
+        intSave.updatePanel();
+        wisSave.updatePanel();
+        chaSave.updatePanel();
     }
 
     @Override

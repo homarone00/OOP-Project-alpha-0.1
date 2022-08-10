@@ -1,12 +1,12 @@
 package Project_take1.bottomlevel_containers;
 
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class CompPointLabel extends JLabel implements PalettablePanel {
+public class CompPointLabel extends JLabel implements UpdatablePanel {
     boolean comp;
 
     public CompPointLabel(boolean comp)
@@ -53,7 +53,12 @@ public class CompPointLabel extends JLabel implements PalettablePanel {
     }
 
     @Override
+    public void updatePanel() {
+
+    }
+
+    @Override
     public Palette getPalette() {
-        return PalettablePanel.super.getPalette();
+        return UpdatablePanel.super.getPalette();
     }
 }

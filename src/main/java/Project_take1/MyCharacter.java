@@ -1,6 +1,7 @@
 package Project_take1;
 
 import Project_take1.abilities.*;
+import Project_take1.toplevel_containers.MyCharacterSheet;
 
 import java.util.ArrayList;
 
@@ -88,6 +89,7 @@ public class MyCharacter {
     ListAbility sleight_of_hand;
     ListAbility stealth;
     ListAbility survival;
+    MyCharacterSheet myCharacterSheet;
 
     public MyCharacter() {
          abilityInit();
@@ -157,29 +159,29 @@ public class MyCharacter {
             return CHARISMA;
         }
         else{throw new IllegalArgumentException("getCorrespondingStat() can only accept parameters picked from the " +
-                "static attributes of MyCharacter");}
+                "static attributes of MyCharacter\n It found STAT = " + STAT);}
     }
     public void abilityInit(){
         //remember to pull from database!!!
-         this.strength=new BaseAbility(this,10,STRENGTH);
+         this.strength=new BaseAbility(this,15,STRENGTH);
          this.dexterity=new BaseAbility(this,10,DEXTERITY);
          this.constitution=new BaseAbility(this,10,CONSTITUTION);
          this.intelligence=new BaseAbility(this,10,INTELLIGENCE);
          this.wisdom=new BaseAbility(this,10,WISDOM);
          this.charisma=new BaseAbility(this,10,CHARISMA);
 
-         this.strength_save =new SaveAbility(this,"Strength",true,STRENGTH_SAVE);
+         this.strength_save =new SaveAbility(this,"Strength",false,STRENGTH_SAVE);
          this.dexterity_save=new SaveAbility(this,"Dexterity",true,DEXTERITY_SAVE);
          this.constitution_save=new SaveAbility(this,"Constitution",true,CONSTITUTION_SAVE);
          this.intelligence_save=new SaveAbility(this,"Intelligence",true,INTELLIGENCE_SAVE);
          this.wisdom_save=new SaveAbility(this,"Wisdom",true,WISDOM_SAVE);
          this.charisma_save=new SaveAbility(this,"Charisma",true,CHARISMA_SAVE);
 
-         this.acrobatics=new ListAbility(this,"Acrobatics",true,true,ACROBATICS);
+         this.acrobatics=new ListAbility(this,"Acrobatics",true,false,ACROBATICS);
          this.animal_handling=new ListAbility(this,"Animal Handling",true,true,ANIMAL_HANDLING);
          this.arcana=new ListAbility(this,"Arcana",true,true,ARCANA);
-         this.athletics=new ListAbility(this,"Athletics",true,true,ATHLETICS);
-         this.deception=new ListAbility(this,"Deception",true,true,DECEPTION);
+         this.athletics=new ListAbility(this,"Athletics",true,false,ATHLETICS);
+         this.deception=new ListAbility(this,"Deception",false,false,DECEPTION);
          this.history=new ListAbility(this,"History",true,true,HISTORY);
          this.insight=new ListAbility(this,"Insight",true,true,INSIGHT);
          this.intimidation=new ListAbility(this,"Intimidation",true,true,INTIMIDATION);
@@ -196,6 +198,33 @@ public class MyCharacter {
 
     }
     public void charInit(){
+
+    }
+    public void abilityUpdate(){
+        strength_save.setModifier();
+        dexterity_save.setModifier();
+        constitution_save.setModifier();
+        intelligence_save.setModifier();
+        wisdom_save.setModifier();
+        charisma_save.setModifier();
+        acrobatics.setModifier();
+        animal_handling.setModifier();
+        arcana.setModifier();
+        athletics.setModifier();
+        deception.setModifier();
+        history.setModifier();
+        insight.setModifier();
+        intimidation.setModifier();
+        investigation.setModifier();
+        medicine.setModifier();
+        nature.setModifier();
+        perception.setModifier();
+        performance.setModifier();
+        persuasion.setModifier();
+        religion.setModifier();
+        sleight_of_hand.setModifier();
+        stealth.setModifier();
+        survival.setModifier();
 
     }
     public BaseAbility getBaseAbility(int STAT) {
@@ -219,7 +248,7 @@ public class MyCharacter {
         }
         else{
             throw new IllegalArgumentException("STAT field in MyCharacter.BaseAbility(int STAT); can only be" +
-                    " MyCharacter.STRENGTH < STAT < MyCharacter.CHARISMA");
+                    " MyCharacter.STRENGTH <= STAT <= MyCharacter.CHARISMA\n"+"The function found "+ STAT);
         }
     }
     public SaveAbility getSaveAbility(int STAT){
@@ -401,4 +430,12 @@ public class MyCharacter {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    public void assignSheet(MyCharacterSheet myCharacterSheet){
+        this.myCharacterSheet=myCharacterSheet;
+    }
+    public void requestUpdate(){
+        abilityUpdate();
+        myCharacterSheet.updatePanel();
+    }
+
 }

@@ -17,8 +17,10 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
     MyTabbedPane contentPane;
     MyJMenuBar jMenuBar;
     Palette palette;
+    MyCharacter myCharacter;
 
     public MyCharacterSheet(MyCharacter myCharacter) {
+        myCharacter.assignSheet(this);
         palette = Palette.getInstance();
         contentPane = new MyTabbedPane(myCharacter);
         jMenuBar = new MyJMenuBar();
@@ -38,23 +40,6 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        try {
-            // Roba che in un qualche modo funziona (non presa da stack overflow)
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-            // handle exception (maybe)
-        } catch (ClassNotFoundException e) {
-            // handle exception (come on)
-        } catch (InstantiationException e) {
-            // handle exception (really?)
-        } catch (IllegalAccessException e) {
-            // handle exception ( :C )
-        }
-        MyCharacter myCharacter = new MyCharacter();
-        new MyCharacterSheet(myCharacter);
-    }
 
     public void updateColors() {
         this.repaint();
@@ -75,5 +60,8 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
             palette.setPinkMode();
             updateColors();
         }
+    }
+    public void updatePanel(){
+        contentPane.updatePanel();
     }
 }

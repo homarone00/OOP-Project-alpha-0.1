@@ -2,14 +2,13 @@ package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.SimpleRoundedPanel;
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
-import Project_take1.resources.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SecondColumn extends JPanel implements PalettablePanel {
+public class SecondColumn extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
     SimpleRoundedPanel className;
     SimpleRoundedPanel level;
@@ -58,7 +57,12 @@ public class SecondColumn extends JPanel implements PalettablePanel {
     }
 
     @Override
+    public void updatePanel() {
+
+    }
+
+    @Override
     public Palette getPalette() {
-        return PalettablePanel.super.getPalette();
+        return UpdatablePanel.super.getPalette();
     }
 }

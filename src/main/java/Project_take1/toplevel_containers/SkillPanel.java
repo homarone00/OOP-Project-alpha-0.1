@@ -2,13 +2,13 @@ package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.SingleAbilityPanel;
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SkillPanel extends JPanel implements PalettablePanel{
+public class SkillPanel extends JPanel implements UpdatablePanel {
     JPanel mainPanel;
     MyCharacter myCharacter;
     SingleAbilityPanel acrobatics;
@@ -111,6 +111,28 @@ public class SkillPanel extends JPanel implements PalettablePanel{
         stealth.updateColors();
         survival.updateColors();
         title.setForeground(getPalette().text());
+    }
+
+    @Override
+    public void updatePanel() {
+        acrobatics.updatePanel();
+        animalHand.updatePanel();
+        arcana.updatePanel();
+        athletics.updatePanel();
+        deception.updatePanel();
+        history.updatePanel();
+        insight.updatePanel();
+        intimidation.updatePanel();
+        investigation.updatePanel();
+        medicine.updatePanel();
+        nature.updatePanel();
+        perception.updatePanel();
+        performance.updatePanel();
+        persuasion.updatePanel();
+        religion.updatePanel();
+        sleightHand.updatePanel();
+        stealth.updatePanel();
+        survival.updatePanel();
     }
 
     @Override

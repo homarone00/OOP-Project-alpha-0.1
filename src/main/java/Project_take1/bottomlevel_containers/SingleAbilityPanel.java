@@ -1,33 +1,35 @@
 package Project_take1.bottomlevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.PalettablePanel;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel {
+public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel {
     int baseStat;
     boolean competence;
     String name;
     JLabel lbName;
     JLabel lbValue;
     CompPointLabel clComp;
+    MyCharacter myCharacter;
 
     public SingleAbilityPanel(MyCharacter myCharacter, int baseStat) {
         super();
+        this.myCharacter=myCharacter;
         this.arcHeight = 20;
         this.arcWidth = 20;
         this.baseStat = baseStat;
         this.setName();
         this.setPreferredSize(new Dimension(165,47));
         this.setMinimumSize(new Dimension(160, 40));
-        this.competence = myCharacter.getCompAbility(baseStat).hasCompetence();
+        this.competence = myCharacter.getCompAbility(baseStat).hasProficiency();
         this.lbName = new JLabel(name);
         lbName.setFont(new Font("Comic Sans", Font.BOLD, 13));
-        this.lbValue = new JLabel(String.valueOf(myCharacter.getCompAbility(baseStat).getModifier()));
+        this.lbValue = new JLabel();
+        setValue();
         lbValue.setFont(new Font("Comic Sans", Font.BOLD, 13));
         lbValue.setOpaque(false);
         this.clComp = new CompPointLabel(competence);
@@ -97,8 +99,17 @@ public class SingleAbilityPanel extends RoundedJPanel implements PalettablePanel
     }
 
     @Override
+    public void updatePanel() {
+        setValue();
+    }
+
+    @Override
     public void paintComponents(Graphics g) {
         setArcs(30,30);
         super.paintComponent(g);
+    }
+    public void setValue(){
+        int modifier=myCharacter.getCompAbility(baseStat).getModifier();
+        lbValue.setText(Integer.toString(modifier));
     }
 }

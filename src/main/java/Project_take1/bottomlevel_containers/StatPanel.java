@@ -33,13 +33,16 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
 
     CircularLabel jl_plus;
     CircularLabel jl_minus;
+    MyCharacter myCharacter;
 
     /**
      * The constructor can only be called with a String parameter, representing the label, and an int, representing
      * the intLabel
      */
-    public StatPanel(int intLabel) {
+    public StatPanel(int intLabel, MyCharacter myCharacter) {
         super();
+        this.intLabel=intLabel;
+        this.myCharacter=myCharacter;
         setLayout(new GridBagLayout());
         this.setOpaque(false);
 
@@ -54,7 +57,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
         this.label = new JLabel();
 
 
-        setValue(10);
+        setValue(myCharacter.getBaseAbility(intLabel).getValue());
         setLabel(intLabel);
 
         GridBagConstraints c = new GridBagConstraints();
@@ -101,9 +104,11 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
         value.addActionListener(actionValue -> {
             try {
                 setValue(getValue());
+                myCharacter.getBaseAbility(intLabel).setValue(getValue());
+                myCharacter.requestUpdate();
                 modifier.requestFocus();
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "You can't have negative/string bottomlevel_containers in D&D!");
+                JOptionPane.showMessageDialog(null, "You can't have negative/string values in D&D!");
             }
         });
         value.addMouseListener(new MouseAdapter() {
@@ -191,7 +196,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     }
 
     /**
-     * the method automatically calls the setLabel method to automatically update the label
+     * the method automatically calls the setLabel method to automatically updatePanel the label
      */
     private void setIntLabel(int characteristic) {
         if (characteristic >= MyCharacter.STRENGTH && characteristic <= MyCharacter.CHARISMA) {
@@ -228,12 +233,16 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
             if (value != 0) {
                 value--;
                 setValue(value);
+                myCharacter.getBaseAbility(intLabel).setValue(getValue());
+                myCharacter.requestUpdate();
             }
         }
         if (e.getSource() == jl_plus) {
             int value = getValue();
             value++;
             setValue(value);
+            myCharacter.getBaseAbility(intLabel).setValue(this.getValue());
+            myCharacter.requestUpdate();
         }
     }
 
@@ -301,6 +310,10 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
         label.setForeground(getPalette().text());
         value.setBorder(new MyRoundedBorder(getPalette().border(), 2, 5));
         value.setForeground(getPalette().text());
+    }
+
+    @Override
+    public void updatePanel() {
     }
 
     @Override

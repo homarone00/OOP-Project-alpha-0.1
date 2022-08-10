@@ -1,13 +1,13 @@
 package Project_take1.bottomlevel_containers;
 
 import Project_take1.resources.graphics.MyRoundedBorder;
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class HealthPanel extends RoundedJPanel implements PalettablePanel {
+public class HealthPanel extends RoundedJPanel implements UpdatablePanel {
     int maxHealth;
     int currentHealth;
     JLabel maxHealthPanel=new JLabel();
@@ -73,6 +73,11 @@ public class HealthPanel extends RoundedJPanel implements PalettablePanel {
 
     @Override
     public void updateColors() {
+    }
+
+    @Override
+    public void updatePanel() {
+
     }
 
 }

@@ -1,7 +1,5 @@
 package Project_take1.resources.graphics;
 
-import Project_take1.resources.graphics.PalettablePanel;
-
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 

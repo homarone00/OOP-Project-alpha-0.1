@@ -1,12 +1,16 @@
 package Project_take1.abilities;
 
-public abstract class AbstractCompAbility extends AbstractAbility {
-    boolean competence;
+import Project_take1.MyCharacter;
 
-    public void setCompetence(boolean competence){
-        this.competence=competence;
+public abstract class AbstractCompAbility extends AbstractAbility {
+    protected boolean proficiency;
+
+    public void setProficiency(boolean proficiency) {
+        this.proficiency = proficiency;
     }
-    public boolean hasCompetence(){
-        return competence;
+
+    public boolean hasProficiency() {
+        return proficiency;
     }
+
 }

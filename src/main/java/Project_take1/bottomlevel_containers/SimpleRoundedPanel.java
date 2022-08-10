@@ -1,14 +1,12 @@
 package Project_take1.bottomlevel_containers;
 
-import Project_take1.resources.graphics.PalettablePanel;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.RoundedJPanel;
-import org.intellij.lang.annotations.JdkConstants;
 
 import javax.swing.*;
 import java.awt.*;
 //this RoundedJPanel only has one big label, for the nomber of the stat, and one small label, to define the name of it
-public class SimpleRoundedPanel extends RoundedJPanel implements PalettablePanel {
+public class SimpleRoundedPanel extends RoundedJPanel implements UpdatablePanel {
     JLabel numberLabel;
     JLabel nameLabel;
     public SimpleRoundedPanel(String name, String number,int arcWidth,int arcHeight){
@@ -117,6 +115,11 @@ public class SimpleRoundedPanel extends RoundedJPanel implements PalettablePanel
     public void updateColors() {
         numberLabel.setForeground(getPalette().text());
         nameLabel.setForeground(getPalette().text());
+    }
+
+    @Override
+    public void updatePanel() {
+
     }
 
 }

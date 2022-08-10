@@ -2,7 +2,7 @@ package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
 import Project_take1.bottomlevel_containers.JTabPanel;
-import Project_take1.resources.graphics.PalettablePanel;
+import Project_take1.resources.graphics.UpdatablePanel;
 import Project_take1.resources.graphics.Palette;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MyTabbedPane extends JPanel implements MouseListener, PalettablePanel {
+public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePanel {
     MyAbilityPane abilityTab;
     JPanel spellTab;
     boolean hasSpells;
@@ -23,7 +23,7 @@ public class MyTabbedPane extends JPanel implements MouseListener, PalettablePan
 
     public MyTabbedPane(MyCharacter myCharacter){
         setLayout(new BorderLayout());
-        abilityTab=new MyAbilityPane(myCharacter);
+        abilityTab=new MyAbilityPane(myCharacter,this);
         add(abilityTab,BorderLayout.CENTER);
 
 
@@ -109,6 +109,12 @@ public class MyTabbedPane extends JPanel implements MouseListener, PalettablePan
         this.setBackground(getPalette().background());
         this.repaint();
     }
+
+    @Override
+    public void updatePanel() {
+        abilityTab.updatePanel();
+    }
+
     public Palette getPalette() {
         return Palette.getInstance();
     }
