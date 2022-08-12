@@ -1,6 +1,8 @@
-package Project_take1.resources.graphics;
+package Project_take1.graphics;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Palette extends AbstractPalette{
     private static Palette instance=null;
@@ -124,5 +126,52 @@ public class Palette extends AbstractPalette{
     }
     public void unPressBackground(){
         background=getUnPressedVersion(background());
+    }
+    public int getWhiteness(Color color){
+        int whiteness=color.getBlue()+color.getGreen()+color.getRed();
+        whiteness/=3;
+        return whiteness;
+    }
+    public ImageIcon scale(ImageIcon imageIcon,int width,int height){
+        Image oldImage=imageIcon.getImage();
+        Image scaledImage=oldImage.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
+    }
+    public ImageIcon getUnpressedSettingsButton(){
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_unpressed.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_unpressed.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        return imageIcon;
+    }
+    public ImageIcon getPressedSettingsButton(){
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_pressed.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_pressed.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        return imageIcon;
+    }
+
+    public Icon getHoveredSettingsButton() {
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_hovered.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_hovered.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        return imageIcon;
     }
 }

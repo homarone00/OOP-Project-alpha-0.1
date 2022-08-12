@@ -1,4 +1,6 @@
-package Project_take1.resources.graphics;
+package Project_take1.graphics;
+
+import javax.swing.*;
 
 public interface UpdatablePanel {
     void updateColors();

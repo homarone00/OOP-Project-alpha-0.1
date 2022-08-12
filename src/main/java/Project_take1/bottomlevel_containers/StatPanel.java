@@ -1,8 +1,8 @@
 package Project_take1.bottomlevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.MyRoundedBorder;
-import Project_take1.resources.graphics.RoundedJPanel;
+import Project_take1.graphics.MyRoundedBorder;
+import Project_take1.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -139,7 +139,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     }
 
     /**
-     * This method is private so that only the setValue method can access it
+     * This method is private so that only the setModifier method can access it
      *
      * @param modifier is the new modifier
      */

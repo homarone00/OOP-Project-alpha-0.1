@@ -1,4 +1,4 @@
-package Project_take1.resources.graphics;
+package Project_take1.graphics;
 
 import javax.swing.border.AbstractBorder;
 import java.awt.*;

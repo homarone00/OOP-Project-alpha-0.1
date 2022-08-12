@@ -3,9 +3,7 @@ package Project_take1.abilities;
 import Project_take1.MyCharacter;
 
 public class ListAbility extends AbstractCompAbility{
-    boolean expertise;
     int bonus=0;
-
     public ListAbility(MyCharacter myCharacter, String abilityName, boolean proficiency, boolean expertise, int STAT){
         this.abilityName=abilityName;
         this.STAT=STAT;
@@ -31,7 +29,7 @@ public class ListAbility extends AbstractCompAbility{
     public void setModifier() {
         int modifier=0;
         int profBonus=0;
-        if(hasProficiency()){
+        if(isProficiency()){
             profBonus= myCharacter.getProfBonus();
         }
         if(hasExpertise()){

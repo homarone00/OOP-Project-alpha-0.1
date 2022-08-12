@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A frame for changing the character competence
+ * A frame for changing the character proficiency
  */
 public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
 
@@ -45,7 +45,7 @@ public class CompetenceFrame extends JFrame /*implements ActionListener*/ {
         cbCha.setBounds(10,170,100,20);
         btUpdate.setBounds(150,170,100,25);
 
-         //The selected checkboxes indicate the competence in that stat
+         //The selected checkboxes indicate the proficiency in that stat
         /*
         cbStr.setSelected(myCharacter.getStrProf());
         cbDex.setSelected(myCharacter.getDexProf());

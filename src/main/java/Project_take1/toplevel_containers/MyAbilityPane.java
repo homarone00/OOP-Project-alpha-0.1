@@ -1,7 +1,7 @@
 package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.UpdatablePanel;
+import Project_take1.graphics.UpdatablePanel;
 import Project_take1.bottomlevel_containers.StatPanel;
 
 import javax.swing.*;
@@ -29,7 +29,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
     SkillPanel skillPanel;
     SaveThrowPanel savePanel;
 
-    public MyAbilityPane(MyCharacter myCharacter,MyTabbedPane myTabbedPane) {
+    public MyAbilityPane(MyCharacter myCharacter,MyTabbedPane myTabbedPane){
         super();
         this.myCharacter=myCharacter;
         this.setLayout(new BorderLayout(10,10));

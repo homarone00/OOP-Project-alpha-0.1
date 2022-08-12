@@ -1,7 +1,7 @@
 package Project_take1.bottomlevel_containers;
 
-import Project_take1.resources.graphics.UpdatablePanel;
-import Project_take1.resources.graphics.RoundedJPanel;
+import Project_take1.graphics.UpdatablePanel;
+import Project_take1.graphics.RoundedJPanel;
 
 import javax.swing.*;
 import java.awt.*;

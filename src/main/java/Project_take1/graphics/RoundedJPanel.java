@@ -1,4 +1,4 @@
-package Project_take1.resources.graphics;
+package Project_take1.graphics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
     protected int arcWidth;
     protected int arcHeight;
     protected boolean customPainted=false;
+    protected boolean paneled=false;
     protected Color customColor;
     public RoundedJPanel(){
         super(new FlowLayout());
@@ -21,10 +22,10 @@ public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color oldColor = g.getColor();
-        if(!customPainted){
+        if(!customPainted||paneled){
             g.setColor(getPalette().panel());
         }
-        if(customPainted){
+        if(customPainted&&!paneled){
             g.setColor(customColor);
         }
         super.paintComponent(g);
@@ -33,9 +34,11 @@ public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
 
 
     }
-    protected void setAsCustomPainted(Color customColor){
+    public void setAsCustomPainted(Color customColor){
         this.customColor=customColor;
+        setPaneled(false);
         customPainted=true;
+        repaint();
     }
     protected void setAsDefaultPainted(){
         this.customPainted=false;
@@ -46,5 +49,12 @@ public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
         this.arcHeight=arcHeight;
     }
 
+    public boolean isPaneled() {
+        return paneled;
+    }
 
+    public void setPaneled(boolean paneled) {
+        this.paneled = paneled;
+        repaint();
+    }
 }

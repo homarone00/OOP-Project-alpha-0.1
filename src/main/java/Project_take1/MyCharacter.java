@@ -172,7 +172,7 @@ public class MyCharacter {
 
          this.strength_save =new SaveAbility(this,"Strength",false,STRENGTH_SAVE);
          this.dexterity_save=new SaveAbility(this,"Dexterity",true,DEXTERITY_SAVE);
-         this.constitution_save=new SaveAbility(this,"Constitution",true,CONSTITUTION_SAVE);
+         this.constitution_save=new SaveAbility(this,"Constitution",false,CONSTITUTION_SAVE);
          this.intelligence_save=new SaveAbility(this,"Intelligence",true,INTELLIGENCE_SAVE);
          this.wisdom_save=new SaveAbility(this,"Wisdom",true,WISDOM_SAVE);
          this.charisma_save=new SaveAbility(this,"Charisma",true,CHARISMA_SAVE);

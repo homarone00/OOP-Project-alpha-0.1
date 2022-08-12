@@ -1,12 +1,13 @@
 package Project_take1.toplevel_containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.resources.graphics.Palette;
+import Project_take1.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * JFrame principale, al cui interno verranno aggiunti tutti i JComponets
@@ -35,7 +36,9 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
         setMinimumSize(new Dimension(1100, 800));
         setResizable(true);
         setVisible(true);
-
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/d20.png")));
+        setIconImage(imageIcon.getImage());
+        this.setTitle("RollJ Idea");
         updateColors();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
