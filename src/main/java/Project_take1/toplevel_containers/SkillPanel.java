@@ -227,6 +227,8 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         if(e.getSource().equals(athletics)){
             if(athletics.isEditing()){
                 athletics.switchTriState();
+                int stat=myCharacter.getCompAbility(MyCharacter.ATHLETICS).getModifier();
+                System.out.println(stat);
             }
         }
         if(e.getSource().equals(acrobatics)){
@@ -315,6 +317,7 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
                 revalidate();
             }
         }
+        myCharacter.requestUpdate();
     }
     public Boolean isSettingsButtonEntered() {
         return settingsButtonEntered;

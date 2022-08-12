@@ -250,6 +250,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
         else if(!proficiency&&expertise){
             throw new IllegalStateException("Can't have expertise but not have proficiency");
         }
+        setModifier();
     }
 
     public boolean isEditing() {
