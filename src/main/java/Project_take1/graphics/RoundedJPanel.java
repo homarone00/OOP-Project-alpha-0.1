@@ -57,4 +57,5 @@ public abstract class RoundedJPanel extends JPanel implements UpdatablePanel {
         this.paneled = paneled;
         repaint();
     }
+
 }

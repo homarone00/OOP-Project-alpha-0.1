@@ -1,9 +1,10 @@
-package Project_take1.toplevel_containers;
+package Project_take1.containers;
 
 import Project_take1.MyCharacter;
-import Project_take1.bottomlevel_containers.JTabPanel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.JTabPanel;
 import Project_take1.graphics.UpdatablePanel;
 import Project_take1.graphics.Palette;
+import Project_take1.containers.top_panels.MyAbilityPane;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package Project_take1.toplevel_containers;
+package Project_take1.containers;
 
 import javax.swing.*;
 import java.awt.*;

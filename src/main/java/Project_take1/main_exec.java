@@ -1,23 +1,15 @@
 package Project_take1;
 
-import Project_take1.toplevel_containers.MyCharacterSheet;
+import Project_take1.containers.MyCharacterSheet;
 
 import javax.swing.*;
 
 public class main_exec {
     public static void main(String[] args) {
         try {
-            // Roba che in un qualche modo funziona (non presa da stack overflow)
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-            // handle exception (maybe)
-        } catch (ClassNotFoundException e) {
-            // handle exception (come on)
-        } catch (InstantiationException e) {
-            // handle exception (really?)
-        } catch (IllegalAccessException e) {
-            // handle exception ( :C )
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException | InstantiationException | ClassNotFoundException |
+                 IllegalAccessException ignored) {
         }
         MyCharacter myCharacter = new MyCharacter();
         MyCharacterSheet myCharacterSheet=new MyCharacterSheet(myCharacter);

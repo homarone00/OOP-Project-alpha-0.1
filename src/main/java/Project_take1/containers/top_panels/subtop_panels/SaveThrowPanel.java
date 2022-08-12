@@ -1,9 +1,8 @@
-package Project_take1.toplevel_containers;
+package Project_take1.containers.top_panels.subtop_panels;
 
 import Project_take1.MyCharacter;
-import Project_take1.bottomlevel_containers.SingleAbilityPanel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.SingleAbilityPanel;
 import Project_take1.graphics.UpdatablePanel;
-import Project_take1.graphics.Palette;
 
 import javax.swing.*;
 import java.awt.*;
@@ -354,27 +353,21 @@ public class SaveThrowPanel extends JPanel implements UpdatablePanel, MouseListe
         }
         if(e.getSource().equals(strSave)){
             strSave.setPaneled(true);
-            strSave.repaint();
         }
         if(e.getSource().equals(dexSave)){
             dexSave.setPaneled(true);
-            dexSave.repaint();
         }
         if(e.getSource().equals(conSave)){
             conSave.setPaneled(true);
-            conSave.repaint();
         }
         if(e.getSource().equals(intSave)){
             intSave.setPaneled(true);
-            intSave.repaint();
         }
         if(e.getSource().equals(wisSave)){
             wisSave.setPaneled(true);
-            wisSave.repaint();
         }
         if(e.getSource().equals(chaSave)){
             chaSave.setPaneled(true);
-            chaSave.repaint();
         }
     }
 

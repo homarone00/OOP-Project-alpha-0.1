@@ -1,7 +1,7 @@
 /*package Project_take1.oldcode;
 
 import Project_take1.MyCharacter;
-import Project_take1.bottomlevel_containers.CompetenceFrame;
+import Project_take1.oldcode.CompetenceFrame;
 
 import javax.swing.*;
 import java.awt.*;

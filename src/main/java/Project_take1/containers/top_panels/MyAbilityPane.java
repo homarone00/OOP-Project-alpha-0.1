@@ -1,8 +1,13 @@
-package Project_take1.toplevel_containers;
+package Project_take1.containers.top_panels;
 
 import Project_take1.MyCharacter;
+import Project_take1.containers.MyTabbedPane;
+import Project_take1.containers.top_panels.subtop_panels.SaveThrowPanel;
+import Project_take1.containers.top_panels.subtop_panels.SecondColumn;
+import Project_take1.containers.top_panels.subtop_panels.SkillPanel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.SimpleRoundedPanel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.first_column.StatPanel;
 import Project_take1.graphics.UpdatablePanel;
-import Project_take1.bottomlevel_containers.StatPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,13 +33,14 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
     SecondColumn secondColumn;
     SkillPanel skillPanel;
     SaveThrowPanel savePanel;
+    SimpleRoundedPanel profPanel;
 
-    public MyAbilityPane(MyCharacter myCharacter,MyTabbedPane myTabbedPane){
+    public MyAbilityPane(MyCharacter myCharacter, MyTabbedPane myTabbedPane){
         super();
         this.myCharacter=myCharacter;
         this.setLayout(new BorderLayout(10,10));
         JPanel nameStatAbilityPanel = new JPanel(new BorderLayout(5, 5));
-        namePanel = new JPanel(new BorderLayout()) {
+        namePanel = new JPanel(new BorderLayout(10,10)) {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -42,7 +48,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
                 g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color oldColor = g.getColor();
                 g.setColor(getPalette().panel());
-                g.fillRoundRect(0, 0, getSize().width, getSize().height, 30, 30);
+                g.fillRoundRect(0, 0, getSize().width -75, getSize().height, 30, 30);
                 g.setColor(oldColor);
             }
         };
@@ -72,20 +78,25 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         nameText = new JTextField("Default Name");
         nameText.setBorder(null);
         nameText.setOpaque(false);
-        nameText.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        nameText.setFont(new Font("Comic Sans", Font.BOLD, 30));
         nameText.setHorizontalAlignment(JTextField.CENTER);
         nameText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (nameText.getText().length() >= 27) {
+                if (nameText.getText().length() >= 23) {
                     e.consume();
                 }
             }
         });
         nameText.setOpaque(false);
-        namePanel.setPreferredSize(new Dimension(getPreferredSize().width, 50));
+        namePanel.setPreferredSize(new Dimension(getPreferredSize().width, 60));
         namePanel.add(nameText, BorderLayout.CENTER);
 
+        profPanel=new SimpleRoundedPanel("PROF", myCharacter.getStringProfBonus(),30,30);
+        profPanel.setPreferredSize(new Dimension(70,this.getHeight()));
+        profPanel.getNumberLabel().setFont(new Font("Comic Sans",Font.BOLD,30));
+        profPanel.getNumberLabel().setPreferredSize(new Dimension(profPanel.getNumberLabel().getPreferredSize().width,5));
+        namePanel.add(profPanel,BorderLayout.EAST);
         //adding all components to the ContentPane
         add(nameStatAbilityPanel, BorderLayout.WEST);
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);

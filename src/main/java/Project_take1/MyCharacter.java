@@ -1,7 +1,7 @@
 package Project_take1;
 
 import Project_take1.abilities.*;
-import Project_take1.toplevel_containers.MyCharacterSheet;
+import Project_take1.containers.MyCharacterSheet;
 
 import java.util.ArrayList;
 
@@ -399,6 +399,14 @@ public class MyCharacter {
     }
     public int getProfBonus(){
         return profBonus;
+    }
+    public String getStringProfBonus(){
+        if(profBonus>=0){
+            return "+" + Integer.toString(profBonus);
+        }
+        else{
+            return Integer.toString(profBonus);
+        }
     }
 
     public int getLvl() {

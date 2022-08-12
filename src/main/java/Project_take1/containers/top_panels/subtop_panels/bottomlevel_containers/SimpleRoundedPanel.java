@@ -1,4 +1,4 @@
-package Project_take1.bottomlevel_containers;
+package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers;
 
 import Project_take1.graphics.UpdatablePanel;
 import Project_take1.graphics.RoundedJPanel;
@@ -122,4 +122,19 @@ public class SimpleRoundedPanel extends RoundedJPanel implements UpdatablePanel 
 
     }
 
+    public JLabel getNumberLabel() {
+        return numberLabel;
+    }
+
+    public void setNumberLabel(JLabel numberLabel) {
+        this.numberLabel = numberLabel;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    public void setNameLabel(JLabel nameLabel) {
+        this.nameLabel = nameLabel;
+    }
 }
