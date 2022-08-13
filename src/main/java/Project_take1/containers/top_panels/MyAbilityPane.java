@@ -98,7 +98,6 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         profPanel.getNumberLabel().setPreferredSize(new Dimension(profPanel.getNumberLabel().getPreferredSize().width,5));
         namePanel.add(profPanel,BorderLayout.EAST);
         //adding all components to the ContentPane
-        add(nameStatAbilityPanel, BorderLayout.WEST);
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
         JPanel placeHolder = new JPanel(new BorderLayout(10,10));
         JLabel newPlaceHolder=new JLabel("hello");
@@ -110,15 +109,23 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         //Commento separatorio
         skillPanel = new SkillPanel(myCharacter);
         savePanel = new SaveThrowPanel(myCharacter);
-        JPanel saveSkillPanel = new JPanel();
+        JPanel saveSkillPanel = new JPanel(new GridBagLayout());
         saveSkillPanel.setBackground(getPalette().background());
-        GroupLayout layout = new GroupLayout(saveSkillPanel);
-        saveSkillPanel.setLayout(layout);
-        saveSkillPanel.setOpaque(false);
-        saveSkillPanel.add(savePanel);
-        saveSkillPanel.add(skillPanel);
 
-        layout.setHorizontalGroup(
+        GridBagConstraints c=new GridBagConstraints();
+        saveSkillPanel.setOpaque(false);
+        c.fill=GridBagConstraints.BOTH;
+        c.gridx=0;
+        c.gridy=0;
+        c.weightx=5;
+        c.weighty=80;
+        saveSkillPanel.add(savePanel,c);
+        c.gridx=0;
+        c.gridy=1;
+        c.weighty=250;
+        saveSkillPanel.add(skillPanel,c);
+
+        /*layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(savePanel)
@@ -129,10 +136,15 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
                 layout.createSequentialGroup()
                         .addComponent(savePanel)
                         .addComponent(skillPanel)
-        );
+        );*/
         savePanel.setOpaque(false);
+        savePanel.setPreferredSize(new Dimension(getPreferredSize().width,300));
         skillPanel.setOpaque(false);
+        saveSkillPanel.setPreferredSize(new Dimension(450,800));
+        saveSkillPanel.setOpaque(false);
         nameStatAbilityPanel.add(saveSkillPanel, BorderLayout.CENTER);
+        nameStatAbilityPanel.setPreferredSize(new Dimension(450,500));
+        add(nameStatAbilityPanel, BorderLayout.WEST);
     }
 
     @Override

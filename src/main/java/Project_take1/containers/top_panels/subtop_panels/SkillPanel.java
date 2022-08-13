@@ -70,7 +70,7 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         c.gridy = 0;
         c.weightx=20;
         c.fill = GridBagConstraints.BOTH;
-        this.add(title, c);
+        add(title, c);
         settingsButton=new JLabel();
         settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
         settingsButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -78,12 +78,14 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         c.gridx = 2;
         c.gridy = 0;
         c.weightx=0.9;
+        c.weighty=5;
         c.fill = GridBagConstraints.BOTH;
         add(settingsButton,c);
         mainPanel = new JPanel(new GridLayout(9,2,2,2));
         c.gridwidth=2;
         c.gridx = 1;
         c.gridy = 1;
+        c.weighty=40;
         c.fill = GridBagConstraints.BOTH;
         mainPanel.setOpaque(false);
         mainPanel.add(acrobatics);
@@ -125,7 +127,6 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         survival.addMouseListener(this);
 
         this.add(mainPanel, c);
-        this.setBackground(Color.GREEN);
     }
 
     @Override
