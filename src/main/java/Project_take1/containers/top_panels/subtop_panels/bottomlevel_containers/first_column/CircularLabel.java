@@ -6,6 +6,8 @@ import Project_take1.graphics.Palette;
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Math.min;
+
 
 public class CircularLabel extends JLabel implements UpdatablePanel {
     boolean pressed;
@@ -14,6 +16,7 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
     int xOffset;
     int yOffset;
     int fontSize;
+    int size;
 
     public CircularLabel(String value, int xOffset, int yOffset, int fontSize) {
         setValue(value);
@@ -22,14 +25,24 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
         setEntered(false);
         setxOffset(xOffset);
         setyOffset(yOffset);
+        size=min(getSize().height,getSize().width);
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        size=min(getSize().height,getSize().width);
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        int x = (getSize().width - getSize().height) / 2;
+        int x;
+        int y;
+        if(getSize().width>getSize().height){
+            x = (getSize().width - getSize().height) / 2;
+            y=1;
+        }
+        else{
+            x=1;
+            y = -(getSize().width - getSize().height) / 2;
+        }
         Color oldColor = g.getColor();
         g.setColor(getPalette().button_default());
         if (isEntered()) {
@@ -38,7 +51,7 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
         if (isPressed()) {
             g.setColor(getPalette().button_pressed());
         }
-        g.fillOval(x, 1, getSize().height - 3, getSize().height - 3);
+        g.fillOval(x, y, size - 3, size - 3);
 
         g.setColor(getPalette().button_default());
         if (isEntered()) {
@@ -49,11 +62,11 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
         }
 
         g2D.setStroke(new BasicStroke(1));
-        g2D.drawOval(x, 1, getSize().height - 3, getSize().height - 3);
+        g2D.drawOval(x, y, size - 3, size - 3);
 
         g.setColor(getPalette().text());
         g.setFont(new Font("Comic Sans", Font.BOLD, fontSize));
-        g.drawString(value, x + getSize().height / 2 + xOffset, getSize().height / 2 + yOffset);
+        g.drawString(value, x + size / 2 + xOffset, size / 2 + yOffset);
         g.setColor(oldColor);
     }
 
@@ -100,5 +113,13 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
 
     public Palette getPalette() {
         return Palette.getInstance();
+    }
+
+    public int getCircleSize() {
+        return size;
+    }
+
+    public void setCircleSize(int size) {
+        this.size = size;
     }
 }

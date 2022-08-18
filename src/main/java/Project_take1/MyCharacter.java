@@ -446,4 +446,27 @@ public class MyCharacter {
         myCharacterSheet.updatePanel();
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
+    public void setCurrentHp(int currentHp) {
+        this.currentHp = currentHp;
+    }
+
+    public int getTemporary_hp() {
+        return temporary_hp;
+    }
+
+    public void setTemporary_hp(int temporary_hp) {
+        this.temporary_hp = temporary_hp;
+    }
 }

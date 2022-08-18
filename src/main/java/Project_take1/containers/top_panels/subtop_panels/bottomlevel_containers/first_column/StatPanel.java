@@ -207,7 +207,13 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     }
 
     public int getValue() {
-        int value = Integer.parseInt(this.value.getText());
+        int value;
+        try{
+            value = Integer.parseInt(this.value.getText());
+        } catch (NumberFormatException e) {
+            value=intValue;
+            return value;
+        }
         intValue = value;
         return value;
     }

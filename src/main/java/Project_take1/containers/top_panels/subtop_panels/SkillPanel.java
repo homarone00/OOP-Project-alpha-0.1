@@ -150,6 +150,7 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         stealth.updateColors();
         survival.updateColors();
         title.setForeground(getPalette().text());
+        settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
     }
 
     @Override
