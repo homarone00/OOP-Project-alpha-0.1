@@ -1,7 +1,8 @@
 package Project_take1.spells;
 
+import Project_take1.MyCharacter;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,6 +21,8 @@ public class Spell {
     Boolean ritual;
     String duration;
     Boolean concentration;
+    String dc;
+    int dcInt;
     int level;
     String attType;
     String school;
@@ -27,7 +30,24 @@ public class Spell {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode json;
 
-    public Spell(String name, List<String> desc, List<String> highLv, String range, List<String> components, String material, Boolean ritual, String duration, Boolean concentration, int level, String attType, String school, String url, ObjectMapper mapper, JsonNode json) {
+    public Spell(String name, List<String> desc, List<String> highLv, String range, List<String> components,
+                 String material, Boolean ritual, String duration, Boolean concentration, int dcInt, int level,
+                 String attType
+            , String school) {
+        if(dcInt>=7) {
+            throw new IndexOutOfBoundsException("The index must be lower than 7");
+        }
+        this.dcInt = dcInt;
+        switch (this.dcInt)
+        {
+            case 0 -> dc = "None";
+            case MyCharacter.STRENGTH -> dc = "STR";
+            case MyCharacter.DEXTERITY -> dc = "DEX";
+            case MyCharacter.CONSTITUTION -> dc = "CON";
+            case MyCharacter.INTELLIGENCE -> dc = "INT";
+            case MyCharacter.WISDOM -> dc = "WIS";
+            case MyCharacter.CHARISMA -> dc = "CHA";
+        }
         this.name = name;
         this.desc = desc;
         this.highLv = highLv;
@@ -40,12 +60,23 @@ public class Spell {
         this.level = level;
         this.attType = attType;
         this.school = school;
-        this.url = url;
-        this.mapper = mapper;
-        this.json = json;
     }
 
-    public Spell(String name, String desc, String highLv, String range, List<String> components, String material, Boolean ritual, String duration, Boolean concentration, int level, String attType, String school, String url, ObjectMapper mapper) {
+    public Spell(String name, String desc, String highLv, String range, List<String> components, String material,
+                 Boolean ritual, String duration, Boolean concentration, int dcInt, int level, String attType,
+                 String school,
+                 String url, ObjectMapper mapper) {
+        this.dcInt = dcInt;
+        switch (this.dcInt)
+        {
+            case 0 -> dc = "None";
+            case MyCharacter.STRENGTH -> dc = "STR";
+            case MyCharacter.DEXTERITY -> dc = "DEX";
+            case MyCharacter.CONSTITUTION -> dc = "CON";
+            case MyCharacter.INTELLIGENCE -> dc = "INT";
+            case MyCharacter.WISDOM -> dc = "WIS";
+            case MyCharacter.CHARISMA -> dc = "CHA";
+        }
         this.name = name;
         this.desc.add(desc);
         this.highLv.add(highLv);
@@ -96,6 +127,36 @@ public class Spell {
         this.ritual = json.get("ritual").asBoolean();
         this.duration = json.get("duration").asText();
         this.concentration = json.get("concentration").asBoolean();
+        try{
+            this.dc = json.get("dc").get("dc_type").get("name").asText();
+            if(this.dc.equalsIgnoreCase("STR"))
+            {
+                this.dcInt = 1;
+            }
+            if(this.dc.equalsIgnoreCase("DEX"))
+            {
+                this.dcInt = 2;
+            }
+            if(this.dc.equalsIgnoreCase("CON"))
+            {
+                this.dcInt = 3;
+            }
+            if(this.dc.equalsIgnoreCase("INT"))
+            {
+                this.dcInt = 4;
+            }
+            if(this.dc.equalsIgnoreCase("WIS"))
+            {
+                this.dcInt = 5;
+            }
+            if(this.dc.equalsIgnoreCase("CHA"))
+            {
+                this.dcInt = 6;
+            }
+        } catch (NullPointerException e) {
+            this.dcInt = 0;
+            this.dc = "None";
+        }
         this.level = json.get("level").asInt();
         try{
             this.attType = json.get("attack_type").asText();
@@ -110,6 +171,16 @@ public class Spell {
     }
 
     public void addHighLv(String highLv) {
+        this.highLv.add(highLv);
+    }
+
+    public void resetDesc(String desc) {
+        this.desc.clear();
+        this.desc.add(desc);
+    }
+
+    public void resetHighLv(String highLv) {
+        this.highLv.clear();
         this.highLv.add(highLv);
     }
 
@@ -221,7 +292,8 @@ public class Spell {
     public String toString() {
         return "Spell{" + "name='" + name + '\'' + ",\ndesc=" + desc + ",\nhighLv=" + highLv + ",\nrange='" + range + '\''
                 + ",\ncomponents=" + components + ",\nmaterial='" + material + '\'' + ",\nritual=" + ritual + ", \nduration='"
-                + duration + '\'' + ", \nconcentration=" + concentration + ",\nlevel=" + level + ",\nattType='" + attType + '\''
+                + duration + '\'' + ", \nconcentration=" + concentration +",\ndc=" + dc + ",\nlevel=" + level +
+                ",\nattType='" + attType + '\''
                 + ",\nschool='" + school + '\'' + ",\nurl='" + url + '\'' + '}';
     }
 }
