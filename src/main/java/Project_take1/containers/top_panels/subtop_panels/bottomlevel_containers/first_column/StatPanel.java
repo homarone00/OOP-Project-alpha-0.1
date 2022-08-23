@@ -239,7 +239,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
             if (value != 0) {
                 value--;
                 setValue(value);
-                myCharacter.getBaseAbility(intLabel).setValue(getValue());
+                myCharacter.updateIntStat(intLabel, this.getValue());
                 myCharacter.requestUpdate();
             }
         }
@@ -247,7 +247,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
             int value = getValue();
             value++;
             setValue(value);
-            myCharacter.getBaseAbility(intLabel).setValue(this.getValue());
+            myCharacter.updateIntStat(intLabel, this.getValue());
             myCharacter.requestUpdate();
         }
     }

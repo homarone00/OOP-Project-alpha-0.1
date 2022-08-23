@@ -40,7 +40,9 @@ public class MyCharacter {
     public static final int STEALTH=27;
     public static final int SURVIVAL=28;
 
+
     //da aggiungere UUID
+    String name = "Leario";
     int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
@@ -48,14 +50,19 @@ public class MyCharacter {
     int initiative=4;
     int profBonus = 1;
     int ac = 14;
+
+    public String getName() {
+        return name;
+    }
+
     int speed=9;
 
-    int intStrength = 10;
-    int intDexterity = 10;
-    int intConstitution = 10;
-    int intIntelligence = 10;
-    int intWisdom = 10;
-    int intCharisma = 10;
+    private int intStrength = 10;
+    private int intDexterity = 10;
+    private int intConstitution = 10;
+    private int intIntelligence = 10;
+    private int intWisdom = 10;
+    private int intCharisma = 10;
 
     BaseAbility strength;
     BaseAbility dexterity;
@@ -65,30 +72,72 @@ public class MyCharacter {
     BaseAbility charisma;
 
     SaveAbility strength_save;
+    private Boolean strengthProf = false;
     SaveAbility dexterity_save;
+    private Boolean dexterityProf = true;
     SaveAbility constitution_save;
+    private Boolean constitutionProf = true;
     SaveAbility intelligence_save;
+    private Boolean intelligenceProf = false;
     SaveAbility wisdom_save;
+    private Boolean wisdomProf = false;
     SaveAbility charisma_save;
+    private Boolean charismaProf = true;
 
     ListAbility acrobatics;
+    private Boolean acrobaticsProf = false;
+    private Boolean acrobaticsExp = false;
     ListAbility animal_handling;
+    private Boolean animal_handlingProf = false;
+    private Boolean animal_handlingExp = false;
     ListAbility arcana;
+    private Boolean arcanaProf = false;
+    private Boolean arcanaExp = false;
     ListAbility athletics;
+    private Boolean athleticsProf = false;
+    private Boolean athleticsExp = false;
     ListAbility deception;
+    private Boolean deceptionProf = false;
+    private Boolean deceptionExp = false;
     ListAbility history;
+    private Boolean historyProf = false;
+    private Boolean historyExp = false;
     ListAbility insight;
+    private Boolean insightProf = false;
+    private Boolean insightExp = false;
     ListAbility intimidation;
+    private Boolean intimidationProf = false;
+    private Boolean intimidationExp = false;
     ListAbility investigation;
+    private Boolean investigationProf = false;
+    private Boolean investigationExp = false;
     ListAbility medicine;
+    private Boolean medicineProf = false;
+    private Boolean medicineExp = false;
     ListAbility nature;
+    private Boolean natureProf = false;
+    private Boolean natureExp = false;
     ListAbility perception;
+    private Boolean perceptionProf = false;
+    private Boolean perceptionExp = false;
     ListAbility performance;
+    private Boolean performanceProf = false;
+    private Boolean performanceExp = false;
     ListAbility persuasion;
+    private Boolean persuasionProf = false;
+    private Boolean persuasionExp = false;
     ListAbility religion;
+    private Boolean religionProf = false;
+    private Boolean religionExp = false;
     ListAbility sleight_of_hand;
+    private Boolean sleight_of_handProf = false;
+    private Boolean sleight_of_handExp = false;
     ListAbility stealth;
+    private Boolean stealthProf = false;
+    private Boolean stealthExp = false;
     ListAbility survival;
+    private Boolean survivalProf = false;
+    private Boolean survivalExp = false;
     MyCharacterSheet myCharacterSheet;
 
     public MyCharacter() {
@@ -161,40 +210,102 @@ public class MyCharacter {
         else{throw new IllegalArgumentException("getCorrespondingStat() can only accept parameters picked from the " +
                 "static attributes of MyCharacter\n It found STAT = " + STAT);}
     }
+    public int getIntStat(int STAT) {
+        if(STAT == STRENGTH){
+            return this.intStrength;
+        }
+        if(STAT == DEXTERITY) {
+            return this.intDexterity;
+        }
+        if(STAT == CONSTITUTION){
+            return this.intConstitution;
+        }
+        if(STAT == INTELLIGENCE){
+            return this.intIntelligence;
+        }
+        if(STAT == WISDOM){
+            return this.intWisdom;
+        }
+        if(STAT == CHARISMA){
+            return this.intCharisma;
+        }
+        else{
+            throw new IllegalArgumentException("The value of the parameter must be lower than 7");
+        }
+    }
+
+    /**
+     * This method update the int value of a stat and his BaseStat representation
+     * @param STAT  The index of the stat
+     * @param value The new value of the stat
+     */
+    public void updateIntStat(int STAT, int value){
+        if(value < 0)
+        {
+            throw new IllegalArgumentException("The value of the stat must be <= 0");
+        }
+        if(STAT < STRENGTH || STAT > CHARISMA){
+            throw new IllegalArgumentException("The value doesn't represent any BaseAbility");
+        }
+        if(STAT == STRENGTH){
+            this.intStrength = value;
+            this.getBaseAbility(STRENGTH).setValue(value);
+        }
+        if(STAT == DEXTERITY) {
+            this.intDexterity = value;
+            this.getBaseAbility(DEXTERITY).setValue(value);
+        }
+        if(STAT == CONSTITUTION){
+            this.intConstitution = value;
+            this.getBaseAbility(CONSTITUTION).setValue(value);
+        }
+        if(STAT == INTELLIGENCE){
+            this.intIntelligence = value;
+            this.getBaseAbility(INTELLIGENCE).setValue(value);
+        }
+        if(STAT == WISDOM){
+            this.intWisdom = value;
+            this.getBaseAbility(WISDOM).setValue(value);
+        }
+        if(STAT == CHARISMA){
+            this.intCharisma = value;
+            this.getBaseAbility(CHARISMA).setValue(value);
+        }
+    }
     public void abilityInit(){
         //remember to pull from database!!!
-         this.strength=new BaseAbility(this,15,STRENGTH);
-         this.dexterity=new BaseAbility(this,10,DEXTERITY);
-         this.constitution=new BaseAbility(this,10,CONSTITUTION);
-         this.intelligence=new BaseAbility(this,10,INTELLIGENCE);
-         this.wisdom=new BaseAbility(this,10,WISDOM);
-         this.charisma=new BaseAbility(this,10,CHARISMA);
+         this.strength=new BaseAbility(this,getIntStat(STRENGTH),STRENGTH);
+         this.dexterity=new BaseAbility(this,getIntStat(DEXTERITY),DEXTERITY);
+         this.constitution=new BaseAbility(this,getIntStat(CONSTITUTION),CONSTITUTION);
+         this.intelligence=new BaseAbility(this,getIntStat(INTELLIGENCE),INTELLIGENCE);
+         this.wisdom=new BaseAbility(this,getIntStat(WISDOM),WISDOM);
+         this.charisma=new BaseAbility(this,getIntStat(CHARISMA),CHARISMA);
 
-         this.strength_save =new SaveAbility(this,"Strength",false,STRENGTH_SAVE);
-         this.dexterity_save=new SaveAbility(this,"Dexterity",true,DEXTERITY_SAVE);
-         this.constitution_save=new SaveAbility(this,"Constitution",false,CONSTITUTION_SAVE);
-         this.intelligence_save=new SaveAbility(this,"Intelligence",true,INTELLIGENCE_SAVE);
-         this.wisdom_save=new SaveAbility(this,"Wisdom",true,WISDOM_SAVE);
-         this.charisma_save=new SaveAbility(this,"Charisma",true,CHARISMA_SAVE);
+         this.strength_save =new SaveAbility(this,"Strength",strengthProf,STRENGTH_SAVE);
+         this.dexterity_save=new SaveAbility(this,"Dexterity",dexterityProf,DEXTERITY_SAVE);
+         this.constitution_save=new SaveAbility(this,"Constitution",constitutionProf,CONSTITUTION_SAVE);
+         this.intelligence_save=new SaveAbility(this,"Intelligence",intelligenceProf,INTELLIGENCE_SAVE);
+         this.wisdom_save=new SaveAbility(this,"Wisdom",wisdomProf,WISDOM_SAVE);
+         this.charisma_save=new SaveAbility(this,"Charisma",charismaProf,CHARISMA_SAVE);
 
-         this.acrobatics=new ListAbility(this,"Acrobatics",true,false,ACROBATICS);
-         this.animal_handling=new ListAbility(this,"Animal Handling",true,true,ANIMAL_HANDLING);
-         this.arcana=new ListAbility(this,"Arcana",true,true,ARCANA);
-         this.athletics=new ListAbility(this,"Athletics",true,false,ATHLETICS);
-         this.deception=new ListAbility(this,"Deception",false,false,DECEPTION);
-         this.history=new ListAbility(this,"History",true,true,HISTORY);
-         this.insight=new ListAbility(this,"Insight",true,true,INSIGHT);
-         this.intimidation=new ListAbility(this,"Intimidation",true,true,INTIMIDATION);
-         this.investigation=new ListAbility(this,"Investigation",true,true,INVESTIGATION);
-         this.medicine=new ListAbility(this,"Medicine",true,true,MEDICINE);
-         this.nature=new ListAbility(this,"Nature",true,true,NATURE);
-         this.perception=new ListAbility(this,"Perception",true,true,PERCEPTION);
-         this.performance=new ListAbility(this,"Performance",true,true,PERFORMANCE);
-         this.persuasion=new ListAbility(this,"Persuasion",true,true,PERSUASION);
-         this.religion=new ListAbility(this,"Religion",true,true,RELIGION);
-         this.sleight_of_hand=new ListAbility(this,"Sleight of hand",true,true,SLEIGHT_OF_HAND);
-         this.stealth=new ListAbility(this,"Stealth",true,true,STEALTH);
-         this.survival=new ListAbility(this,"Survival",true,true,SURVIVAL);
+         this.acrobatics=new ListAbility(this,"Acrobatics",acrobaticsProf,acrobaticsExp,ACROBATICS);
+         this.animal_handling=new ListAbility(this,"Animal Handling",animal_handlingProf,animal_handlingExp,ANIMAL_HANDLING);
+         this.arcana=new ListAbility(this,"Arcana",arcanaProf,arcanaExp,ARCANA);
+         this.athletics=new ListAbility(this,"Athletics",athleticsProf,athleticsExp,ATHLETICS);
+         this.deception=new ListAbility(this,"Deception",deceptionProf,deceptionExp,DECEPTION);
+         this.history=new ListAbility(this,"History",historyProf,historyExp,HISTORY);
+         this.insight=new ListAbility(this,"Insight",insightProf,insightExp,INSIGHT);
+         this.intimidation=new ListAbility(this,"Intimidation",intimidationProf,intimidationExp,INTIMIDATION);
+         this.investigation=new ListAbility(this,"Investigation",investigationProf,investigationExp,INVESTIGATION);
+         this.medicine=new ListAbility(this,"Medicine",medicineProf,medicineExp,MEDICINE);
+         this.nature=new ListAbility(this,"Nature",natureProf,natureExp,NATURE);
+         this.perception=new ListAbility(this,"Perception",perceptionProf,perceptionExp,PERCEPTION);
+         this.performance=new ListAbility(this,"Performance",performanceProf,performanceExp,PERFORMANCE);
+         this.persuasion=new ListAbility(this,"Persuasion",persuasionProf,persuasionExp,PERSUASION);
+         this.religion=new ListAbility(this,"Religion",religionProf,religionExp,RELIGION);
+         this.sleight_of_hand=new ListAbility(this,"Sleight of hand",sleight_of_handProf,sleight_of_handExp,SLEIGHT_OF_HAND);
+         this.stealth=new ListAbility(this,"Stealth",stealthProf,stealthExp,STEALTH);
+         this.survival=new ListAbility(this,"Survival",survivalProf,survivalExp,SURVIVAL);
 
     }
     public void charInit(){
@@ -276,8 +387,7 @@ public class MyCharacter {
         }
     }
 
-    public ListAbility getListAbility(int STAT)
-    {
+    public ListAbility getListAbility(int STAT) {
         if(STAT == ACROBATICS)
         {
             return acrobatics;
