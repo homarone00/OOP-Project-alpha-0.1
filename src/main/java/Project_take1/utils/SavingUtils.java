@@ -89,10 +89,34 @@ public class SavingUtils {
                         "stealthProf, stealthExp," +
                         "survivalProf, survivalExp)" +
                         "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                        "?, ?, ?, ?, ?)"
+                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         )) {
             insertCharacter.setString(1, myCharacter.getName());
             insertCharacter.setInt(2,myCharacter.getLvl());
+            insertCharacter.setInt(3, myCharacter.getMaxHp());
+            insertCharacter.setInt(4, myCharacter.getCurrentHp());
+            insertCharacter.setInt(5, myCharacter.getTemporary_hp());
+            insertCharacter.setInt(6, myCharacter.getInitiative());
+            insertCharacter.setInt(7, myCharacter.getProfBonus());
+            insertCharacter.setInt(8, myCharacter.getAc());
+            insertCharacter.setInt(9, myCharacter.getSpeed());
+            insertCharacter.setInt(10, myCharacter.getIntStat(MyCharacter.STRENGTH));
+            insertCharacter.setBoolean(11, myCharacter.getProfStat(MyCharacter.STRENGTH));
+            insertCharacter.setInt(12, myCharacter.getIntStat(MyCharacter.DEXTERITY));
+            insertCharacter.setBoolean(13, myCharacter.getProfStat(MyCharacter.DEXTERITY));
+            insertCharacter.setInt(14, myCharacter.getIntStat(MyCharacter.CONSTITUTION));
+            insertCharacter.setBoolean(15, myCharacter.getProfStat(MyCharacter.CONSTITUTION));
+            insertCharacter.setInt(16, myCharacter.getIntStat(MyCharacter.INTELLIGENCE));
+            insertCharacter.setBoolean(17, myCharacter.getProfStat(MyCharacter.INTELLIGENCE));
+            insertCharacter.setInt(18, myCharacter.getIntStat(MyCharacter.WISDOM));
+            insertCharacter.setBoolean(19, myCharacter.getProfStat(MyCharacter.WISDOM));
+            insertCharacter.setInt(20, myCharacter.getIntStat(MyCharacter.CHARISMA));
+            for(int i = MyCharacter.ACROBATICS; i <= MyCharacter.SURVIVAL; i++)
+            {
+                insertCharacter.setBoolean(21 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getProficiency(i));
+                insertCharacter.setBoolean(22 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
+            }
+            insertCharacter.executeUpdate();
         }
     }
 }

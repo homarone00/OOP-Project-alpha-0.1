@@ -51,9 +51,7 @@ public class MyCharacter {
     int profBonus = 1;
     int ac = 14;
 
-    public String getName() {
-        return name;
-    }
+
 
     int speed=9;
 
@@ -139,7 +137,9 @@ public class MyCharacter {
     private Boolean survivalProf = false;
     private Boolean survivalExp = false;
     MyCharacterSheet myCharacterSheet;
-
+    public String getName() {
+        return name;
+    }
     public MyCharacter() {
          abilityInit();
          charInit();
@@ -270,6 +270,30 @@ public class MyCharacter {
         if(STAT == CHARISMA){
             this.intCharisma = value;
             this.getBaseAbility(CHARISMA).setValue(value);
+        }
+    }
+
+    public Boolean getProfStat(int STAT) {
+        if(STAT == STRENGTH){
+            return this.strengthProf;
+        }
+        if(STAT == DEXTERITY) {
+            return this.dexterityProf;
+        }
+        if(STAT == CONSTITUTION){
+            return this.constitutionProf;
+        }
+        if(STAT == INTELLIGENCE){
+            return this.intelligenceProf;
+        }
+        if(STAT == WISDOM){
+            return this.wisdomProf;
+        }
+        if(STAT == CHARISMA){
+            return this.charismaProf;
+        }
+        else{
+            throw new IllegalArgumentException("The value of the parameter must be lower than 7");
         }
     }
     public void abilityInit(){
@@ -467,8 +491,7 @@ public class MyCharacter {
         }
     }
 
-    public AbstractCompAbility getCompAbility(int STAT)
-    {
+    public AbstractCompAbility getCompAbility(int STAT) {
         try {
             return getListAbility(STAT);
         }catch (IllegalArgumentException e) {
@@ -481,9 +504,165 @@ public class MyCharacter {
             }
         }
     }
-
-    public AbstractAbility getAbility(int STAT)
-    {
+    public Boolean getProficiency(int STAT){
+        if(STAT == ACROBATICS)
+        {
+            return acrobaticsProf;
+        }
+        if(STAT == ANIMAL_HANDLING)
+        {
+            return animal_handlingProf;
+        }
+        if(STAT == ARCANA)
+        {
+            return arcanaProf;
+        }
+        if(STAT == ATHLETICS)
+        {
+            return athleticsProf;
+        }
+        if(STAT == DECEPTION)
+        {
+            return deceptionProf;
+        }
+        if(STAT == HISTORY)
+        {
+            return historyProf;
+        }
+        if(STAT == INSIGHT)
+        {
+            return insightProf;
+        }
+        if(STAT == INTIMIDATION)
+        {
+            return intimidationProf;
+        }
+        if(STAT == INVESTIGATION)
+        {
+            return investigationProf;
+        }
+        if(STAT == MEDICINE)
+        {
+            return medicineProf;
+        }
+        if(STAT == NATURE)
+        {
+            return natureProf;
+        }
+        if(STAT == PERCEPTION)
+        {
+            return  perceptionProf;
+        }
+        if(STAT == PERFORMANCE)
+        {
+            return performanceProf;
+        }
+        if(STAT == PERSUASION)
+        {
+            return persuasionProf;
+        }
+        if(STAT == RELIGION)
+        {
+            return religionProf;
+        }
+        if(STAT == SLEIGHT_OF_HAND)
+        {
+            return sleight_of_handProf;
+        }
+        if(STAT == STEALTH)
+        {
+            return stealthProf;
+        }
+        if(STAT == SURVIVAL)
+        {
+            return survivalProf;
+        }
+        else
+        {
+            throw new IllegalArgumentException("STAT field in MyCharacter.ListAbility(int STAT); can only be" +
+                    " MyCharacter.ACROBATICS< STAT < MyCharacter.SURVIVAL");
+        }
+    }
+    public Boolean getExpertise(int STAT){
+        if(STAT == ACROBATICS)
+        {
+            return acrobaticsExp;
+        }
+        if(STAT == ANIMAL_HANDLING)
+        {
+            return animal_handlingExp;
+        }
+        if(STAT == ARCANA)
+        {
+            return arcanaExp;
+        }
+        if(STAT == ATHLETICS)
+        {
+            return athleticsExp;
+        }
+        if(STAT == DECEPTION)
+        {
+            return deceptionExp;
+        }
+        if(STAT == HISTORY)
+        {
+            return historyExp;
+        }
+        if(STAT == INSIGHT)
+        {
+            return insightExp;
+        }
+        if(STAT == INTIMIDATION)
+        {
+            return intimidationExp;
+        }
+        if(STAT == INVESTIGATION)
+        {
+            return investigationExp;
+        }
+        if(STAT == MEDICINE)
+        {
+            return medicineExp;
+        }
+        if(STAT == NATURE)
+        {
+            return natureExp;
+        }
+        if(STAT == PERCEPTION)
+        {
+            return  perceptionExp;
+        }
+        if(STAT == PERFORMANCE)
+        {
+            return performanceExp;
+        }
+        if(STAT == PERSUASION)
+        {
+            return persuasionExp;
+        }
+        if(STAT == RELIGION)
+        {
+            return religionExp;
+        }
+        if(STAT == SLEIGHT_OF_HAND)
+        {
+            return sleight_of_handExp;
+        }
+        if(STAT == STEALTH)
+        {
+            return stealthExp;
+        }
+        if(STAT == SURVIVAL)
+        {
+            return survivalExp;
+        }
+        else
+        {
+            throw new IllegalArgumentException("STAT field in MyCharacter.ListAbility(int STAT); can only be" +
+                    " MyCharacter.ACROBATICS< STAT < MyCharacter.SURVIVAL");
+        }
+    }
+    public AbstractAbility getAbility(int STAT) {
         try{
             return getBaseAbility(STAT);
         }
