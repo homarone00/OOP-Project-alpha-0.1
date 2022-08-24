@@ -2,16 +2,18 @@ package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers
 
 import Project_take1.MyCharacter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class TemporaryHealthPanel extends AbstractHealthPanel{
-    public TemporaryHealthPanel(MyCharacter myCharacter) {
+    MainHealthPanel mainHealthPanel;
+    public TemporaryHealthPanel(MyCharacter myCharacter, MainHealthPanel mainHealthPanel) {
         super(myCharacter);
         setCurrentHealth();
-
+        this.mainHealthPanel=mainHealthPanel;
         nameLabel.setText("<html>temp<br>HP</html>");
         nameLabel.setFont(new Font("Comic Sans",Font.BOLD,18));
 
@@ -24,10 +26,17 @@ public class TemporaryHealthPanel extends AbstractHealthPanel{
                     int integer;
                     try{
                         integer=Integer.parseInt(content);
-                        int a=getCurrentHealth();
-                        a+=integer;
-                        setCurrentHealth(a);
-                        addingField.setText("");
+                        int current =getCurrentHealth();
+                        current +=integer;
+                        if(current>=0){
+                            setCurrentHealth(current);
+                            addingField.setText("");
+                        }
+                        else{
+                            setCurrentHealth(0);
+                            mainHealthPanel.addValue(current);
+                            addingField.setText("");
+                        }
                     } catch (NumberFormatException ignored) {
 
                     }
@@ -35,13 +44,26 @@ public class TemporaryHealthPanel extends AbstractHealthPanel{
             }
 
         });
-
+        JPanel placeHolderPanel_1=new JPanel();
+        JPanel placeHolderPanel_2=new JPanel();
+        placeHolderPanel_1.setPreferredSize(new Dimension(placeHolderPanel_1.getPreferredSize().width,18));
+        placeHolderPanel_2.setPreferredSize(new Dimension(placeHolderPanel_1.getPreferredSize().width,18));
+        hpPanel.add(placeHolderPanel_1,BorderLayout.NORTH);
+        hpPanel.add(placeHolderPanel_2,BorderLayout.SOUTH);
+        placeHolderPanel_1.setOpaque(false);
+        placeHolderPanel_2.setOpaque(false);
         hpPanel.add(currentHealthPanel,BorderLayout.CENTER);
     }
     public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
-        currentHealthField.setText(String.valueOf(currentHealth));
-        myCharacter.setTemporary_hp(currentHealth);
+        if(currentHealth<0){
+            throw new IllegalArgumentException("TemporaryHealthPanel tried to set a negative value for tmpHP, using the " +
+                    "setCurrentHealth method");
+        }
+        else{
+            this.currentHealth = currentHealth;
+            currentHealthField.setText(String.valueOf(currentHealth));
+            myCharacter.setTemporary_hp(currentHealth);
+        }
     }
     @Override
     public void setCurrentHealth() {
@@ -55,12 +77,12 @@ public class TemporaryHealthPanel extends AbstractHealthPanel{
 
     @Override
     public int getCurrentHealth() {
-        return 0;
+        return currentHealth;
     }
 
     @Override
     public void updateColors() {
-
+        super.updateColors();
     }
 
     @Override
@@ -88,17 +110,25 @@ public class TemporaryHealthPanel extends AbstractHealthPanel{
     public void keyTyped(KeyEvent e) {
         if(e.getSource().equals(currentHealthField)){
             char c=e.getKeyChar();
-            {
-                if(!Character.isDigit(c)||c==KeyEvent.VK_DELETE){
-                    e.consume();
-                }
-                if (currentHealthField.getText().length() >= (3) && c != KeyEvent.VK_DELETE &&
-                        (currentHealthField.getSelectedText()==null)) {
-                    e.consume();
-                }
+            if(!Character.isDigit(c)||c==KeyEvent.VK_DELETE){
+                e.consume();
+            }
+            if (currentHealthField.getText().length() >= (3) && c != KeyEvent.VK_DELETE &&
+                    (currentHealthField.getSelectedText()==null)) {
+                e.consume();
             }
         }
+        if(e.getSource().equals(addingField)){
+            char c=e.getKeyChar();
+            if((!Character.isDigit(c))&&!(c=='+'||c=='-')){
+                e.consume();
+            }
+            if (addingField.getText().length() >= 4 && c != KeyEvent.VK_DELETE &&
+                    (addingField.getSelectedText()==null)) {
+                e.consume();
+            }
 
+        }
     }
 
     @Override
@@ -111,38 +141,23 @@ public class TemporaryHealthPanel extends AbstractHealthPanel{
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-    /*if(temporary){
-        nameLabel.setText("<html>temp<br>HP</html>");
-        nameLabel.setFont(new Font("Comic Sans",Font.BOLD,18));
-    }*/
     @Override
     public void paintComponent(Graphics g){
         this.arcHeight=30;
         this.arcWidth=30;
         super.paintComponent(g);
+    }
+    @Override
+    public void addValue(int a){
+        int current=getCurrentHealth();
+        current+=a;
+        if(current>=0){
+            setCurrentHealth(current);
+        }
+        else{
+            setCurrentHealth(0);
+            mainHealthPanel.addValue(current);
+        }
     }
 }

@@ -6,4 +6,5 @@ public interface HealthPanel {
     void setCurrentHealth(int a);
 
     int getCurrentHealth();
+    void addValue(int a);
 }

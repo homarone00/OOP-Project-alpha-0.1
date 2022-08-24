@@ -18,7 +18,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
     ProficiencyPointLabel clComp;
     MyCharacter myCharacter;
     boolean editing;
-    Thread thread;
+    Thread  thread;
     boolean entered;
 
     public SingleAbilityPanel(MyCharacter myCharacter, int baseStat) {

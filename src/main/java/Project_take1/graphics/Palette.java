@@ -41,9 +41,9 @@ public class Palette extends AbstractPalette{
         darker_background = new Color(31, 31, 31);
         text = new Color(206, 206, 206);
         button_default = new Color(87, 87, 87);
-        button_entered = new Color(245, 245, 245);
-        button_pressed = new Color(150, 150, 150);
-        button_entered_border = new Color(220, 220, 220);
+        button_entered = new Color(164, 164, 164);
+        button_pressed = new Color(77, 77, 77);
+        button_entered_border = new Color(182, 182, 182);
         border=new Color(130,130,130);
 
     }

@@ -126,19 +126,28 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
             BorderLayout layout=(BorderLayout)this.getLayout();
             tabButton_1.setActive(true);
             tabButton_2.setActive(false);
-            remove(layout.getLayoutComponent(BorderLayout.CENTER));
-            add(abilityTab,BorderLayout.CENTER);
-            revalidate();
-            updateColors();
+            Thread exec = new Thread(() -> {
+                remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                add(abilityTab, BorderLayout.CENTER);
+                revalidate();
+                updateColors();
+            });
+            exec.start();
+
+
         }
         if(e.getSource()==tabButton_2){
             BorderLayout layout=(BorderLayout)this.getLayout();
             tabButton_1.setActive(false);
             tabButton_2.setActive(true);
-            remove(layout.getLayoutComponent(BorderLayout.CENTER));
-            add(spellTab,BorderLayout.CENTER);
-            revalidate();
-            updateColors();
+
+            Thread exec = new Thread(() -> {
+                remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                add(spellTab,BorderLayout.CENTER);
+                revalidate();
+                updateColors();
+            });
+            exec.start();
         }
 
     }

@@ -255,11 +255,11 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getSource().equals(jl_minus)) {
-            jl_minus.pressed=true;
+            jl_minus.setPressed(true);
             jl_minus.repaint();
         }
         if (e.getSource() == jl_plus) {
-            jl_plus.pressed=true;
+            jl_plus.setPressed(true);
             jl_plus.repaint();
         }
     }
@@ -267,22 +267,22 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     @Override
     public void mouseReleased(MouseEvent e) {
         if (e.getSource().equals(jl_minus)) {
-            jl_minus.pressed=false;
+            jl_minus.setPressed(false);
             jl_minus.repaint();
         }
         if (e.getSource() == jl_plus) {
-            jl_plus.pressed=false;
+            jl_plus.setPressed(false);
             jl_plus.repaint();
         }
     }
     @Override
     public void mouseEntered(MouseEvent e){
         if (e.getSource().equals(jl_minus)) {
-            jl_minus.entered=true;
+            jl_minus.setEntered(true);
             jl_minus.repaint();
         }
         if (e.getSource() == jl_plus) {
-            jl_plus.entered=true;
+            jl_plus.setEntered(true);
             jl_plus.repaint();
         }
     }
@@ -290,11 +290,11 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     @Override
     public void mouseExited(MouseEvent e){
         if (e.getSource().equals(jl_minus)) {
-            jl_minus.entered=false;
+            jl_minus.setEntered(false);
             jl_minus.repaint();
         }
         if (e.getSource() == jl_plus) {
-            jl_plus.entered=false;
+            jl_plus.setEntered(false);
             jl_plus.repaint();
         }
     }
@@ -316,6 +316,7 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
         label.setForeground(getPalette().text());
         value.setBorder(new MyRoundedBorder(getPalette().border(), 2, 5));
         value.setForeground(getPalette().text());
+        value.setCaretColor(getPalette().text());
     }
 
     @Override

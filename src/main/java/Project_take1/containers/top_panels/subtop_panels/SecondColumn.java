@@ -14,11 +14,14 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
     SimpleRoundedPanel className;
     SimpleRoundedPanel level;
+    JPanel healthGrid;
+    MainHealthPanel mainHealthPanel;
+    TemporaryHealthPanel temporaryHealthPanel;
 
     public SecondColumn(MyCharacter myCharacter){
         GridBagConstraints c=new GridBagConstraints();
         c.insets=new Insets(5,2,7,2);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(5,5));
         setOpaque(true);
         setBackground(getPalette().background());
         setPreferredSize(new Dimension(230,800));
@@ -39,22 +42,24 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         JPanel grid_2 =new JPanel(new GridLayout(1,3,4,4));
         grid_2.add(new SimpleRoundedPanel("AC",Integer.toString(myCharacter.getAc()),30,30));
         if(myCharacter.getInitiative()>=0){
-            grid_2.add(new SimpleRoundedPanel("INIT","+"+Integer.toString(myCharacter.getInitiative()),30,30));
+            grid_2.add(new SimpleRoundedPanel("INIT","+"+myCharacter.getInitiative(),30,30));
         }
         else{
             grid_2.add(new SimpleRoundedPanel("INIT",Integer.toString(myCharacter.getInitiative()),30,30));
         }
-        grid_2.add(new SimpleRoundedPanel("SPEED",Integer.toString(myCharacter.getSpeed())+"m",30,30));
+        grid_2.add(new SimpleRoundedPanel("SPEED",myCharacter.getSpeed()+"m",30,30));
         grid_2.setOpaque(false);
         grid_2.setPreferredSize(new Dimension(grid_2.getPreferredSize().width,70));
 
         add(grid_1,BorderLayout.NORTH);
         add(grid_2,BorderLayout.CENTER);
-        JPanel healthGrid=new JPanel(new GridLayout(2,1,4,4));
+        mainHealthPanel =new MainHealthPanel(myCharacter);
+        temporaryHealthPanel=new TemporaryHealthPanel(myCharacter,mainHealthPanel);
+        healthGrid=new JPanel(new GridLayout(2,1,4,4));
         JPanel healthWeaponsGrid=new JPanel(new BorderLayout());
-        MainHealthPanel mainHealthPanel =new MainHealthPanel(myCharacter);
+
         healthGrid.add(mainHealthPanel);
-        TemporaryHealthPanel temporaryHealthPanel=new TemporaryHealthPanel(myCharacter);
+
         healthGrid.add(temporaryHealthPanel);
         healthWeaponsGrid.add(healthGrid,BorderLayout.NORTH);
         add(healthWeaponsGrid,BorderLayout.SOUTH);
@@ -65,6 +70,9 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
     public void updateColors() {
         className.updateColors();
         level.updateColors();
+        healthGrid.setBackground(getPalette().background());
+        mainHealthPanel.updateColors();
+        temporaryHealthPanel.updateColors();
         setBackground(getPalette().background());
     }
 

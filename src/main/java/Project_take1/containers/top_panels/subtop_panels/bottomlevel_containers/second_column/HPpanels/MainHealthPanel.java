@@ -3,6 +3,7 @@ package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers
 import Project_take1.MyCharacter;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.first_column.CircularLabel;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -58,11 +59,11 @@ public class MainHealthPanel extends AbstractHealthPanel {
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
-        maxHealthPanel.setText("/" + String.valueOf(maxHealth));
+        maxHealthPanel.setText("/" + maxHealth);
     }
     public void setMaxHealth() {
         this.maxHealth = myCharacter.getMaxHp();
-        maxHealthPanel.setText("/" + String.valueOf(maxHealth));
+        maxHealthPanel.setText("/" + maxHealth);
     }
 
     public int getCurrentHealth() {
@@ -90,6 +91,8 @@ public class MainHealthPanel extends AbstractHealthPanel {
 
     @Override
     public void updateColors() {
+        super.updateColors();
+        maxHealthPanel.setForeground(getPalette().text());
     }
 
     @Override
@@ -101,15 +104,24 @@ public class MainHealthPanel extends AbstractHealthPanel {
     public void keyTyped(KeyEvent e) {
         if(e.getSource().equals(currentHealthField)){
             char c=e.getKeyChar();
-            {
-                if(!Character.isDigit(c)||c==KeyEvent.VK_DELETE){
-                    e.consume();
-                }
-                if (currentHealthField.getText().length() >= (maxHealthPanel.getText().length()-1) && c != KeyEvent.VK_DELETE &&
-                        (currentHealthField.getSelectedText()==null)) {
-                    e.consume();
-                }
+            if(!Character.isDigit(c)||c==KeyEvent.VK_DELETE){
+                e.consume();
             }
+            if (currentHealthField.getText().length() >= (maxHealthPanel.getText().length()-1) && c != KeyEvent.VK_DELETE &&
+                    (currentHealthField.getSelectedText()==null)) {
+                e.consume();
+            }
+        }
+        if(e.getSource().equals(addingField)){
+            char c=e.getKeyChar();
+            if((!Character.isDigit(c))&&!(c=='+'||c=='-')){
+                e.consume();
+            }
+            if (addingField.getText().length() >= 4 && c != KeyEvent.VK_DELETE &&
+                    (addingField.getSelectedText()==null)) {
+                e.consume();
+            }
+
         }
     }
 
@@ -124,30 +136,6 @@ public class MainHealthPanel extends AbstractHealthPanel {
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
     @Override
     public void focusGained(FocusEvent e) {
@@ -167,4 +155,11 @@ public class MainHealthPanel extends AbstractHealthPanel {
         }
 
     }
+    @Override
+    public void addValue(int a){
+        int current=getCurrentHealth();
+        current+=a;
+        setCurrentHealth(current);
+    }
+
 }
