@@ -29,7 +29,7 @@ public class ProficiencyPointLabel extends JLabel implements UpdatablePanel {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-
+            g2D.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
         int r = 4;
 
 
@@ -43,7 +43,7 @@ public class ProficiencyPointLabel extends JLabel implements UpdatablePanel {
             g2D.fillOval(5, getSize().height / 2 - r, r+2 , r+2);
             g2D.setStroke(new BasicStroke(2));
             int radius=(int)(r * 2.5);
-            g2D.drawOval(3, getSize().height / 2 - r-2, radius, radius);
+            g2D.drawOval(2, getSize().height / 2 - r-3, radius+1, radius+1);
         }
         else if(proficiency)
         {

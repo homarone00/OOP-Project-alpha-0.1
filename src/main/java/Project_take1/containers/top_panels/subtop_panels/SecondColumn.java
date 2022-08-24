@@ -2,7 +2,7 @@ package Project_take1.containers.top_panels.subtop_panels;
 
 import Project_take1.MyCharacter;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.SimpleRoundedPanel;
-import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HealthPanel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HPpanels.HealthPanel;
 import Project_take1.graphics.UpdatablePanel;
 import Project_take1.graphics.Palette;
 
@@ -49,11 +49,10 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         add(grid_1,BorderLayout.NORTH);
         add(grid_2,BorderLayout.CENTER);
-        JPanel healthGrid=new JPanel(new GridBagLayout());
+        JPanel healthGrid=new JPanel(new GridLayout(2,1,4,4));
         JPanel healthWeaponsGrid=new JPanel(new BorderLayout());
-        HealthPanel mainHealth=new HealthPanel(false,myCharacter);
+        HealthPanel mainHealth=new HealthPanel(myCharacter);
         healthGrid.add(mainHealth);
-
         healthWeaponsGrid.add(healthGrid,BorderLayout.NORTH);
         add(healthWeaponsGrid,BorderLayout.SOUTH);
 

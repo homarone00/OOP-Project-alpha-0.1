@@ -22,6 +22,7 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
 
     public MyCharacterSheet(MyCharacter myCharacter) {
         myCharacter.assignSheet(this);
+
         palette = Palette.getInstance();
         contentPane = new MyTabbedPane(myCharacter);
         jMenuBar = new MyJMenuBar();
