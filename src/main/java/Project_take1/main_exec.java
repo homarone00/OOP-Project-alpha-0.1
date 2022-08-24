@@ -12,7 +12,6 @@ public class main_exec {
         } catch (UnsupportedLookAndFeelException | InstantiationException | ClassNotFoundException |
                  IllegalAccessException ignored) {
         }
-        System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
         MyCharacter myCharacter = new MyCharacter();
         MyCharacterSheet myCharacterSheet=new MyCharacterSheet(myCharacter);
     }

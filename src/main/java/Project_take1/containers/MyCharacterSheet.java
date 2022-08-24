@@ -4,6 +4,8 @@ import Project_take1.MyCharacter;
 import Project_take1.graphics.Palette;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +16,7 @@ import java.util.Objects;
  *
  * @author Omar Carpentiero
  */
-public class MyCharacterSheet extends JFrame implements ActionListener {
+public class MyCharacterSheet extends JFrame implements ActionListener, ChangeListener {
     MyTabbedPane contentPane;
     MyJMenuBar jMenuBar;
     Palette palette;
@@ -67,5 +69,12 @@ public class MyCharacterSheet extends JFrame implements ActionListener {
     }
     public void updatePanel(){
         contentPane.updatePanel();
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if(e.getSource().equals(myCharacter)){
+            updatePanel();
+        }
     }
 }
