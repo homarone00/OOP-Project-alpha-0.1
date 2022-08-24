@@ -1,14 +1,12 @@
 package Project_take1.utils;
 
 import Project_take1.MyCharacter;
-import Project_take1.utils.*;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class SavingUtils {
     public static void setDB() throws SQLException {
@@ -21,7 +19,7 @@ public class SavingUtils {
     public static void createTable(Connection connection) throws SQLException{
         try(PreparedStatement createTable = connection.prepareStatement(
                 "CREATE TABLE if not EXISTS character(" +
-                        "id INTEGER," +
+                        "id TEXT," +
                         "name VARCHAR(50)," +
                         "lv INTEGER, " +
                         "maxHp integer," +
@@ -63,13 +61,11 @@ public class SavingUtils {
     public static void insertChar(MyCharacter myCharacter) throws SQLException{
         try(PreparedStatement insertCharacter = DBManager.getConnection().prepareStatement(
                 "INSERT INTO character(" +
-                        "name, lv, maxHp currentHp, tempHp, initiative, profBonus, ac, speed," +
-                        "strength, strengthProf," +
-                        "dexterity,  dexterityProf, " +
-                        "constitution, constitutionProf,  " +
-                        "intelligence, intelligenceProf, " +
-                        "wisdom, wisdomProf," +
-                        "charisma, charismaProf," +
+                        "name, lv, maxHp, currentHp, tempHp, initiative, profBonus, ac, speed," +
+                        "strength, dexterity, constitution,  " +
+                        "intelligence, wisdom, charisma," +
+                        "strengthProf, dexterityProf, constitutionProf, intelligenceProf, " +
+                        "wisdomProf,charismaProf," +
                         "acrobaticsProf,  acrobaticExp," +
                         "animal_handlingProf,  animal_handlingExp," +
                         "arcanaProf,  arcanaExp," +
@@ -87,9 +83,9 @@ public class SavingUtils {
                         "religionProf,  religionExp," +
                         "sleight_of_handProf,  sleight_of_handExp," +
                         "stealthProf, stealthExp," +
-                        "survivalProf, survivalExp)" +
+                        "survivalProf, survivalExp, id)" +
                         "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         )) {
             insertCharacter.setString(1, myCharacter.getName());
             insertCharacter.setInt(2,myCharacter.getLvl());
@@ -111,12 +107,38 @@ public class SavingUtils {
             insertCharacter.setInt(18, myCharacter.getIntStat(MyCharacter.WISDOM));
             insertCharacter.setBoolean(19, myCharacter.getProfStat(MyCharacter.WISDOM));
             insertCharacter.setInt(20, myCharacter.getIntStat(MyCharacter.CHARISMA));
+            insertCharacter.setBoolean(21, myCharacter.getProfStat(MyCharacter.CHARISMA));
             for(int i = MyCharacter.ACROBATICS; i <= MyCharacter.SURVIVAL; i++)
             {
-                insertCharacter.setBoolean(21 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getProficiency(i));
-                insertCharacter.setBoolean(22 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
+                insertCharacter.setBoolean(22 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getProficiency(i));
+                insertCharacter.setBoolean(23 + (2*(i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
             }
+            insertCharacter.setString(58, myCharacter.getUuid().toString());
+
             insertCharacter.executeUpdate();
         }
+    }
+    public static void deleteChar(UUID uuid) throws SQLException {
+        try(PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM character WHERE id" +
+                " = ?")) {
+            deleteChar.setString(1, uuid.toString());
+            deleteChar.executeUpdate();
+        }
+    }
+
+    public static void resetCharTable() throws SQLException {
+        try(PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM character")) {
+            deleteChar.executeUpdate();
+        }
+    }
+    public static void dropCharTable() throws SQLException {
+        try(PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DROP TABLE character")) {
+            deleteChar.executeUpdate();
+        }
+    }
+    public static ArrayList<MyCharacter> getAllChar() throws SQLException{
+        ResultSet rs = DBManager.getConnection().createStatement().executeQuery("SELECT * FROM character");
+        while(rs.next());
+        return new ArrayList<>();
     }
 }

@@ -3,45 +3,13 @@ package Project_take1;
 import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
 
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class MyCharacter {
+public class MyCharacter implements MyCharacterCons{
     //static STATS (STATESTEKS!)
-    public static final int STRENGTH = 1;
-    public static final int DEXTERITY = 2;
-    public static final int CONSTITUTION = 3;
-    public static final int INTELLIGENCE = 4;
-    public static final int WISDOM = 5;
-    public static final int CHARISMA = 6;
-
-    public static final int STRENGTH_SAVE=31;
-    public static final int DEXTERITY_SAVE=32;
-    public static final int CONSTITUTION_SAVE=33;
-    public static final int INTELLIGENCE_SAVE=34;
-    public static final int WISDOM_SAVE=35;
-    public static final int CHARISMA_SAVE=36;
-
-    public static final int ACROBATICS=11;
-    public static final int ANIMAL_HANDLING=12;
-    public static final int ARCANA=13;
-    public static final int ATHLETICS=14;
-    public static final int DECEPTION=15;
-    public static final int HISTORY=16;
-    public static final int INSIGHT=17;
-    public static final int INTIMIDATION=18;
-    public static final int INVESTIGATION=19;
-    public static final int MEDICINE=20;
-    public static final int NATURE=21;
-    public static final int PERCEPTION=22;
-    public static final int PERFORMANCE=23;
-    public static final int PERSUASION=24;
-    public static final int RELIGION=25;
-    public static final int SLEIGHT_OF_HAND=26;
-    public static final int STEALTH=27;
-    public static final int SURVIVAL=28;
-
-
-    //da aggiungere UUID
+    UUID uuid;
     String name = "Leario";
     int lvl = 10;
     int maxHp = 15;
@@ -50,18 +18,10 @@ public class MyCharacter {
     int initiative=4;
     int profBonus = 1;
     int ac = 14;
-
-
-
     int speed=9;
-
-    private int intStrength = 10;
-    private int intDexterity = 10;
-    private int intConstitution = 10;
-    private int intIntelligence = 10;
-    private int intWisdom = 10;
-    private int intCharisma = 10;
-
+    private ArrayList<Integer> intStat = new ArrayList<>();
+    private ArrayList<Boolean> saveProf = new ArrayList<>();
+    private ArrayList<Boolean> abilityProfExp = new ArrayList<>();
     BaseAbility strength;
     BaseAbility dexterity;
     BaseAbility constitution;
@@ -70,79 +30,67 @@ public class MyCharacter {
     BaseAbility charisma;
 
     SaveAbility strength_save;
-    private Boolean strengthProf = false;
     SaveAbility dexterity_save;
-    private Boolean dexterityProf = true;
     SaveAbility constitution_save;
-    private Boolean constitutionProf = true;
     SaveAbility intelligence_save;
-    private Boolean intelligenceProf = false;
     SaveAbility wisdom_save;
-    private Boolean wisdomProf = false;
     SaveAbility charisma_save;
-    private Boolean charismaProf = true;
 
     ListAbility acrobatics;
-    private Boolean acrobaticsProf = false;
-    private Boolean acrobaticsExp = false;
     ListAbility animal_handling;
-    private Boolean animal_handlingProf = false;
-    private Boolean animal_handlingExp = false;
     ListAbility arcana;
-    private Boolean arcanaProf = false;
-    private Boolean arcanaExp = false;
     ListAbility athletics;
-    private Boolean athleticsProf = false;
-    private Boolean athleticsExp = false;
+
+    public MyCharacter(UUID uuid, String name, int lvl, int maxHp, int currentHp, int temporary_hp, int initiative,
+                       int profBonus, int ac, int speed, ArrayList<Integer> intStat,
+                       ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
+        this.uuid = uuid;
+        this.name = name;
+        this.lvl = lvl;
+        this.maxHp = maxHp;
+        this.currentHp = currentHp;
+        this.temporary_hp = temporary_hp;
+        this.initiative = initiative;
+        this.profBonus = profBonus;
+        this.ac = ac;
+        this.speed = speed;
+        this.intStat = intStat;
+        this.saveProf = saveProf;
+        this.abilityProfExp = abilityProfExp;
+    }
+
     ListAbility deception;
-    private Boolean deceptionProf = false;
-    private Boolean deceptionExp = false;
     ListAbility history;
-    private Boolean historyProf = false;
-    private Boolean historyExp = false;
     ListAbility insight;
-    private Boolean insightProf = false;
-    private Boolean insightExp = false;
     ListAbility intimidation;
-    private Boolean intimidationProf = false;
-    private Boolean intimidationExp = false;
     ListAbility investigation;
-    private Boolean investigationProf = false;
-    private Boolean investigationExp = false;
     ListAbility medicine;
-    private Boolean medicineProf = false;
-    private Boolean medicineExp = false;
     ListAbility nature;
-    private Boolean natureProf = false;
-    private Boolean natureExp = false;
     ListAbility perception;
-    private Boolean perceptionProf = false;
-    private Boolean perceptionExp = false;
     ListAbility performance;
-    private Boolean performanceProf = false;
-    private Boolean performanceExp = false;
     ListAbility persuasion;
-    private Boolean persuasionProf = false;
-    private Boolean persuasionExp = false;
     ListAbility religion;
-    private Boolean religionProf = false;
-    private Boolean religionExp = false;
     ListAbility sleight_of_hand;
-    private Boolean sleight_of_handProf = false;
-    private Boolean sleight_of_handExp = false;
     ListAbility stealth;
-    private Boolean stealthProf = false;
-    private Boolean stealthExp = false;
     ListAbility survival;
-    private Boolean survivalProf = false;
-    private Boolean survivalExp = false;
     MyCharacterSheet myCharacterSheet;
     public String getName() {
         return name;
     }
     public MyCharacter() {
-         abilityInit();
-         charInit();
+        uuid = UUID.randomUUID();
+        for(int i = 0; i<6; i++)
+        {
+            intStat.add(10);
+            saveProf.add(true);
+        }
+        for(int j = ACROBATICS; j <= SURVIVAL; j++)
+        {
+            abilityProfExp.add(Boolean.TRUE);
+            abilityProfExp.add(Boolean.FALSE);
+        }
+        abilityInit();
+        charInit();
     }
 
 
@@ -211,23 +159,9 @@ public class MyCharacter {
                 "static attributes of MyCharacter\n It found STAT = " + STAT);}
     }
     public int getIntStat(int STAT) {
-        if(STAT == STRENGTH){
-            return this.intStrength;
-        }
-        if(STAT == DEXTERITY) {
-            return this.intDexterity;
-        }
-        if(STAT == CONSTITUTION){
-            return this.intConstitution;
-        }
-        if(STAT == INTELLIGENCE){
-            return this.intIntelligence;
-        }
-        if(STAT == WISDOM){
-            return this.intWisdom;
-        }
-        if(STAT == CHARISMA){
-            return this.intCharisma;
+        if(STAT >= STRENGTH && STAT <= CHARISMA)
+        {
+            return intStat.get(STAT - 1);
         }
         else{
             throw new IllegalArgumentException("The value of the parameter must be lower than 7");
@@ -247,50 +181,13 @@ public class MyCharacter {
         if(STAT < STRENGTH || STAT > CHARISMA){
             throw new IllegalArgumentException("The value doesn't represent any BaseAbility");
         }
-        if(STAT == STRENGTH){
-            this.intStrength = value;
-            this.getBaseAbility(STRENGTH).setValue(value);
-        }
-        if(STAT == DEXTERITY) {
-            this.intDexterity = value;
-            this.getBaseAbility(DEXTERITY).setValue(value);
-        }
-        if(STAT == CONSTITUTION){
-            this.intConstitution = value;
-            this.getBaseAbility(CONSTITUTION).setValue(value);
-        }
-        if(STAT == INTELLIGENCE){
-            this.intIntelligence = value;
-            this.getBaseAbility(INTELLIGENCE).setValue(value);
-        }
-        if(STAT == WISDOM){
-            this.intWisdom = value;
-            this.getBaseAbility(WISDOM).setValue(value);
-        }
-        if(STAT == CHARISMA){
-            this.intCharisma = value;
-            this.getBaseAbility(CHARISMA).setValue(value);
-        }
+        this.intStat.set(STAT - 1, value);
+        getBaseAbility(STAT).setValue(value);
     }
 
     public Boolean getProfStat(int STAT) {
-        if(STAT == STRENGTH){
-            return this.strengthProf;
-        }
-        if(STAT == DEXTERITY) {
-            return this.dexterityProf;
-        }
-        if(STAT == CONSTITUTION){
-            return this.constitutionProf;
-        }
-        if(STAT == INTELLIGENCE){
-            return this.intelligenceProf;
-        }
-        if(STAT == WISDOM){
-            return this.wisdomProf;
-        }
-        if(STAT == CHARISMA){
-            return this.charismaProf;
+        if(STAT >= STRENGTH && STAT <= CHARISMA){
+            return saveProf.get(STAT - 1);
         }
         else{
             throw new IllegalArgumentException("The value of the parameter must be lower than 7");
@@ -305,31 +202,31 @@ public class MyCharacter {
          this.wisdom=new BaseAbility(this,getIntStat(WISDOM),WISDOM);
          this.charisma=new BaseAbility(this,getIntStat(CHARISMA),CHARISMA);
 
-         this.strength_save =new SaveAbility(this,"Strength",strengthProf,STRENGTH_SAVE);
-         this.dexterity_save=new SaveAbility(this,"Dexterity",dexterityProf,DEXTERITY_SAVE);
-         this.constitution_save=new SaveAbility(this,"Constitution",constitutionProf,CONSTITUTION_SAVE);
-         this.intelligence_save=new SaveAbility(this,"Intelligence",intelligenceProf,INTELLIGENCE_SAVE);
-         this.wisdom_save=new SaveAbility(this,"Wisdom",wisdomProf,WISDOM_SAVE);
-         this.charisma_save=new SaveAbility(this,"Charisma",charismaProf,CHARISMA_SAVE);
+         this.strength_save =new SaveAbility(this,"Strength",getProfStat(STRENGTH),STRENGTH_SAVE);
+         this.dexterity_save=new SaveAbility(this,"Dexterity",getProfStat(DEXTERITY),DEXTERITY_SAVE);
+         this.constitution_save=new SaveAbility(this,"Constitution",getProfStat(CONSTITUTION),CONSTITUTION_SAVE);
+         this.intelligence_save=new SaveAbility(this,"Intelligence",getProfStat(INTELLIGENCE),INTELLIGENCE_SAVE);
+         this.wisdom_save=new SaveAbility(this,"Wisdom",getProfStat(WISDOM),WISDOM_SAVE);
+         this.charisma_save=new SaveAbility(this,"Charisma",getProfStat(CHARISMA),CHARISMA_SAVE);
 
-         this.acrobatics=new ListAbility(this,"Acrobatics",acrobaticsProf,acrobaticsExp,ACROBATICS);
-         this.animal_handling=new ListAbility(this,"Animal Handling",animal_handlingProf,animal_handlingExp,ANIMAL_HANDLING);
-         this.arcana=new ListAbility(this,"Arcana",arcanaProf,arcanaExp,ARCANA);
-         this.athletics=new ListAbility(this,"Athletics",athleticsProf,athleticsExp,ATHLETICS);
-         this.deception=new ListAbility(this,"Deception",deceptionProf,deceptionExp,DECEPTION);
-         this.history=new ListAbility(this,"History",historyProf,historyExp,HISTORY);
-         this.insight=new ListAbility(this,"Insight",insightProf,insightExp,INSIGHT);
-         this.intimidation=new ListAbility(this,"Intimidation",intimidationProf,intimidationExp,INTIMIDATION);
-         this.investigation=new ListAbility(this,"Investigation",investigationProf,investigationExp,INVESTIGATION);
-         this.medicine=new ListAbility(this,"Medicine",medicineProf,medicineExp,MEDICINE);
-         this.nature=new ListAbility(this,"Nature",natureProf,natureExp,NATURE);
-         this.perception=new ListAbility(this,"Perception",perceptionProf,perceptionExp,PERCEPTION);
-         this.performance=new ListAbility(this,"Performance",performanceProf,performanceExp,PERFORMANCE);
-         this.persuasion=new ListAbility(this,"Persuasion",persuasionProf,persuasionExp,PERSUASION);
-         this.religion=new ListAbility(this,"Religion",religionProf,religionExp,RELIGION);
-         this.sleight_of_hand=new ListAbility(this,"Sleight of hand",sleight_of_handProf,sleight_of_handExp,SLEIGHT_OF_HAND);
-         this.stealth=new ListAbility(this,"Stealth",stealthProf,stealthExp,STEALTH);
-         this.survival=new ListAbility(this,"Survival",survivalProf,survivalExp,SURVIVAL);
+         this.acrobatics=new ListAbility(this,"Acrobatics",getProficiency(ACROBATICS),getExpertise(ACROBATICS),ACROBATICS);
+         this.animal_handling=new ListAbility(this,"Animal Handling",getProficiency(ANIMAL_HANDLING),getExpertise(ANIMAL_HANDLING),ANIMAL_HANDLING);
+         this.arcana=new ListAbility(this,"Arcana",getProficiency(ARCANA),getExpertise(ARCANA),ARCANA);
+         this.athletics=new ListAbility(this,"Athletics",getProficiency(ATHLETICS),getExpertise(ATHLETICS),ATHLETICS);
+         this.deception=new ListAbility(this,"Deception",getProficiency(DECEPTION),getExpertise(DECEPTION),DECEPTION);
+         this.history=new ListAbility(this,"History",getProficiency(HISTORY),getExpertise(HISTORY),HISTORY);
+         this.insight=new ListAbility(this,"Insight",getProficiency(INSIGHT),getExpertise(INSIGHT),INSIGHT);
+         this.intimidation=new ListAbility(this,"Intimidation",getProficiency(INTIMIDATION),getExpertise(INTIMIDATION),INTIMIDATION);
+         this.investigation=new ListAbility(this,"Investigation",getProficiency(INVESTIGATION),getExpertise(INVESTIGATION),INVESTIGATION);
+         this.medicine=new ListAbility(this,"Medicine",getProficiency(MEDICINE),getExpertise(MEDICINE),MEDICINE);
+         this.nature=new ListAbility(this,"Nature",getProficiency(NATURE),getExpertise(NATURE),NATURE);
+         this.perception=new ListAbility(this,"Perception",getProficiency(PERCEPTION),getExpertise(PERCEPTION),PERCEPTION);
+         this.performance=new ListAbility(this,"Performance",getProficiency(PERFORMANCE),getExpertise(PERFORMANCE),PERFORMANCE);
+         this.persuasion=new ListAbility(this,"Persuasion",getProficiency(PERSUASION),getExpertise(PERSUASION),PERSUASION);
+         this.religion=new ListAbility(this,"Religion",getProficiency(RELIGION),getExpertise(RELIGION),RELIGION);
+         this.sleight_of_hand=new ListAbility(this,"Sleight of hand",getProficiency(SLEIGHT_OF_HAND),getExpertise(SLEIGHT_OF_HAND),SLEIGHT_OF_HAND);
+         this.stealth=new ListAbility(this,"Stealth",getProficiency(STEALTH),getExpertise(STEALTH),STEALTH);
+         this.survival=new ListAbility(this,"Survival",getProficiency(SURVIVAL),getExpertise(SURVIVAL),SURVIVAL);
 
     }
     public void charInit(){
@@ -490,7 +387,6 @@ public class MyCharacter {
                     " MyCharacter.ACROBATICS< STAT < MyCharacter.SURVIVAL");
         }
     }
-
     public AbstractCompAbility getCompAbility(int STAT) {
         try {
             return getListAbility(STAT);
@@ -505,156 +401,17 @@ public class MyCharacter {
         }
     }
     public Boolean getProficiency(int STAT){
-        if(STAT == ACROBATICS)
-        {
-            return acrobaticsProf;
+        if(STAT >= ACROBATICS && STAT <= SURVIVAL) {
+            return abilityProfExp.get(2*(STAT - ACROBATICS));
         }
-        if(STAT == ANIMAL_HANDLING)
-        {
-            return animal_handlingProf;
-        }
-        if(STAT == ARCANA)
-        {
-            return arcanaProf;
-        }
-        if(STAT == ATHLETICS)
-        {
-            return athleticsProf;
-        }
-        if(STAT == DECEPTION)
-        {
-            return deceptionProf;
-        }
-        if(STAT == HISTORY)
-        {
-            return historyProf;
-        }
-        if(STAT == INSIGHT)
-        {
-            return insightProf;
-        }
-        if(STAT == INTIMIDATION)
-        {
-            return intimidationProf;
-        }
-        if(STAT == INVESTIGATION)
-        {
-            return investigationProf;
-        }
-        if(STAT == MEDICINE)
-        {
-            return medicineProf;
-        }
-        if(STAT == NATURE)
-        {
-            return natureProf;
-        }
-        if(STAT == PERCEPTION)
-        {
-            return  perceptionProf;
-        }
-        if(STAT == PERFORMANCE)
-        {
-            return performanceProf;
-        }
-        if(STAT == PERSUASION)
-        {
-            return persuasionProf;
-        }
-        if(STAT == RELIGION)
-        {
-            return religionProf;
-        }
-        if(STAT == SLEIGHT_OF_HAND)
-        {
-            return sleight_of_handProf;
-        }
-        if(STAT == STEALTH)
-        {
-            return stealthProf;
-        }
-        if(STAT == SURVIVAL)
-        {
-            return survivalProf;
-        }
-        else
-        {
+        else {
             throw new IllegalArgumentException("STAT field in MyCharacter.ListAbility(int STAT); can only be" +
                     " MyCharacter.ACROBATICS< STAT < MyCharacter.SURVIVAL");
         }
     }
     public Boolean getExpertise(int STAT){
-        if(STAT == ACROBATICS)
-        {
-            return acrobaticsExp;
-        }
-        if(STAT == ANIMAL_HANDLING)
-        {
-            return animal_handlingExp;
-        }
-        if(STAT == ARCANA)
-        {
-            return arcanaExp;
-        }
-        if(STAT == ATHLETICS)
-        {
-            return athleticsExp;
-        }
-        if(STAT == DECEPTION)
-        {
-            return deceptionExp;
-        }
-        if(STAT == HISTORY)
-        {
-            return historyExp;
-        }
-        if(STAT == INSIGHT)
-        {
-            return insightExp;
-        }
-        if(STAT == INTIMIDATION)
-        {
-            return intimidationExp;
-        }
-        if(STAT == INVESTIGATION)
-        {
-            return investigationExp;
-        }
-        if(STAT == MEDICINE)
-        {
-            return medicineExp;
-        }
-        if(STAT == NATURE)
-        {
-            return natureExp;
-        }
-        if(STAT == PERCEPTION)
-        {
-            return  perceptionExp;
-        }
-        if(STAT == PERFORMANCE)
-        {
-            return performanceExp;
-        }
-        if(STAT == PERSUASION)
-        {
-            return persuasionExp;
-        }
-        if(STAT == RELIGION)
-        {
-            return religionExp;
-        }
-        if(STAT == SLEIGHT_OF_HAND)
-        {
-            return sleight_of_handExp;
-        }
-        if(STAT == STEALTH)
-        {
-            return stealthExp;
-        }
-        if(STAT == SURVIVAL)
-        {
-            return survivalExp;
+        if(STAT >= ACROBATICS && STAT <= SURVIVAL) {
+            return abilityProfExp.get(2*(STAT - ACROBATICS) + 1);
         }
         else
         {
@@ -757,5 +514,9 @@ public class MyCharacter {
 
     public void setTemporary_hp(int temporary_hp) {
         this.temporary_hp = temporary_hp;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }
