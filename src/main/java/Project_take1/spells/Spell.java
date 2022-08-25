@@ -166,7 +166,7 @@ public class Spell {
         try{
             this.attType = json.get("attack_type").asText();
         } catch (NullPointerException e){
-            this.attType = "Support";
+            this.attType = "None";
         }
         this.school = json.get("school").get("name").asText();
     }
