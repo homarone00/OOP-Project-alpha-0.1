@@ -40,25 +40,6 @@ public class MyCharacter implements MyCharacterCons{
     ListAbility animal_handling;
     ListAbility arcana;
     ListAbility athletics;
-
-    public MyCharacter(UUID uuid, String name, int lvl, int maxHp, int currentHp, int temporary_hp, int initiative,
-                       int profBonus, int ac, int speed, ArrayList<Integer> intStat,
-                       ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
-        this.uuid = uuid;
-        this.name = name;
-        this.lvl = lvl;
-        this.maxHp = maxHp;
-        this.currentHp = currentHp;
-        this.temporary_hp = temporary_hp;
-        this.initiative = initiative;
-        this.profBonus = profBonus;
-        this.ac = ac;
-        this.speed = speed;
-        this.intStat = intStat;
-        this.saveProf = saveProf;
-        this.abilityProfExp = abilityProfExp;
-    }
-
     ListAbility deception;
     ListAbility history;
     ListAbility insight;
@@ -92,7 +73,24 @@ public class MyCharacter implements MyCharacterCons{
         abilityInit();
         charInit();
     }
-
+    public MyCharacter(UUID uuid, String name, int lvl, int maxHp, int currentHp, int temporary_hp, int initiative,
+                       int profBonus, int ac, int speed, ArrayList<Integer> intStat,
+                       ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
+        this.uuid = uuid;
+        this.name = name;
+        this.lvl = lvl;
+        this.maxHp = maxHp;
+        this.currentHp = currentHp;
+        this.temporary_hp = temporary_hp;
+        this.initiative = initiative;
+        this.profBonus = profBonus;
+        this.ac = ac;
+        this.speed = speed;
+        this.intStat = intStat;
+        this.saveProf = saveProf;
+        this.abilityProfExp = abilityProfExp;
+        abilityInit();
+    }
 
     public static int getCorrespondingStat(int STAT){
         ArrayList<Integer> strArray=new ArrayList<Integer>();

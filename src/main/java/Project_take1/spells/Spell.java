@@ -124,6 +124,11 @@ public class Spell {
         } catch (NullPointerException e){
             this.material = "None";
         }
+        try {
+            this.range = json.get("range").asText();
+        } catch (NullPointerException e){
+            this.range = "None";
+        }
         this.ritual = json.get("ritual").asBoolean();
         this.duration = json.get("duration").asText();
         this.concentration = json.get("concentration").asBoolean();
