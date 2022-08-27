@@ -89,4 +89,54 @@ public class SavingUtils {
             }
         }
     }
+    public static void updateCharacter(MyCharacter myCharacter) throws SQLException {
+        try(PreparedStatement update = DBManager.getConnection().prepareStatement(
+                "UPDATE character " +
+                        "SET name = ?, lv = ?, maxHp = ?, currentHp = ?, tempHp = ?, initiative = ?, profBonus = ?, " +
+                        "ac = ?, speed = ?," +
+                        "strength = ?, dexterity = ?, constitution = ?, intelligence = ?, wisdom = ?, charisma = ?," +
+                        "strengthProf = ?, dexterityProf = ?, constitutionProf = ?, intelligenceProf = ?, wisdomProf = ?, charismaProf = ?," +
+                        "acrobaticsProf = ?, acrobaticsExp = ?," +
+                        "animal_handlingProf = ?, animal_handlingExp = ?," +
+                        "arcanaProf = ?, arcanaExp = ?, " +
+                        "athleticsProf = ?, athleticsExp = ?," +
+                        "deceptionProf = ?, deceptionExp = ?," +
+                        "historyProf = ?, historyExp = ?," +
+                        "insightProf = ?,insightExp = ?," +
+                        "intimidationProf = ?, intimidationExp = ?, " +
+                        "investigationProf = ?, investigationExp = ?," +
+                        "medicineProf = ?, medicineExp = ?," +
+                        "natureProf = ?, natureExp = ?," +
+                        "perceptionProf = ?, perceptionExp = ?," +
+                        "performanceProf = ?,  performanceExp = ?," +
+                        "persuasionProf = ?, persuasionExp = ?," +
+                        "religionProf = ?, religionExp = ?," +
+                        "sleight_of_handProf = ?, sleight_of_handExp = ?," +
+                        "stealthProf = ?, stealthExp = ?," +
+                        "survivalProf = ?,  survivalExp = ? " +
+                        "WHERE id = ?"))
+        {
+            update.setString(1, myCharacter.getName());
+            update.setInt(2, myCharacter.getLvl());
+            update.setInt(3, myCharacter.getMaxHp());
+            update.setInt(4, myCharacter.getCurrentHp());
+            update.setInt(5, myCharacter.getTemporary_hp());
+            update.setInt(6, myCharacter.getInitiative());
+            update.setInt(7, myCharacter.getProfBonus());
+            update.setInt(8, myCharacter.getAc());
+            update.setInt(9, myCharacter.getSpeed());
+            for (int i = MyCharacter.STRENGTH; i <= MyCharacter.CHARISMA; i++) {
+                update.setInt(10 + i - MyCharacter.STRENGTH, myCharacter.getIntStat(i));
+            }
+            for (int i = MyCharacter.STRENGTH; i <= MyCharacter.CHARISMA; i++) {
+                update.setBoolean(16 + i - MyCharacter.STRENGTH, myCharacter.getProfStat(i));
+            }
+            for (int i = MyCharacter.ACROBATICS; i <= MyCharacter.SURVIVAL; i++) {
+                update.setBoolean(22 + (2 * (i - MyCharacter.ACROBATICS)), myCharacter.getProficiency(i));
+                update.setBoolean(23 + (2 * (i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
+            }
+            update.setString(58, myCharacter.getUuid().toString());
+            update.executeUpdate();
+        }
+    }
 }

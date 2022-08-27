@@ -15,7 +15,7 @@ public class MyCharacter implements MyCharacterCons{
     int maxHp = 15;
     int currentHp = 15;
     int temporary_hp = 0;
-    int initiative=4;
+    int initiative = 4;
     int profBonus = 1;
     int ac = 14;
     int speed=9;
@@ -516,5 +516,9 @@ public class MyCharacter implements MyCharacterCons{
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
