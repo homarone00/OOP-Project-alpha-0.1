@@ -32,9 +32,8 @@ public class Spell {
 
     public Spell(String name, List<String> desc, List<String> highLv, String range, List<String> components,
                  String material, Boolean ritual, String duration, Boolean concentration, int dcInt, int level,
-                 String attType
-            , String school) {
-        if(dcInt>=7) {
+                 String attType, String school) {
+        if(dcInt>=7 || dcInt < 0) {
             throw new IndexOutOfBoundsException("The index must be lower than 7");
         }
         this.dcInt = dcInt;
@@ -64,8 +63,7 @@ public class Spell {
 
     public Spell(String name, String desc, String highLv, String range, List<String> components, String material,
                  Boolean ritual, String duration, Boolean concentration, int dcInt, int level, String attType,
-                 String school,
-                 String url, ObjectMapper mapper) {
+                 String school) {
         this.dcInt = dcInt;
         switch (this.dcInt)
         {
@@ -89,8 +87,6 @@ public class Spell {
         this.level = level;
         this.attType = attType;
         this.school = school;
-        this.url = url;
-        this.mapper = mapper;
     }
 
     public Spell(String name) {
@@ -110,6 +106,7 @@ public class Spell {
             throw new RuntimeException("Processing error in spell " + name);
         }
         this.name = json.get("name").asText();
+        System.out.println(json.get("desc").toString() + "\n\n\n");
         for (JsonNode n : json.get("desc")) {
             this.desc.add(n.asText());
         }
