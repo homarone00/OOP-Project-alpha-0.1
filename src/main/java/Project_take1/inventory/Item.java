@@ -1,6 +1,7 @@
 package Project_take1.inventory;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Item {
     String name;
@@ -35,16 +36,20 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
     public double getWeight() {
         return weight;
     }
 
-    public double getTotalWeight() {
-        return weight * (double) quantity;
-    }
-
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public double getTotalWeight() {
+        return weight * (double) quantity;
     }
 
     public ArrayList<String> getDescription() {
@@ -69,6 +74,20 @@ public class Item {
 
     public void setPrice(Money price) {
         this.price = price;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Item item = (Item) o;
+        return name.equals(item.name);
     }
 
     @Override

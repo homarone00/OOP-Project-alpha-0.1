@@ -4,6 +4,7 @@ import Project_take1.MyCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -297,5 +298,21 @@ public class Spell {
                 + duration + '\'' + ", \nconcentration=" + concentration +",\ndc=" + dc + ",\nlevel=" + level +
                 ",\nattType='" + attType + '\''
                 + ",\nschool='" + school + '\'' + ",\nurl='" + url + '\'' + '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Spell spell = (Spell) o;
+        return name.equals(spell.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

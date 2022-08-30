@@ -15,7 +15,6 @@ import java.util.Map;
 public class ItemConn {
     static String urlE = "https://www.dnd5eapi.co/api/equipment/";
     static String urlP = "https://www.dnd5eapi.co/api/magic-items/";
-
     static public Item getItem(String name){
         String linkName = name.trim().toLowerCase().replace(' ', '-');
         String urlI = urlE + linkName;
