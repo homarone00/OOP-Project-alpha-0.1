@@ -2,9 +2,8 @@ package Project_take1.utils;
 
 import Project_take1.MyCharacter;
 import Project_take1.inventory.*;
+import Project_take1.spells.Spell;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.*;
 
@@ -252,8 +251,8 @@ public class SavingUtils {
         }
     }
     public static void dropItemsTable() throws SQLException {
-        try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DROP TABLE items")) {
-            deleteChar.executeUpdate();
+        try (PreparedStatement deleteItem = DBManager.getConnection().prepareStatement("DROP TABLE items")) {
+            deleteItem.executeUpdate();
         }
     }
     public static ArrayList<Item> getAllItems(UUID id) throws SQLException {
@@ -380,6 +379,36 @@ public class SavingUtils {
     /**
      * Spells code
      */
+    public static void insertSpell(UUID id, Spell spell) throws SQLException {
+        Connection connection = DBManager.getConnection();
+        try (PreparedStatement insertSpell = connection.prepareStatement("INSERT INTO spells (id, name, descr, " +
+                "highLv, range, components, material, ritual, duration, concentration, dc, level, attType, school) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+            insertSpell.setString(1,id.toString());
+            insertSpell.setString(2, spell.getName());
+            insertSpell.setString(3, arrayListToString(spell.getDesc()));
+            insertSpell.setString(4, arrayListToString(spell.getHighLv()));
+            insertSpell.setString(5, spell.getRange());
+            insertSpell.setString(6, arrayListToString(spell.getComponents()));
+            insertSpell.setString(7, spell.getMaterial());
+            insertSpell.setBoolean(8,spell.getRitual());
+            insertSpell.setString(9, spell.getDuration());
+            insertSpell.setBoolean(10, spell.getConcentration());
+            insertSpell.setInt(11, spell.getDcInt());
+            insertSpell.setInt(12, spell.getLevel());
+            insertSpell.setString(13, spell.getAttType());
+            insertSpell.setString(14, spell.getSchool());
+            insertSpell.executeUpdate();
+        }
+    }
+    public static void deleteSpell(UUID uuid, Spell spell) throws SQLException {
+        try (PreparedStatement deleteSpell = DBManager.getConnection().prepareStatement("DELETE FROM spells WHERE " +
+                "id = ? AND name = ?")) {
+            deleteSpell.setString(1, uuid.toString());
+            deleteSpell.setString(2, spell.getName());
+            deleteSpell.executeUpdate();
+        }
+    }
     public static void resetSpellTable() throws SQLException {
         try (PreparedStatement deleteSpell = DBManager.getConnection().prepareStatement("DELETE FROM spells")) {
             deleteSpell.executeUpdate();
@@ -388,6 +417,48 @@ public class SavingUtils {
     public static void dropSpellsTable() throws SQLException {
         try (PreparedStatement deleteSpell = DBManager.getConnection().prepareStatement("DROP TABLE spells")) {
             deleteSpell.executeUpdate();
+        }
+    }
+    public static ArrayList<Spell> getAllSpell(UUID id) throws SQLException {
+        try (PreparedStatement slItem =
+                     DBManager.getConnection().prepareStatement("SELECT * FROM spells WHERE id = '" + id.toString() +
+                             "'")) {
+            try (ResultSet rs = slItem.executeQuery()) {
+                ArrayList<Spell> allSpells = new ArrayList<>();
+                while (rs.next()) {
+                    allSpells.add(new Spell(rs.getString("name"), stringToArrayList(rs.getString("descr")),
+                            stringToArrayList(rs.getString("highLv")), rs.getString("range"),
+                            stringToArrayList(rs.getString("components")), rs.getString("material"),
+                            rs.getBoolean("ritual"), rs.getString("duration"), rs.getBoolean("concentration"),
+                            rs.getInt("dc"), rs.getInt("level"), rs.getString("attType"),
+                            rs.getString("school")));
+                }
+                return allSpells;
+            }
+        }
+    }
+    public static void updateSpell(UUID id, Spell spell) throws SQLException {
+        try(PreparedStatement update = DBManager.getConnection().prepareStatement(
+                "UPDATE spells " +
+                        "SET descr = ?, highLv = ?, range = ?, components = ?, material = ?, ritual = ?, " +
+                        "duration = ?, concentration = ?, dc = ?, level = ?, attType = ?, school = ?" +
+                        "WHERE id = ? AND name = ?"))
+        {
+            update.setString(1, arrayListToString(spell.getDesc()));
+            update.setString(2, arrayListToString(spell.getHighLv()));
+            update.setString(3, spell.getRange());
+            update.setString(4, arrayListToString(spell.getComponents()));
+            update.setString(5, spell.getMaterial());
+            update.setBoolean(6, spell.getRitual());
+            update.setString(7, spell.getDuration());
+            update.setBoolean(8, spell.getConcentration());
+            update.setInt(9, spell.getDcInt());
+            update.setInt(10, spell.getLevel());
+            update.setString(11, spell.getAttType());
+            update.setString(12, spell.getSchool());
+            update.setString(13, id.toString());
+            update.setString(14, spell.getName());
+            update.executeUpdate();
         }
     }
 

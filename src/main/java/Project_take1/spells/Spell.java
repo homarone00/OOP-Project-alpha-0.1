@@ -14,10 +14,10 @@ import kong.unirest.Unirest;
 
 public class Spell {
     String name;
-    List<String> desc = new ArrayList<>();
-    List<String> highLv = new ArrayList<>();
+    ArrayList<String> desc = new ArrayList<>();
+    ArrayList<String> highLv = new ArrayList<>();
     String range;
-    List<String> components = new ArrayList<>();
+    ArrayList<String> components = new ArrayList<>();
     String material;
     Boolean ritual;
     String duration;
@@ -31,7 +31,7 @@ public class Spell {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode json;
 
-    public Spell(String name, List<String> desc, List<String> highLv, String range, List<String> components,
+    public Spell(String name, ArrayList<String> desc, ArrayList<String> highLv, String range, ArrayList<String> components,
                  String material, Boolean ritual, String duration, Boolean concentration, int dcInt, int level,
                  String attType, String school) {
         if(dcInt>=7 || dcInt < 0) {
@@ -62,7 +62,7 @@ public class Spell {
         this.school = school;
     }
 
-    public Spell(String name, String desc, String highLv, String range, List<String> components, String material,
+    public Spell(String name, String desc, String highLv, String range, ArrayList<String> components, String material,
                  Boolean ritual, String duration, Boolean concentration, int dcInt, int level, String attType,
                  String school) {
         this.dcInt = dcInt;
@@ -195,19 +195,19 @@ public class Spell {
         this.name = name;
     }
 
-    public List<String> getDesc() {
+    public ArrayList<String> getDesc() {
         return desc;
     }
 
-    public void setDesc(List<String> desc) {
+    public void setDesc(ArrayList<String> desc) {
         this.desc = desc;
     }
 
-    public List<String> getHighLv() {
+    public ArrayList<String> getHighLv() {
         return highLv;
     }
 
-    public void setHighLv(List<String> highLv) {
+    public void setHighLv(ArrayList<String> highLv) {
         this.highLv = highLv;
     }
 
@@ -219,11 +219,11 @@ public class Spell {
         this.range = range;
     }
 
-    public List<String> getComponents() {
+    public ArrayList<String> getComponents() {
         return components;
     }
 
-    public void setComponents(List<String> components) {
+    public void setComponents(ArrayList<String> components) {
         this.components = components;
     }
 
@@ -314,5 +314,30 @@ public class Spell {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public String getDc() {
+        return dc;
+    }
+
+    public int getDcInt() {
+        return dcInt;
+    }
+
+    public void setDcInt(int dcInt) {
+        if(dcInt < 0 || dcInt > 6){
+            throw new IllegalArgumentException("dcInt deve essere tra 0 e 6");
+        }
+        this.dcInt = dcInt;
+        switch (this.dcInt)
+        {
+            case 0 -> dc = "None";
+            case MyCharacter.STRENGTH -> dc = "STR";
+            case MyCharacter.DEXTERITY -> dc = "DEX";
+            case MyCharacter.CONSTITUTION -> dc = "CON";
+            case MyCharacter.INTELLIGENCE -> dc = "INT";
+            case MyCharacter.WISDOM -> dc = "WIS";
+            case MyCharacter.CHARISMA -> dc = "CHA";
+        }
     }
 }
