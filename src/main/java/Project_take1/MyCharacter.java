@@ -517,7 +517,7 @@ public class MyCharacter implements MyCharacterCons{
     public UUID getUuid() {
         return uuid;
     }
-
+//helo
     public void setName(String name) {
         this.name = name;
     }
