@@ -17,6 +17,9 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
     JPanel healthGrid;
     MainHealthPanel mainHealthPanel;
     TemporaryHealthPanel temporaryHealthPanel;
+    SimpleRoundedPanel acPanel;
+    SimpleRoundedPanel initPanel;
+    SimpleRoundedPanel speedPanel;
 
     public SecondColumn(MyCharacter myCharacter){
         GridBagConstraints c=new GridBagConstraints();
@@ -31,7 +34,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         JPanel grid_1=new JPanel(new GridBagLayout());
         grid_1.setOpaque(false);
-        className=new SimpleRoundedPanel("oath of the gay","Paladin", 30,30);
+        className=new SimpleRoundedPanel(myCharacter.getClassArchetype(),myCharacter.getClassName(), 30,30);
         level=new SimpleRoundedPanel("LVL",Integer.toString(myCharacter.getLvl()),30,30);
         c.fill=GridBagConstraints.BOTH;
         c.weightx=10;
@@ -39,15 +42,14 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         c.weightx=2;
         grid_1.add(level,c);
 
+        acPanel=new SimpleRoundedPanel("AC",Integer.toString(myCharacter.getAc()),30,30);
+        initPanel=new SimpleRoundedPanel("INIT",myCharacter.getStringInitiative(),30,30);
+        speedPanel=new SimpleRoundedPanel("SPEED",myCharacter.getSpeed()+"m",30,30);
+
         JPanel grid_2 =new JPanel(new GridLayout(1,3,4,4));
-        grid_2.add(new SimpleRoundedPanel("AC",Integer.toString(myCharacter.getAc()),30,30));
-        if(myCharacter.getInitiative()>=0){
-            grid_2.add(new SimpleRoundedPanel("INIT","+"+myCharacter.getInitiative(),30,30));
-        }
-        else{
-            grid_2.add(new SimpleRoundedPanel("INIT",Integer.toString(myCharacter.getInitiative()),30,30));
-        }
-        grid_2.add(new SimpleRoundedPanel("SPEED",myCharacter.getSpeed()+"m",30,30));
+        grid_2.add(acPanel);
+        grid_2.add(initPanel);
+        grid_2.add(speedPanel);
         grid_2.setOpaque(false);
         grid_2.setPreferredSize(new Dimension(grid_2.getPreferredSize().width,70));
 
@@ -73,6 +75,9 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         healthGrid.setBackground(getPalette().background());
         mainHealthPanel.updateColors();
         temporaryHealthPanel.updateColors();
+        acPanel.updateColors();
+        speedPanel.updateColors();
+        initPanel.updateColors();
         setBackground(getPalette().background());
     }
 

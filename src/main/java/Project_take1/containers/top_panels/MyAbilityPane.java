@@ -11,9 +11,7 @@ import Project_take1.graphics.UpdatablePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 /**
  * This is the first contentPane of our MyJFrame
@@ -75,7 +73,8 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         nameStatAbilityPanel.setOpaque(false);
         //icons
         //name field initialization
-        nameText = new JTextField("Default Name");
+        nameText = new JTextField();
+        nameText.setText(myCharacter.getName());
         nameText.setBorder(null);
         nameText.setOpaque(false);
         nameText.setFont(new Font("Comic Sans", Font.BOLD, 30));
@@ -87,6 +86,16 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
                     e.consume();
                 }
             }
+        });
+        nameText.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                myCharacter.setName(nameText.getText());
+            }
+        });
+        nameText.addActionListener(actionValue->{
+            myCharacter.setName(nameText.getText());
+            namePanel.requestFocus();
         });
         nameText.setOpaque(false);
         namePanel.setPreferredSize(new Dimension(getPreferredSize().width, 60));
@@ -125,18 +134,6 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         c.weighty=250;
         saveSkillPanel.add(skillPanel,c);
 
-        /*layout.setHorizontalGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(savePanel)
-                                .addComponent(skillPanel))
-        );
-
-        layout.setVerticalGroup(
-                layout.createSequentialGroup()
-                        .addComponent(savePanel)
-                        .addComponent(skillPanel)
-        );*/
         savePanel.setOpaque(false);
         savePanel.setPreferredSize(new Dimension(getPreferredSize().width,300));
         skillPanel.setOpaque(false);
@@ -149,9 +146,6 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_UP) {
-            strPanel.value.requestFocusInWindow();
-        }
     }
 
     @Override
@@ -174,6 +168,8 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         skillPanel.updateColors();
         savePanel.updateColors();
         this.setBackground(getPalette().background());
+        nameText.setCaretColor(getPalette().text());
+        profPanel.updateColors();
 
     }
 

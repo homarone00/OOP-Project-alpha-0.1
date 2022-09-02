@@ -30,7 +30,6 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
         this.baseStat = baseStat;
         this.setName();
         this.setPreferredSize(new Dimension(165,47));
-        this.setMinimumSize(new Dimension(160, 40));
         this.proficiency = myCharacter.getCompAbility(baseStat).isProficiency();
         this.expertise=myCharacter.getCompAbility(baseStat).isExpertise();
         this.lbName = new JLabel(name);
@@ -40,28 +39,21 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
         lbValue.setFont(new Font("Comic Sans", Font.BOLD, 13));
         lbValue.setOpaque(false);
         this.clComp = new ProficiencyPointLabel(proficiency,expertise);
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
+        this.setLayout(new BorderLayout(5,0));
 
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-        layout.linkSize(clComp, lbValue);
+        clComp.setPreferredSize(new Dimension(7,clComp.getPreferredSize().height));
+        add(clComp,BorderLayout.WEST);
 
-        layout.setHorizontalGroup(
-                layout.createSequentialGroup()
-                        .addComponent(clComp)
-                        .addComponent(lbValue)
-                        .addComponent(lbName)
-        );
+        lbValue.setPreferredSize(new Dimension(7,lbValue.getPreferredSize().height));
+        add(lbValue,BorderLayout.CENTER);
 
-        layout.setVerticalGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(clComp)
-                                .addComponent(lbValue)
-                                .addComponent(lbName))
-        );
+        lbName.setPreferredSize(new Dimension(125,lbName.getPreferredSize().height));
+        add(lbName,BorderLayout.EAST);
+
+
+
         this.setOpaque(false);
+
         this.setPaneled(true);
     }
 
