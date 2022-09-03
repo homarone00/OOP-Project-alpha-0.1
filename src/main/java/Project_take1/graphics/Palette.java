@@ -83,7 +83,7 @@ public class Palette extends AbstractPalette{
         return button_default;
     }
 
-    public Paint border() {
+    public Color border() {
         return border;
     }
 

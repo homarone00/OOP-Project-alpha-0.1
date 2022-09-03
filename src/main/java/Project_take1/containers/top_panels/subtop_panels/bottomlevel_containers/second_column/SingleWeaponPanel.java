@@ -1,26 +1,84 @@
 package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column;
 
+import Project_take1.MyCharacter;
 import Project_take1.graphics.RoundedJPanel;
+import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SingleWeaponPanel extends RoundedJPanel {
-    JTextField name;
-    private JTextField attackModifier;
-    private int modifier;
-    JTextField damage;
-    public SingleWeaponPanel() {
-        name=new JTextField();
-        name.setText("GIGASPADOZZO");
-        attackModifier=new JTextField("+5");
-        JTextField damage=new JTextField("1d8 + 4d8 + 5");
+    MyCharacter myCharacter;
+    Weapon weapon;
+    boolean editable;
+    JTextField nameField;
+    JTextField bonusField;
+    JTextField damageField;
+    public SingleWeaponPanel(MyCharacter myCharacter) {
+        super();
+        this.myCharacter=myCharacter;
+        this.weapon=weapon;
 
-        setPreferredSize(new Dimension(this.getPreferredSize().width,20));
+        nameField=new JTextField("Spadozza"){
+            @Override
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                if(editable){
+                    g.setColor((getPalette().border()));
+                }
+                else{
+                    g.setColor(getPalette().panel());
+                }
+                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+            }
+        };
+        bonusField=new JTextField("+7"){
+            @Override
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                if(editable){
+                    g.setColor((getPalette().border()));
+                }
+                else{
+                    g.setColor(getPalette().panel());
+                }
+                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+            }
+        };
+        damageField =new JTextField("1d8 + 6"){
+            @Override
+            public void paintComponent(Graphics g){
+                Color oldColor=g.getColor();
+                if(editable){
+                    g.setColor((getPalette().border()));
+                }
+                else{
+                    g.setColor(getPalette().panel());
+                }
+                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+            }
+        };
+
         setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(getPreferredSize().width,20));
+        setOpaque(false);
 
+        setEditable(false);
 
-        add(name,BorderLayout.WEST);
+        nameField.setBorder(null);
+        bonusField.setBorder(null);
+        damageField.setBorder(null);
+
+        add(nameField,BorderLayout.WEST);
+        add(bonusField,BorderLayout.CENTER);
+        add(damageField,BorderLayout.WEST);
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        this.setArcs(20,20);
+        super.paintComponent(g);
     }
 
     @Override
@@ -32,30 +90,12 @@ public class SingleWeaponPanel extends RoundedJPanel {
     public void updatePanel() {
 
     }
-    public void SetWeaponName(String name){
-        this.name.setText(name);
-    }
-    public void setAttackModifier(String modifier){
-        this.attackModifier.setText(modifier);
-        this.modifier=Integer.parseInt(modifier);
-    }
-    public void setAttackModifier(int modifier){
-        this.modifier=modifier;
-        if(modifier>=0){
-            this.attackModifier.setText("+" + modifier);
-        }
-        else{
-            this.attackModifier.setText(Integer.toString(modifier));
-        }
-    }
-    public String GetWeaponName(){
-        return name.getText();
-    }
+    public void setEditable(boolean editable){
+        this.editable=editable;
 
-    public int getAttackModifier(){
-        return modifier;
-    }
-    public String getAttackModifierString(){
-        return attackModifier.getText();
+        nameField.setEditable(editable);
+        bonusField.setEditable(editable);
+        damageField.setEditable(editable);
+        repaint();
     }
 }
