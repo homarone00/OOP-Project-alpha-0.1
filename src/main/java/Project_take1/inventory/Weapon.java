@@ -50,6 +50,9 @@ public class Weapon extends Item{
     public WeaponProperties getProperties() {
         return properties;
     }
+    public ArrayList<String> getArrayListProperties(){
+        return properties.getArrayList();
+    }
 
     public void setProperties(WeaponProperties properties) {
         this.properties = properties;

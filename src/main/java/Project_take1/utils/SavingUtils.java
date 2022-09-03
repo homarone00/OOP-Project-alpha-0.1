@@ -182,7 +182,7 @@ public class SavingUtils {
                 insertWeapon.setString(12, weapon.getWeapon_category());
                 insertWeapon.setString(13, weapon.getWeapon_range());
                 insertWeapon.setString(14, weapon.getCategory_range());
-                insertWeapon.setString(15, SavingUtils.arrayListToString(weapon.getProperties()));
+                insertWeapon.setString(15, SavingUtils.arrayListToString(weapon.getArrayListProperties()));
                 StringBuilder key = new StringBuilder();
                 StringBuilder dmgS = new StringBuilder();
                 for(String s:weapon.getDamageMap().keySet()){
@@ -275,7 +275,8 @@ public class SavingUtils {
                         allItems.add(new Weapon(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
                                 SavingUtils.stringToArrayList(rs.getString("descr")), category, cost,
                                 rs.getString("wp_cat"), rs.getString("wp_range"),
-                                rs.getString("cat_range"), SavingUtils.stringToArrayList(rs.getString("prop")), damage));
+                                rs.getString("cat_range"),
+                                new WeaponProperties(SavingUtils.stringToArrayList(rs.getString("prop"))), damage));
                     }
                     else if (category.equalsIgnoreCase("armor")) {
                         allItems.add(new Armor(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
@@ -312,7 +313,7 @@ public class SavingUtils {
                 update.setString(10, weapon.getWeapon_category());
                 update.setString(11, weapon.getWeapon_range());
                 update.setString(12, weapon.getCategory_range());
-                update.setString(13, SavingUtils.arrayListToString(weapon.getProperties()));
+                update.setString(13, SavingUtils.arrayListToString(weapon.getArrayListProperties()));
                 StringBuilder key = new StringBuilder();
                 StringBuilder dmgS = new StringBuilder();
                 for(String s:weapon.getDamageMap().keySet()){

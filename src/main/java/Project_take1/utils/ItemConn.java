@@ -92,7 +92,7 @@ public class ItemConn {
             }
             return new Weapon(json.get("name").asText(), 1, weight, desc, category, cost,
                     json.get("weapon_category").asText(), json.get("weapon_range").asText(), json.get("category_range").asText(),
-                    properties, damageMap);
+                    new WeaponProperties(properties), damageMap);
         }
         else{
             return new Item(json.get("name").asText(), 1, weight, desc, category, cost);

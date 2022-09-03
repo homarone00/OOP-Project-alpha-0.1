@@ -34,7 +34,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         JPanel grid_1=new JPanel(new GridBagLayout());
         grid_1.setOpaque(false);
-        className=new SimpleRoundedPanel(myCharacter.getClassArchetype(),myCharacter.getClassName(), 30,30);
+        className=new SimpleRoundedPanel("Oath of the homosexual","Kappa", 30,30);
         level=new SimpleRoundedPanel("LVL",Integer.toString(myCharacter.getLvl()),30,30);
         c.fill=GridBagConstraints.BOTH;
         c.weightx=10;

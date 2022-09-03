@@ -527,4 +527,13 @@ public class MyCharacter implements MyCharacterCons{
     public void insertWeapon(){
 
     }
+
+    public String getStringInitiative() {
+        if(getInitiative()<0){
+            return String.valueOf(getInitiative());
+        }
+        else{
+            return "+" + getInitiative();
+        }
+    }
 }
