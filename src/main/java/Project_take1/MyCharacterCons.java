@@ -1,5 +1,7 @@
 package Project_take1;
 
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HPpanels.HealthPanel;
+
 public interface MyCharacterCons {
     int STRENGTH = 1;
     int DEXTERITY = 2;
