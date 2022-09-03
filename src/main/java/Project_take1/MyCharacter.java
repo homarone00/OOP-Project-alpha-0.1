@@ -2,6 +2,7 @@ package Project_take1;
 
 import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
+import Project_take1.inventory.Inventory;
 
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class MyCharacter implements MyCharacterCons{
     ListAbility sleight_of_hand;
     ListAbility stealth;
     ListAbility survival;
+    Inventory inventory;
     MyCharacterSheet myCharacterSheet;
     public String getName() {
         return name;
@@ -90,6 +92,8 @@ public class MyCharacter implements MyCharacterCons{
         this.saveProf = saveProf;
         this.abilityProfExp = abilityProfExp;
         abilityInit();
+        inventory=new Inventory(this.uuid);
+
     }
 
     public static int getCorrespondingStat(int STAT){
@@ -517,8 +521,10 @@ public class MyCharacter implements MyCharacterCons{
     public UUID getUuid() {
         return uuid;
     }
-//helo
     public void setName(String name) {
         this.name = name;
+    }
+    public void insertWeapon(){
+
     }
 }

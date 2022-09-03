@@ -9,10 +9,12 @@ public class Weapon extends Item{
     String weapon_category;
     String weapon_range;
     String category_range;
-    ArrayList<String> properties;
+    WeaponProperties properties;
     Map<String, Damage> damage;
 
-    public Weapon(String name, int quantity, double weight, ArrayList<String> description, String category, Money price, String weapon_category, String weapon_range, String category_range, ArrayList<String> properties, Map<String, Damage> damage) {
+    public Weapon(String name, int quantity, double weight, ArrayList<String> description, String category, Money price,
+                  String weapon_category, String weapon_range, String category_range, WeaponProperties properties,
+                  Map<String, Damage> damage) {
         super(name, quantity, weight, description, category, price);
         this.weapon_category = weapon_category;
         this.weapon_range = weapon_range;
@@ -45,11 +47,11 @@ public class Weapon extends Item{
         this.category_range = category_range;
     }
 
-    public ArrayList<String> getProperties() {
+    public WeaponProperties getProperties() {
         return properties;
     }
 
-    public void setProperties(ArrayList<String> properties) {
+    public void setProperties(WeaponProperties properties) {
         this.properties = properties;
     }
 
@@ -66,7 +68,7 @@ public class Weapon extends Item{
     }
 
     public Damage getDamage(int HAND){
-        if(HAND == ONE_HANDED || !properties.contains("Versatile")){
+        if(HAND == ONE_HANDED || !properties.isVersatile()){
             return damage.get("damage");
         }
         if(HAND == TWO_HANDED){
