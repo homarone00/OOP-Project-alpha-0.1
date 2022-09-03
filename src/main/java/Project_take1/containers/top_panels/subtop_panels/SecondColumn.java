@@ -1,6 +1,7 @@
 package Project_take1.containers.top_panels.subtop_panels;
 
 import Project_take1.MyCharacter;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.DamagePanel;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.SimpleRoundedPanel;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HPpanels.MainHealthPanel;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HPpanels.TemporaryHealthPanel;
@@ -20,6 +21,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
     SimpleRoundedPanel acPanel;
     SimpleRoundedPanel initPanel;
     SimpleRoundedPanel speedPanel;
+    DamagePanel damagePanel;
 
     public SecondColumn(MyCharacter myCharacter){
         GridBagConstraints c=new GridBagConstraints();
@@ -64,6 +66,10 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         healthGrid.add(temporaryHealthPanel);
         healthWeaponsGrid.add(healthGrid,BorderLayout.NORTH);
+
+        damagePanel=new DamagePanel(myCharacter);
+        healthWeaponsGrid.add(damagePanel,BorderLayout.CENTER);
+
         add(healthWeaponsGrid,BorderLayout.SOUTH);
 
     }

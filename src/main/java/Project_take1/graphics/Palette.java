@@ -174,4 +174,9 @@ public class Palette extends AbstractPalette{
         }
         return imageIcon;
     }
+    public Icon getSwordIcon(){
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/swords/sword_black.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
 }

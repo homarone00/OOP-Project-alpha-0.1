@@ -5,12 +5,19 @@ import Project_take1.graphics.RoundedJPanel;
 import Project_take1.graphics.UpdatablePanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class WeaponsPanel extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
     public WeaponsPanel(MyCharacter myCharacter){
+        super();
         this.myCharacter=myCharacter;
-
+        setLayout(new GridLayout(4,1,5,5));
+        setPreferredSize(new Dimension(230,120));
+        add(new SingleWeaponPanel(myCharacter,true));
+        add(new SingleWeaponPanel(myCharacter,true));
+        add(new SingleWeaponPanel(myCharacter,true));
+        add(new SingleWeaponPanel(myCharacter,true));
 
     }
     @Override
