@@ -15,7 +15,9 @@ public class SavingUtils {
     //Create the table
     public static void createTables() throws SQLException {
         Connection connection = DBManager.getConnection();
-        try (PreparedStatement createTable = connection.prepareStatement("CREATE TABLE if not EXISTS character(" + "id TEXT," + "name VARCHAR(50)," + "lv INTEGER, " + "maxHp integer," + "currentHp integer, " + "tempHp integer, " + "initiative integer, " + "profBonus integer, " + "ac integer, " + "speed integer, " + "strength integer, strengthProf boolean, " + "dexterity integer, dexterityProf boolean, " + "constitution integer, constitutionProf boolean, " + "intelligence integer, intelligenceProf boolean, " + "wisdom integer, wisdomProf boolean, " + "charisma integer, charismaProf boolean, " + "acrobaticsProf BOOLEAN, acrobaticsExp boolean, " + "animal_handlingProf Boolean, animal_handlingExp boolean, " + "arcanaProf boolean, arcanaExp boolean, " + "athleticsProf boolean, athleticsExp boolean, " + "deceptionProf boolean, deceptionExp boolean, " + "historyProf boolean, historyExp Boolean, " + "insightProf boolean, insightExp boolean, " + "intimidationProf boolean, intimidationExp boolean, " + "investigationProf boolean, investigationExp boolean, " + "medicineProf Boolean, medicineExp boolean, " + "natureProf boolean, natureExp Boolean, " + "perceptionProf Boolean, perceptionExp Boolean, " + "performanceProf Boolean, performanceExp Boolean, " + "persuasionProf Boolean, persuasionExp Boolean, " + "religionProf Boolean, religionExp Boolean, " + "sleight_of_handProf Boolean, sleight_of_handExp Boolean, " + "stealthProf Boolean, stealthExp Boolean, " + "survivalProf Boolean, survivalExp Boolean, " + "PRIMARY Key(id))")) {
+        try (PreparedStatement createTable = connection.prepareStatement("CREATE TABLE if not EXISTS character(" +
+                "id TEXT," + "name VARCHAR(50), race TEXT," + "lv INTEGER, " + "maxHp integer," + "currentHp " +
+                "integer, " + "tempHp integer, " + "initiative integer, " + "profBonus integer, " + "ac integer, " + "speed integer, " + "strength integer, strengthProf boolean, " + "dexterity integer, dexterityProf boolean, " + "constitution integer, constitutionProf boolean, " + "intelligence integer, intelligenceProf boolean, " + "wisdom integer, wisdomProf boolean, " + "charisma integer, charismaProf boolean, " + "acrobaticsProf BOOLEAN, acrobaticsExp boolean, " + "animal_handlingProf Boolean, animal_handlingExp boolean, " + "arcanaProf boolean, arcanaExp boolean, " + "athleticsProf boolean, athleticsExp boolean, " + "deceptionProf boolean, deceptionExp boolean, " + "historyProf boolean, historyExp Boolean, " + "insightProf boolean, insightExp boolean, " + "intimidationProf boolean, intimidationExp boolean, " + "investigationProf boolean, investigationExp boolean, " + "medicineProf Boolean, medicineExp boolean, " + "natureProf boolean, natureExp Boolean, " + "perceptionProf Boolean, perceptionExp Boolean, " + "performanceProf Boolean, performanceExp Boolean, " + "persuasionProf Boolean, persuasionExp Boolean, " + "religionProf Boolean, religionExp Boolean, " + "sleight_of_handProf Boolean, sleight_of_handExp Boolean, " + "stealthProf Boolean, stealthExp Boolean, " + "survivalProf Boolean, survivalExp Boolean, " + "PRIMARY Key(id))")) {
             createTable.executeUpdate();
         }
         try (PreparedStatement createTable =
@@ -39,7 +41,21 @@ public class SavingUtils {
      * Character Code
      */
     public static void insertChar(MyCharacter myCharacter) throws SQLException {
-        try (PreparedStatement insertCharacter = DBManager.getConnection().prepareStatement("INSERT INTO character(" + "name, lv, maxHp, currentHp, tempHp, initiative, profBonus, ac, speed," + "strength, dexterity, constitution,  " + "intelligence, wisdom, charisma," + "strengthProf, dexterityProf, constitutionProf, intelligenceProf, " + "wisdomProf,charismaProf," + "acrobaticsProf,  acrobaticsExp," + "animal_handlingProf,  animal_handlingExp," + "arcanaProf,  arcanaExp," + "athleticsProf, athleticsExp," + "deceptionProf,  deceptionExp," + "historyProf,  historyExp," + "insightProf, insightExp," + "intimidationProf,  intimidationExp," + "investigationProf,  investigationExp, " + "medicineProf, medicineExp," + "natureProf,  natureExp," + "perceptionProf, perceptionExp," + "performanceProf, performanceExp," + "persuasionProf,  persuasionExp," + "religionProf,  religionExp," + "sleight_of_handProf,  sleight_of_handExp," + "stealthProf, stealthExp," + "survivalProf, survivalExp, id)" + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+        try (PreparedStatement insertCharacter =
+                     DBManager.getConnection().prepareStatement("INSERT INTO character(" + "name, lv, maxHp, " +
+                             "currentHp, tempHp, initiative, profBonus, ac, speed," + "strength, dexterity, " +
+                             "constitution,  " + "intelligence, wisdom, charisma," + "strengthProf, dexterityProf, " +
+                             "constitutionProf, intelligenceProf, " + "wisdomProf,charismaProf," + "acrobaticsProf,  " +
+                             "acrobaticsExp," + "animal_handlingProf,  animal_handlingExp," + "arcanaProf,  " +
+                             "arcanaExp," + "athleticsProf, athleticsExp," + "deceptionProf,  deceptionExp," +
+                             "historyProf,  historyExp," + "insightProf, insightExp," + "intimidationProf,  " +
+                             "intimidationExp," + "investigationProf,  investigationExp, " + "medicineProf, " +
+                             "medicineExp," + "natureProf,  natureExp," + "perceptionProf, perceptionExp," +
+                             "performanceProf, performanceExp," + "persuasionProf,  persuasionExp," + "religionProf, " +
+                             " religionExp," + "sleight_of_handProf,  sleight_of_handExp," + "stealthProf, " +
+                             "stealthExp," + "survivalProf, survivalExp, id, race)" + "values (?, ?, ?, ?, ?, " +
+                             "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " + "?, ?, ?, ?, " +
+                             "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             insertCharacter.setString(1, myCharacter.getName());
             insertCharacter.setInt(2, myCharacter.getLvl());
             insertCharacter.setInt(3, myCharacter.getMaxHp());
@@ -60,6 +76,7 @@ public class SavingUtils {
                 insertCharacter.setBoolean(23 + (2 * (i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
             }
             insertCharacter.setString(58, myCharacter.getUuid().toString());
+            insertCharacter.setString(59, myCharacter.getRace());
             insertCharacter.executeUpdate();
         }
     }
@@ -101,7 +118,9 @@ public class SavingUtils {
                         boolProfExp.add(rs.getBoolean(Utils.getProfIndex(i)));
                         boolProfExp.add(rs.getBoolean(Utils.getExpIndex(i)));
                     }
-                    allChar.add(new MyCharacter(UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getInt("lv"), rs.getInt("maxHp"), rs.getInt("currentHp"), rs.getInt("tempHp"), rs.getInt("initiative"), rs.getInt("profBonus"), rs.getInt("ac"), rs.getInt("speed"), intStat, boolSave, boolProfExp));
+                    allChar.add(new MyCharacter(UUID.fromString(rs.getString("id")), rs.getString("name"),
+                            rs.getString("race") ,
+                            rs.getInt("lv"), rs.getInt("maxHp"), rs.getInt("currentHp"), rs.getInt("tempHp"), rs.getInt("initiative"), rs.getInt("profBonus"), rs.getInt("ac"), rs.getInt("speed"), intStat, boolSave, boolProfExp));
                 }
                 return allChar;
             }

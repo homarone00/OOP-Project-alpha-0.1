@@ -12,6 +12,8 @@ public class MyCharacter implements MyCharacterCons{
     //static STATS (STATESTEKS!)
     UUID uuid;
     String name = "Leario";
+    String race = "Human";
+
     int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
@@ -75,7 +77,8 @@ public class MyCharacter implements MyCharacterCons{
         abilityInit();
         charInit();
     }
-    public MyCharacter(UUID uuid, String name, int lvl, int maxHp, int currentHp, int temporary_hp, int initiative,
+    public MyCharacter(UUID uuid, String name, String race, int lvl, int maxHp, int currentHp, int temporary_hp,
+                       int initiative,
                        int profBonus, int ac, int speed, ArrayList<Integer> intStat,
                        ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
         this.uuid = uuid;
@@ -528,6 +531,14 @@ public class MyCharacter implements MyCharacterCons{
 
     }
 
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
     public String getStringInitiative() {
         if(getInitiative()<0){
             return String.valueOf(getInitiative());
@@ -535,5 +546,17 @@ public class MyCharacter implements MyCharacterCons{
         else{
             return "+" + getInitiative();
         }
+    }
+
+    public String toStringS(){
+        StringBuilder s =
+                new StringBuilder(uuid.toString()).append("\n").append(name).append("\t").append(race).append("\n");
+        s.append("Strength:").append(getIntStat(STRENGTH)).append("\t");
+        s.append("Dexterity:").append(getIntStat(DEXTERITY)).append("\n");
+        s.append("Constitution:").append(getIntStat(CONSTITUTION)).append("\t");
+        s.append("Intelligence:").append(getIntStat(INTELLIGENCE)).append("\n");
+        s.append("Wisdom:").append(getIntStat(WISDOM)).append("\t");
+        s.append("Charisma:").append(getIntStat(CHARISMA)).append("\n");
+        return s.toString();
     }
 }
