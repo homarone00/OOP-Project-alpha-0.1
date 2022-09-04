@@ -10,11 +10,12 @@ import java.awt.*;
 public class DamagePanel extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
     public DamagePanel(MyCharacter myCharacter) {
-        super();
+        super(new BorderLayout());
         setPreferredSize(new Dimension(230,150));
         this.myCharacter=myCharacter;
-        setOpaque(false);
-        add(new WeaponsPanel(myCharacter));
+        setOpaque(true);
+        setBackground(Color.red);
+        add(new WeaponsPanel(myCharacter),BorderLayout.CENTER);
     }
 
     @Override

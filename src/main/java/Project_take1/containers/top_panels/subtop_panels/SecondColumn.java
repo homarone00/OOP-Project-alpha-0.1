@@ -53,14 +53,17 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         grid_2.add(initPanel);
         grid_2.add(speedPanel);
         grid_2.setOpaque(false);
-        grid_2.setPreferredSize(new Dimension(grid_2.getPreferredSize().width,70));
+        grid_2.setPreferredSize(new Dimension(grid_2.getPreferredSize().width,30));
 
-        add(grid_1,BorderLayout.NORTH);
-        add(grid_2,BorderLayout.CENTER);
+        JPanel northGrid=new JPanel(new GridLayout(2,1));
+        northGrid.setOpaque(false);
+        northGrid.add(grid_1);
+        northGrid.add(grid_2);
+        add(northGrid,BorderLayout.NORTH);
         mainHealthPanel =new MainHealthPanel(myCharacter);
         temporaryHealthPanel=new TemporaryHealthPanel(myCharacter,mainHealthPanel);
         healthGrid=new JPanel(new GridLayout(2,1,4,4));
-        JPanel healthWeaponsGrid=new JPanel(new BorderLayout());
+        JPanel healthWeaponsGrid=new JPanel(new BorderLayout(5,5));
 
         healthGrid.add(mainHealthPanel);
 
@@ -70,7 +73,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         damagePanel=new DamagePanel(myCharacter);
         healthWeaponsGrid.add(damagePanel,BorderLayout.CENTER);
 
-        add(healthWeaponsGrid,BorderLayout.SOUTH);
+        add(healthWeaponsGrid,BorderLayout.CENTER);
 
     }
 

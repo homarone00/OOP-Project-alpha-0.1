@@ -110,6 +110,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
         JPanel placeHolder = new JPanel(new BorderLayout(10,10));
         JLabel newPlaceHolder=new JLabel("hello");
+        newPlaceHolder.setOpaque(false);
         placeHolder.add(newPlaceHolder,BorderLayout.CENTER);
         secondColumn= new SecondColumn(myCharacter);
         placeHolder.add(secondColumn,BorderLayout.WEST);
@@ -128,6 +129,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         c.gridy=0;
         c.weightx=5;
         c.weighty=80;
+        c.fill=GridBagConstraints.BOTH;
         saveSkillPanel.add(savePanel,c);
         c.gridx=0;
         c.gridy=1;
