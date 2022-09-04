@@ -69,6 +69,7 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         c.gridx = 1;
         c.gridy = 0;
         c.weightx=20;
+        c.weighty=1;
         c.fill = GridBagConstraints.BOTH;
         add(title, c);
         settingsButton=new JLabel();
@@ -78,7 +79,7 @@ public class SkillPanel extends JPanel implements UpdatablePanel, MouseListener 
         c.gridx = 2;
         c.gridy = 0;
         c.weightx=0.9;
-        c.weighty=5;
+        c.weighty=1;
         c.fill = GridBagConstraints.BOTH;
         add(settingsButton,c);
         mainPanel = new JPanel(new GridLayout(9,2,2,2));

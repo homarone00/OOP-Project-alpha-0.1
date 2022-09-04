@@ -60,9 +60,8 @@ public class SaveThrowPanel extends JPanel implements UpdatablePanel, MouseListe
         c.gridx = 1;
         c.gridy = 0;
         c.weightx=20;
-        c.weighty=0;
+        c.weighty=1;
         c.fill = GridBagConstraints.BOTH;
-        //c.anchor = GridBagConstraints.NORTH;
         this.add(title, c);
 
         c.gridx = 2;
@@ -77,7 +76,7 @@ public class SaveThrowPanel extends JPanel implements UpdatablePanel, MouseListe
         c.gridy = 1;
         c.gridx = 1;
         c.weightx=2;
-        c.weighty=2;
+        c.weighty=20;
         c.gridwidth=2;
         c.fill = GridBagConstraints.BOTH;
         mainPanel.setOpaque(false);

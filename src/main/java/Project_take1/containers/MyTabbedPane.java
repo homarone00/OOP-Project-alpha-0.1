@@ -35,6 +35,7 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
 
         //graphics
         this.setBorder(null);
+        setOpaque(true);
         this.setBackground(getPalette().background());
 
         //tabsPanel
