@@ -14,39 +14,39 @@ public class Race {
 
     public Race(String name) {
         this.name = name;
-        ability.set(MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.DEXTERITY, 0);
-        ability.set(MyCharacter.CONSTITUTION, 0);
-        ability.set(MyCharacter.INTELLIGENCE, 0);
-        ability.set(MyCharacter.WISDOM, 0);
-        ability.set(MyCharacter.CHARISMA, 0);
+        ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 0);
+        ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 0);
+        ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 0);
+        ability.set(MyCharacter.INTELLIGENCE - MyCharacter.STRENGTH, 0);
+        ability.set(MyCharacter.WISDOM - MyCharacter.STRENGTH, 0);
+        ability.set(MyCharacter.CHARISMA - MyCharacter.STRENGTH, 0);
         if(name.equalsIgnoreCase("Human")){
-            ability.set(MyCharacter.STRENGTH, 1);
-            ability.set(MyCharacter.DEXTERITY, 1);
-            ability.set(MyCharacter.CONSTITUTION, 1);
-            ability.set(MyCharacter.INTELLIGENCE, 1);
-            ability.set(MyCharacter.WISDOM, 1);
-            ability.set(MyCharacter.CHARISMA, 1);
+            ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.INTELLIGENCE - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.WISDOM - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.CHARISMA - MyCharacter.STRENGTH, 1);
         } else if (name.equalsIgnoreCase("Dwarf")) {
-            ability.set(MyCharacter.CONSTITUTION, 2);
-            ability.set(MyCharacter.STRENGTH, 2);
+            ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 2);
+            ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 2);
         } else if (name.equalsIgnoreCase("Elf")) {
-            ability.set(MyCharacter.DEXTERITY, 2);
-            ability.set(MyCharacter.INTELLIGENCE, 1);
+            ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 2);
+            ability.set(MyCharacter.INTELLIGENCE - MyCharacter.STRENGTH, 1);
         }  else if (name.equalsIgnoreCase("Gnome")) {
             this.size = "Small";
-            ability.set(MyCharacter.CONSTITUTION, 1);
-            ability.set(MyCharacter.INTELLIGENCE, 2);
+            ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.INTELLIGENCE - MyCharacter.STRENGTH, 2);
         } else if (name.equalsIgnoreCase("Half-Elf")) {
-            ability.set(MyCharacter.CHARISMA, 2);
+            ability.set(MyCharacter.CHARISMA - MyCharacter.STRENGTH, 2);
             variablePoint = 1;
         } else if(name.equalsIgnoreCase("Halfling")){
-            ability.set(MyCharacter.CHARISMA, 1);
-            ability.set(MyCharacter.DEXTERITY, 2);
+            ability.set(MyCharacter.CHARISMA - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 2);
             size = "Small";
         } else if(name.equalsIgnoreCase("Half-Orc")){
-            ability.set(MyCharacter.CONSTITUTION, 1);
-            ability.set(MyCharacter.STRENGTH, 2);
+            ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 1);
+            ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 2);
         }
     }
 

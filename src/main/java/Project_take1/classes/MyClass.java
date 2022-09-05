@@ -1,8 +1,10 @@
 package Project_take1.classes;
 
+import Project_take1.MyCharacterCons;
+
 import java.util.ArrayList;
 
-public interface MyClass {
+public interface MyClass extends MyCharacterCons {
     int BARBARIAN = 1;
     int BARD = 2;
     int CLERIC = 3;

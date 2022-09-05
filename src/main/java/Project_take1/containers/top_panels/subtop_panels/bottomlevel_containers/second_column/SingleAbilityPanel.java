@@ -39,7 +39,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
         lbValue.setFont(new Font("Comic Sans", Font.BOLD, 13));
         lbValue.setOpaque(false);
         this.clComp = new ProficiencyPointLabel(proficiency,expertise);
-        this.setLayout(new BorderLayout(5,0));
+        this.setLayout(new BorderLayout(6,0));
 
         clComp.setPreferredSize(new Dimension(7,clComp.getPreferredSize().height));
         add(clComp,BorderLayout.WEST);
@@ -47,7 +47,7 @@ public class SingleAbilityPanel extends RoundedJPanel implements UpdatablePanel 
         lbValue.setPreferredSize(new Dimension(7,lbValue.getPreferredSize().height));
         add(lbValue,BorderLayout.CENTER);
 
-        lbName.setPreferredSize(new Dimension(125,lbName.getPreferredSize().height));
+        lbName.setPreferredSize(new Dimension(120,lbName.getPreferredSize().height));
         add(lbName,BorderLayout.EAST);
 
 
