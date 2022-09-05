@@ -67,12 +67,12 @@ public class Weapon extends Item{
     }
 
     public Damage getDamage(){
-        return damage.get("damage");
+        return damage.get("icons/damage");
     }
 
     public Damage getDamage(int HAND){
         if(HAND == ONE_HANDED || !properties.isVersatile()){
-            return damage.get("damage");
+            return damage.get("icons/damage");
         }
         if(HAND == TWO_HANDED){
             return damage.get("two_handed_damage");

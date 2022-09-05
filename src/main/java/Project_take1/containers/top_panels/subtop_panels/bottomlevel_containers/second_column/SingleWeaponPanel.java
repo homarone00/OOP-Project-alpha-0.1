@@ -20,6 +20,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
     JTextField bonusField;
     JTextField damageField;
     boolean isWeapon;
+    JLabel iconLabel=new JLabel();
     public SingleWeaponPanel(MyCharacter myCharacter, boolean isWeapon) {
         super();
         this.myCharacter=myCharacter;
@@ -71,7 +72,6 @@ public class SingleWeaponPanel extends RoundedJPanel {
         setPreferredSize(new Dimension(180,20));
         setOpaque(false);
 
-        setEditable(false);
 
         nameField.setBorder(null);
         bonusField.setBorder(null);
@@ -100,7 +100,6 @@ public class SingleWeaponPanel extends RoundedJPanel {
         contentPanel.add(bonusField,BorderLayout.CENTER);
         contentPanel.add(damageField,BorderLayout.LINE_END);
 
-        JLabel iconLabel=new JLabel();
         iconLabel.setPreferredSize(new Dimension(30,20));
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         if(isWeapon()){
@@ -111,6 +110,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
         }
         add(contentPanel,BorderLayout.CENTER);
         add(iconLabel,BorderLayout.WEST);
+        setEditable(false);
     }
 
     @Override
@@ -138,11 +138,27 @@ public class SingleWeaponPanel extends RoundedJPanel {
             nameField.setHighlighter(new DefaultHighlighter());
             bonusField.setHighlighter(new DefaultHighlighter());
             damageField.setHighlighter(new DefaultHighlighter());
+            iconLabel.setIcon(getPalette().getRedCross());
         }
         else{
-            nameField.setHighlighter(null);
-            bonusField.setHighlighter(null);
-            damageField.setHighlighter(null);
+            nameField.select(0,0);
+            damageField.select(0,0);
+            bonusField.select(0,0);
+            if(nameField.getHighlighter()!=null){
+                nameField.setHighlighter(null);
+            }
+            if(damageField.getHighlighter()!=null){
+                damageField.setHighlighter(null);
+            }
+            if(bonusField.getHighlighter()!=null){
+                bonusField.setHighlighter(null);
+            }
+            if(isWeapon()){
+                iconLabel.setIcon(getPalette().getSwordIcon());
+            }
+            if(!isWeapon()){
+                iconLabel.setIcon(getPalette().getDamageIcon());
+            }
         }
         repaint();
     }
@@ -162,8 +178,11 @@ public class SingleWeaponPanel extends RoundedJPanel {
         }
     }
 
-    public boolean isDamageModifier(){
-        return !isWeapon;
+    public JLabel getIconLabel() {
+        return iconLabel;
+    }
 
+    public void setIconLabel(JLabel iconLabel) {
+        this.iconLabel = iconLabel;
     }
 }

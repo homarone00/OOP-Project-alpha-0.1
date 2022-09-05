@@ -40,7 +40,7 @@ public class MyCharacterSheet extends JFrame implements ActionListener, ChangeLi
         setMinimumSize(new Dimension(1100, 800));
         setResizable(true);
         setVisible(true);
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icon.png")));
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/icon.png")));
         setIconImage(imageIcon.getImage());
         this.setTitle("RollJ Idea");
         updateColors();
