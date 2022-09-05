@@ -179,4 +179,9 @@ public class Palette extends AbstractPalette{
         imageIcon=scale(imageIcon,17,17);
         return imageIcon;
     }
+    public Icon getDamageIcon(){
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/damage/damage.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
 }

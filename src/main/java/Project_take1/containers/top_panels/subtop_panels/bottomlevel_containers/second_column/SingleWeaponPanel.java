@@ -5,6 +5,10 @@ import Project_take1.graphics.RoundedJPanel;
 import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.util.Objects;
 
@@ -63,7 +67,6 @@ public class SingleWeaponPanel extends RoundedJPanel {
                 g.setColor(oldColor);
             }
         };
-
         setLayout(new BorderLayout(5,0));
         setPreferredSize(new Dimension(180,20));
         setOpaque(false);
@@ -104,7 +107,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
             iconLabel.setIcon(getPalette().getSwordIcon());
         }
         else{
-            iconLabel.setIcon(getPalette().getSwordIcon());
+            iconLabel.setIcon(getPalette().getDamageIcon());
         }
         add(contentPanel,BorderLayout.CENTER);
         add(iconLabel,BorderLayout.WEST);
@@ -131,6 +134,16 @@ public class SingleWeaponPanel extends RoundedJPanel {
         nameField.setEditable(editable);
         bonusField.setEditable(editable);
         damageField.setEditable(editable);
+        if(editable){
+            nameField.setHighlighter(new DefaultHighlighter());
+            bonusField.setHighlighter(new DefaultHighlighter());
+            damageField.setHighlighter(new DefaultHighlighter());
+        }
+        else{
+            nameField.setHighlighter(null);
+            bonusField.setHighlighter(null);
+            damageField.setHighlighter(null);
+        }
         repaint();
     }
     public void setAsWeapon(){

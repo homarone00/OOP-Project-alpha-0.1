@@ -30,14 +30,13 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         setOpaque(true);
         setBackground(getPalette().background());
         setPreferredSize(new Dimension(230,800));
-        JPanel placeHolder=new JPanel();
-        placeHolder.setPreferredSize(new Dimension(placeHolder.getPreferredSize().width,800));
-        add(placeHolder,BorderLayout.CENTER);
 
         JPanel grid_1=new JPanel(new GridBagLayout());
         grid_1.setOpaque(false);
         className=new SimpleRoundedPanel("Oath of the homosexual","Kappa", 30,30);
+        className.setOpaque(false);
         level=new SimpleRoundedPanel("LVL",Integer.toString(myCharacter.getLvl()),30,30);
+        level.setOpaque(false);
         c.fill=GridBagConstraints.BOTH;
         c.weightx=10;
         grid_1.add(className,c);
@@ -47,6 +46,9 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         acPanel=new SimpleRoundedPanel("AC",Integer.toString(myCharacter.getAc()),30,30);
         initPanel=new SimpleRoundedPanel("INIT",myCharacter.getStringInitiative(),30,30);
         speedPanel=new SimpleRoundedPanel("SPEED",myCharacter.getSpeed()+"m",30,30);
+        acPanel.setOpaque(false);
+        initPanel.setOpaque(false);
+        speedPanel.setOpaque(false);
 
         JPanel grid_2 =new JPanel(new GridLayout(1,3,4,4));
         grid_2.add(acPanel);
@@ -64,7 +66,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         temporaryHealthPanel=new TemporaryHealthPanel(myCharacter,mainHealthPanel);
         healthGrid=new JPanel(new GridLayout(2,1,4,4));
         JPanel healthWeaponsGrid=new JPanel(new BorderLayout(5,5));
-
+        healthWeaponsGrid.setOpaque(false);
         healthGrid.add(mainHealthPanel);
 
         healthGrid.add(temporaryHealthPanel);
@@ -72,7 +74,6 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         damagePanel=new DamagePanel(myCharacter);
         healthWeaponsGrid.add(damagePanel,BorderLayout.CENTER);
-
         add(healthWeaponsGrid,BorderLayout.CENTER);
 
     }

@@ -1,5 +1,6 @@
 package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column;
 
+import Project_take1.MyCharacter;
 import Project_take1.graphics.UpdatablePanel;
 import Project_take1.graphics.Palette;
 
@@ -143,4 +144,5 @@ public class ProficiencyPointLabel extends JLabel implements UpdatablePanel {
     public Palette getPalette() {
         return UpdatablePanel.super.getPalette();
     }
+
 }
