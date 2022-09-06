@@ -5,7 +5,12 @@ import Project_take1.graphics.RoundedJPanel;
 import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
+import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import java.awt.*;
+import java.util.Objects;
 
 public class SingleWeaponPanel extends RoundedJPanel {
     MyCharacter myCharacter;
@@ -14,14 +19,15 @@ public class SingleWeaponPanel extends RoundedJPanel {
     JTextField nameField;
     JTextField bonusField;
     JTextField damageField;
-    public SingleWeaponPanel(MyCharacter myCharacter) {
+    boolean isWeapon;
+    JLabel iconLabel=new JLabel();
+    public SingleWeaponPanel(MyCharacter myCharacter, boolean isWeapon) {
         super();
         this.myCharacter=myCharacter;
-        this.weapon=weapon;
-
+        this.isWeapon=isWeapon;
         nameField=new JTextField("Spadozza"){
-            @Override
             public void paintComponent(Graphics g){
+                super.paintComponent(g);
                 Color oldColor=g.getColor();
                 if(editable){
                     g.setColor((getPalette().border()));
@@ -29,12 +35,13 @@ public class SingleWeaponPanel extends RoundedJPanel {
                 else{
                     g.setColor(getPalette().panel());
                 }
-                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+                g.drawRoundRect(3,2,nameField.getSize().width-7,nameField.getSize().height-5,20,20);
+                g.setColor(oldColor);
             }
         };
         bonusField=new JTextField("+7"){
-            @Override
             public void paintComponent(Graphics g){
+                super.paintComponent(g);
                 Color oldColor=g.getColor();
                 if(editable){
                     g.setColor((getPalette().border()));
@@ -42,12 +49,14 @@ public class SingleWeaponPanel extends RoundedJPanel {
                 else{
                     g.setColor(getPalette().panel());
                 }
-                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+                g.drawRoundRect(1,1,bonusField.getSize().width-2,bonusField.getSize().height-4,20,20);
+                g.setColor(oldColor);
             }
         };
         damageField =new JTextField("1d8 + 6"){
-            @Override
+
             public void paintComponent(Graphics g){
+                super.paintComponent(g);
                 Color oldColor=g.getColor();
                 if(editable){
                     g.setColor((getPalette().border()));
@@ -55,24 +64,53 @@ public class SingleWeaponPanel extends RoundedJPanel {
                 else{
                     g.setColor(getPalette().panel());
                 }
-                g.drawRoundRect(1,1,this.getSize().width-2,this.getSize().height,5,5);
+                g.drawRoundRect(1,1,damageField.getSize().width-8,damageField.getSize().height-4,20,20);
+                g.setColor(oldColor);
             }
         };
-
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(getPreferredSize().width,20));
+        setLayout(new BorderLayout(5,0));
+        setPreferredSize(new Dimension(180,20));
         setOpaque(false);
 
-        setEditable(false);
 
         nameField.setBorder(null);
         bonusField.setBorder(null);
         damageField.setBorder(null);
 
-        add(nameField,BorderLayout.WEST);
-        add(bonusField,BorderLayout.CENTER);
-        add(damageField,BorderLayout.WEST);
+        nameField.setOpaque(false);
+        bonusField.setOpaque(false);
+        damageField.setOpaque(false);
 
+        nameField.setPreferredSize(new Dimension(90,20));
+        bonusField.setPreferredSize(new Dimension(20,20));
+        damageField.setPreferredSize(new Dimension(80,20));
+
+        nameField.setHorizontalAlignment(JTextField.CENTER);
+        bonusField.setHorizontalAlignment(JTextField.CENTER);
+        damageField.setHorizontalAlignment(JTextField.CENTER);
+
+        nameField.setFont(new Font("Comic Sans",Font.BOLD,12));
+        bonusField.setFont(new Font("Comic Sans",Font.BOLD,12));
+        damageField.setFont(new Font("Comic Sans",Font.BOLD,12));
+
+        JPanel contentPanel=new JPanel(new BorderLayout());
+        contentPanel.setOpaque(false);
+
+        contentPanel.add(nameField,BorderLayout.WEST);
+        contentPanel.add(bonusField,BorderLayout.CENTER);
+        contentPanel.add(damageField,BorderLayout.LINE_END);
+
+        iconLabel.setPreferredSize(new Dimension(30,20));
+        iconLabel.setHorizontalAlignment(JLabel.CENTER);
+        if(isWeapon()){
+            iconLabel.setIcon(getPalette().getSwordIcon());
+        }
+        else{
+            iconLabel.setIcon(getPalette().getDamageIcon());
+        }
+        add(contentPanel,BorderLayout.CENTER);
+        add(iconLabel,BorderLayout.WEST);
+        setEditable(false);
     }
 
     @Override
@@ -96,6 +134,55 @@ public class SingleWeaponPanel extends RoundedJPanel {
         nameField.setEditable(editable);
         bonusField.setEditable(editable);
         damageField.setEditable(editable);
+        if(editable){
+            nameField.setHighlighter(new DefaultHighlighter());
+            bonusField.setHighlighter(new DefaultHighlighter());
+            damageField.setHighlighter(new DefaultHighlighter());
+            iconLabel.setIcon(getPalette().getRedCross());
+        }
+        else{
+            nameField.select(0,0);
+            damageField.select(0,0);
+            bonusField.select(0,0);
+            if(nameField.getHighlighter()!=null){
+                nameField.setHighlighter(null);
+            }
+            if(damageField.getHighlighter()!=null){
+                damageField.setHighlighter(null);
+            }
+            if(bonusField.getHighlighter()!=null){
+                bonusField.setHighlighter(null);
+            }
+            if(isWeapon()){
+                iconLabel.setIcon(getPalette().getSwordIcon());
+            }
+            if(!isWeapon()){
+                iconLabel.setIcon(getPalette().getDamageIcon());
+            }
+        }
         repaint();
+    }
+    public void setAsWeapon(){
+        isWeapon =true;
+    }
+
+    public void setAsDamageModifier(){
+        isWeapon=false;
+    }
+    public boolean isWeapon(){
+        if(isWeapon){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public JLabel getIconLabel() {
+        return iconLabel;
+    }
+
+    public void setIconLabel(JLabel iconLabel) {
+        this.iconLabel = iconLabel;
     }
 }

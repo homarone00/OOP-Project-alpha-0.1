@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener {
+public class DamageModifiersPanel extends JPanel implements UpdatablePanel, MouseListener {
     MyCharacter myCharacter;
     JLabel title;
     JLabel settingsButton;
@@ -20,13 +20,13 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
     int addingPosition;
     ArrayList<SingleWeaponPanel> singleWeaponPanelArrayList;
     CircularLabel plusLabel=new CircularLabel("+",-5,9,15);
-    public WeaponsPanel(MyCharacter myCharacter){
+    public DamageModifiersPanel(MyCharacter myCharacter){
         super();
         this.myCharacter=myCharacter;
         JPanel topGrid=new JPanel(new BorderLayout());
         topGrid.setOpaque(false);
         addingPosition =length;
-        title =new JLabel("Weapons");
+        title =new JLabel("Damage Modifiers");
         title.setFont(new Font("Comic Sans",Font.BOLD,15));
         title.setOpaque(false);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -49,22 +49,22 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         c.weighty=10;
         c.insets=insets;
 
-        SingleWeaponPanel panel1=new SingleWeaponPanel(myCharacter,true);
+        SingleWeaponPanel panel1=new SingleWeaponPanel(myCharacter,false);
         singleWeaponPanelArrayList.add(panel1);
         mainGrid.add(panel1,c);
 
         c.gridy=1;
-        SingleWeaponPanel panel2=new SingleWeaponPanel(myCharacter,true);
+        SingleWeaponPanel panel2=new SingleWeaponPanel(myCharacter,false);
         singleWeaponPanelArrayList.add(panel2);
         mainGrid.add(panel2,c);
 
         c.gridy=2;
-        SingleWeaponPanel panel3=new SingleWeaponPanel(myCharacter,true);
+        SingleWeaponPanel panel3=new SingleWeaponPanel(myCharacter,false);
         singleWeaponPanelArrayList.add(panel3);
         mainGrid.add(panel3,c);
 
         c.gridy=3;
-        SingleWeaponPanel panel4=new SingleWeaponPanel(myCharacter,true);
+        SingleWeaponPanel panel4=new SingleWeaponPanel(myCharacter,false);
         singleWeaponPanelArrayList.add(panel4);
         mainGrid.add(panel4,c);
 
@@ -105,7 +105,7 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         c.weighty=10;
         c.weightx=10;
         c.fill=GridBagConstraints.BOTH;
-        SingleWeaponPanel newPanel=new SingleWeaponPanel(myCharacter,true);
+        SingleWeaponPanel newPanel=new SingleWeaponPanel(myCharacter,false);
         mainGrid.add(newPanel,c);
         singleWeaponPanelArrayList.add(newPanel);
         newPanel.setEditable(isEditing());
@@ -164,6 +164,8 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
 
     @Override
     public void mousePressed(MouseEvent e) {
+
+
     }
 
     @Override

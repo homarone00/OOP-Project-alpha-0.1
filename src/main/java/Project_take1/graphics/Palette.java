@@ -140,11 +140,11 @@ public class Palette extends AbstractPalette{
     public ImageIcon getUnpressedSettingsButton(){
         ImageIcon imageIcon;
         if(getWhiteness(text())<40){
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_unpressed.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_black_unpressed.png")));
             imageIcon=scale(imageIcon,17,17);
         }
         else{
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_unpressed.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_white_unpressed.png")));
             imageIcon=scale(imageIcon,17,17);
         }
         return imageIcon;
@@ -152,11 +152,11 @@ public class Palette extends AbstractPalette{
     public ImageIcon getPressedSettingsButton(){
         ImageIcon imageIcon;
         if(getWhiteness(text())<40){
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_pressed.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_black_pressed.png")));
             imageIcon=scale(imageIcon,17,17);
         }
         else{
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_pressed.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_white_pressed.png")));
             imageIcon=scale(imageIcon,17,17);
         }
         return imageIcon;
@@ -165,13 +165,29 @@ public class Palette extends AbstractPalette{
     public Icon getHoveredSettingsButton() {
         ImageIcon imageIcon;
         if(getWhiteness(text())<40){
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_black_hovered.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_black_hovered.png")));
             imageIcon=scale(imageIcon,17,17);
         }
         else{
-            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/settingsbuttons/settings_button_white_hovered.png")));
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/settingsbuttons/settings_button_white_hovered.png")));
             imageIcon=scale(imageIcon,17,17);
         }
+        return imageIcon;
+    }
+    public Icon getSwordIcon(){
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/swords/sword_black.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
+    public Icon getDamageIcon(){
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/damage/damage.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
+
+    public Icon getRedCross() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/red_cross/red_cross.png")));
+        imageIcon=scale(imageIcon,17,17);
         return imageIcon;
     }
 }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.formdev.flatlaf.json.Json;
 import kong.unirest.Unirest;
 
 import java.util.ArrayList;
@@ -78,17 +77,17 @@ public class ItemConn {
             }
             Map<String, Damage> damageMap = new HashMap<>();
             if(properties.contains("Versatile") || properties.contains("versatile")){
-                Damage one_hand = new Damage(json.get("damage").get("damage_dice").asText(), json.get("damage").get(
+                Damage one_hand = new Damage(json.get("icons/damage").get("damage_dice").asText(), json.get("icons/damage").get(
                         "damage_type").get("name").asText());
-                damageMap.put("damage", one_hand);
+                damageMap.put("icons/damage", one_hand);
                 Damage two_hand = new Damage(json.get("two_handed_damage").get("damage_dice").asText(), json.get("two_handed_damage").get(
                         "damage_type").get("name").asText());
                 damageMap.put("two hand", two_hand);
             }
             else{
-                Damage one_hand = new Damage(json.get("damage").get("damage_dice").asText(), json.get("damage").get(
+                Damage one_hand = new Damage(json.get("icons/damage").get("damage_dice").asText(), json.get("icons/damage").get(
                         "damage_type").get("name").asText());
-                damageMap.put("damage", one_hand);
+                damageMap.put("icons/damage", one_hand);
             }
             return new Weapon(json.get("name").asText(), 1, weight, desc, category, cost,
                     json.get("weapon_category").asText(), json.get("weapon_range").asText(), json.get("category_range").asText(),
