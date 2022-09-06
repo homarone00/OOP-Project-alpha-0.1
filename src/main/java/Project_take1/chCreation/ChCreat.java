@@ -213,7 +213,7 @@ public class ChCreat extends JFrame{
             }
             MyCharacter myCharacter = new MyCharacter(name, race.getName(), (String) cbClasses.getSelectedItem(), abPoint,
                     pan.getSaveProf(), pan.getAbilityProf());
-            MyCharacterSheet st = new MyCharacterSheet(myCharacter);
+            SwingUtilities.invokeLater(() -> new MyCharacterSheet(myCharacter));
         });
 
         /*
