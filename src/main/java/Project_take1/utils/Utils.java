@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Project_take1.MyCharacter;
 
 /**
- * General utils Class
+ * General utils MyClassCr
  */
 public class Utils {
     /**

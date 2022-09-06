@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.TimeZone;
 
 /**
- * Class for managing DB connections making use of the singleton pattern.
+ * MyClassCr for managing DB connections making use of the singleton pattern.
  * Supports any JDBC Connection as long as the proper driver and connection
  * string are provided.
  *

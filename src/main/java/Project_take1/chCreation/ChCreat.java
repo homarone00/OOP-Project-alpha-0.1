@@ -1,21 +1,20 @@
 package Project_take1.chCreation;
 
+import Project_take1.MyCharacter;
+import Project_take1.containers.MyCharacterSheet;
+import Project_take1.race.Race;
+
 import javax.swing.*;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.JTextComponent;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.NumberFormat;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class ChCreat extends JFrame{
     private JLabel lbName;
     private JTextField tfName;
-    private JComboBox comboBox1;
+    private JComboBox<String> cbRace;
     private JPanel mainPanel;
     private JLabel JLabel;
     private JTextField tfDex;
@@ -39,10 +38,19 @@ public class ChCreat extends JFrame{
     private JTextField tfRandM;
     private JTextField tfRandP;
     private JButton btRand;
-    private JPanel ClassPanel;
+    private JPanel classPanel;
     private JComboBox cbClasses;
     private JButton btCreate;
-    private JPanel ClassBonusPanel;
+    private JPanel classBonusPanel;
+    private JLabel lbSt;
+    private JLabel lbDex;
+    private JLabel lbCon;
+    private JLabel lbInt;
+    private JLabel lbWis;
+    private JLabel lbCha;
+    private MyClassPanel pan;
+    int selItem;
+    Race race = new Race("Human");
 
     public ChCreat(){
         KeyListener num = new KeyAdapter() {
@@ -52,7 +60,7 @@ public class ChCreat extends JFrame{
                     e.consume();
                 }
                 Object obj = e.getComponent();
-                if(obj instanceof JTextComponent && c >= '0' && c<= '9'){
+                if(obj instanceof JTextComponent && c >= '0' && c<= '9') {
                     JTextComponent tx = (JTextComponent) obj;
                     StringBuilder value = new StringBuilder(tx.getText());
                     value.append(c);
@@ -63,9 +71,11 @@ public class ChCreat extends JFrame{
                 }
             }
         };
+
         /*
           Set all stat action/key listener
          */
+
         ArrayList<JButton> mButton = new ArrayList<>();
         mButton.add(strM);
         mButton.add(dexM);
@@ -87,6 +97,14 @@ public class ChCreat extends JFrame{
         txStat.add(tfInt);
         txStat.add(tfWis);
         txStat.add(tfCha);
+        ArrayList<JLabel> lbStat = new ArrayList<>();
+        lbStat.add(lbSt);
+        lbStat.add(lbDex);
+        lbStat.add(lbCon);
+        lbStat.add(lbInt);
+        lbStat.add(lbWis);
+        lbStat.add(lbCha);
+
         for(int i = 0; i < 6; i++){
             int finalI = i;
             mButton.get(finalI).addActionListener(e -> {
@@ -107,7 +125,8 @@ public class ChCreat extends JFrame{
             });
             mButton.get(finalI).setFocusable(false);
             pButton.get(finalI).setFocusable(false);
-            txStat.get(i).setText("10");
+            txStat.get(i).setText("11");
+            lbStat.get(i).setText(String.valueOf(race.getAbility().get(i)));
             txStat.get(i).addKeyListener(num);
         }
 
@@ -127,6 +146,82 @@ public class ChCreat extends JFrame{
                         Integer.parseInt(tfRandP.getText()) + 1)));
             }
         });
+
+        /*
+        ComboBox Listener
+         */
+
+        System.out.println(cbClasses.getSelectedIndex());
+        selItem = cbClasses.getSelectedIndex();
+        cbClasses.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getSource() instanceof JComboBox<?>){
+                    JComboBox<String> box = (JComboBox<String>) e.getSource();
+                    int i = box.getSelectedIndex();
+                    box.setEnabled(false);
+                    if(i != selItem){
+                        selItem = i;
+                        MyClassPanel pn;
+                        String lol = (String) box.getSelectedItem();
+                        if(lol.equalsIgnoreCase("Fighter")){
+                            pn = new FightPanel();
+                        } else {
+                            pn = new BarbPanel(lol);
+                        }
+                        classBonusPanel.remove(pan.getMainPanel());
+                        classBonusPanel.add(pn.getMainPanel());
+                        pan = pn;
+                    }
+                    box.setEnabled(true);
+                    pan.getMainPanel().setVisible(false);
+                    pan.getMainPanel().setVisible(true);
+                }
+            }
+        });
+
+        cbRace.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getSource() instanceof JComboBox<?>){
+                    JComboBox<String> box = (JComboBox<String>) e.getSource();
+                    int i = box.getSelectedIndex();
+                    box.setEnabled(false);
+                    race = new Race((String)box.getSelectedItem());
+                    for(int j = 0; j<6; j++){
+                        lbStat.get(j).setText(String.valueOf(race.getAbility().get(j)));
+                        int val = 10 + race.getAbility().get(j);
+                        txStat.get(j).setText(String.valueOf(val));
+                    }
+                    box.setEnabled(true);
+                }
+            }
+        });
+
+        /*
+         * create action listener
+         */
+
+        btCreate.addActionListener(e -> {
+            String name = tfName.getText();
+            if(name.equalsIgnoreCase("")){
+                return;
+            }
+            ArrayList<Integer> abPoint = new ArrayList<>();
+            for(JTextField tf:txStat){
+                abPoint.add(Integer.valueOf(tf.getText()));
+            }
+            MyCharacter myCharacter = new MyCharacter(name, race.getName(), (String) cbClasses.getSelectedItem(), abPoint,
+                    pan.getSaveProf(), pan.getAbilityProf());
+            MyCharacterSheet st = new MyCharacterSheet(myCharacter);
+        });
+
+        /*
+         * Frame initialization
+         */
+
+        pan = new BarbPanel("Barbarian");
+        classBonusPanel.add(pan.getMainPanel(), BorderLayout.CENTER);
         setContentPane(mainPanel);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

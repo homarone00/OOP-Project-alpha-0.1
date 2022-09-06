@@ -4,7 +4,7 @@ import Project_take1.MyCharacter;
 
 import java.util.ArrayList;
 
-public class Class implements MyClass{
+public class MyClassCr implements MyClass{
     protected String name;
     ArrayList<Integer> primaryStat = new ArrayList<>();
     ArrayList<Integer> chPrimaryStat = new ArrayList<>();
@@ -16,7 +16,7 @@ public class Class implements MyClass{
     int profPoint = 0;
     int abPoint = 0;
 
-    public Class(String name) {
+    public MyClassCr(String name) {
         this.name = name;
         if(this.name.equalsIgnoreCase("Barbarian")){
             profPoint = 2;
@@ -49,8 +49,8 @@ public class Class implements MyClass{
             profPoint = 2;
         } else if (this.name.equalsIgnoreCase("Druid")) {
             primaryStat.add(MyCharacter.WISDOM);
-            saveProf.add(MyCharacter.WISDOM_SAVE);
-            saveProf.add(MyCharacter.INTELLIGENCE_SAVE);
+            saveProf.add(MyCharacter.STRENGTH_SAVE);
+            saveProf.add(MyCharacter.DEXTERITY_SAVE);
             profPoint = 2;
             chAbilityPro.add(MyCharacter.ARCANA);
             chAbilityPro.add(MyCharacter.ANIMAL_HANDLING);
@@ -59,6 +59,20 @@ public class Class implements MyClass{
             chAbilityPro.add(MyCharacter.NATURE);
             chAbilityPro.add(MyCharacter.PERCEPTION);
             chAbilityPro.add(MyCharacter.RELIGION);
+            chAbilityPro.add(MyCharacter.SURVIVAL);
+        } else if (this.name.equalsIgnoreCase("Ranger")) {
+            primaryStat.add(MyCharacter.DEXTERITY);
+            primaryStat.add(MyCharacter.WISDOM);
+            saveProf.add(MyCharacter.WISDOM_SAVE);
+            saveProf.add(MyCharacter.INTELLIGENCE_SAVE);
+            profPoint = 2;
+            chAbilityPro.add(MyCharacter.ANIMAL_HANDLING);
+            chAbilityPro.add(MyCharacter.ATHLETICS);
+            chAbilityPro.add(MyCharacter.INSIGHT);
+            chAbilityPro.add(MyCharacter.INVESTIGATION);
+            chAbilityPro.add(MyCharacter.NATURE);
+            chAbilityPro.add(MyCharacter.PERCEPTION);
+            chAbilityPro.add(MyCharacter.STEALTH);
             chAbilityPro.add(MyCharacter.SURVIVAL);
         } else if (this.name.equalsIgnoreCase("Fighter")) {
             abPoint = 1;
@@ -76,7 +90,7 @@ public class Class implements MyClass{
             chAbilityPro.add(PERCEPTION);
             chAbilityPro.add(SURVIVAL);
         } else if(this.name.equalsIgnoreCase("Monk")) {
-            abPoint = 2;
+            profPoint = 2;
             primaryStat.add(MyCharacter.DEXTERITY);
             primaryStat.add(MyCharacter.WISDOM);
             saveProf.add(MyCharacter.STRENGTH_SAVE);
@@ -92,7 +106,7 @@ public class Class implements MyClass{
             primaryStat.add(CHARISMA);
             saveProf.add(WISDOM_SAVE);
             saveProf.add(CHARISMA_SAVE);
-            abPoint = 2;
+            profPoint = 2;
             chAbilityPro.add(ATHLETICS);
             chAbilityPro.add(INSIGHT);
             chAbilityPro.add(INTIMIDATION);
@@ -103,7 +117,7 @@ public class Class implements MyClass{
             primaryStat.add(DEXTERITY);
             saveProf.add(DEXTERITY_SAVE);
             saveProf.add(INTELLIGENCE_SAVE);
-            abPoint = 4;
+            profPoint = 4;
             chAbilityPro.add(ACROBATICS);
             chAbilityPro.add(ATHLETICS);
             chAbilityPro.add(DECEPTION);
@@ -120,7 +134,7 @@ public class Class implements MyClass{
             primaryStat.add(CHARISMA);
             saveProf.add(CONSTITUTION_SAVE);
             saveProf.add(CHARISMA_SAVE);
-            abPoint = 2;
+            profPoint = 2;
             chAbilityPro.add(ARCANA);
             chAbilityPro.add(DECEPTION);
             chAbilityPro.add(INSIGHT);
@@ -131,7 +145,7 @@ public class Class implements MyClass{
             primaryStat.add(CHARISMA);
             saveProf.add(WISDOM_SAVE);
             saveProf.add(CHARISMA_SAVE);
-            abPoint = 2;
+            profPoint = 2;
             chAbilityPro.add(ARCANA);
             chAbilityPro.add(DECEPTION);
             chAbilityPro.add(HISTORY);
@@ -143,7 +157,7 @@ public class Class implements MyClass{
             primaryStat.add(INTELLIGENCE);
             saveProf.add(INTELLIGENCE_SAVE);
             saveProf.add(WISDOM_SAVE);
-            abPoint = 2;
+            profPoint = 2;
             chAbilityPro.add(ARCANA);
             chAbilityPro.add(HISTORY);
             chAbilityPro.add(INSIGHT);
@@ -153,6 +167,78 @@ public class Class implements MyClass{
         } else {
             throw new RuntimeException("ERROR WRONG NAME: The class name is not implemented");
         }
+    }
+
+    public ArrayList<Integer> getPrimaryStat() {
+        return primaryStat;
+    }
+
+    public void setPrimaryStat(ArrayList<Integer> primaryStat) {
+        this.primaryStat = primaryStat;
+    }
+
+    public ArrayList<Integer> getChPrimaryStat() {
+        return chPrimaryStat;
+    }
+
+    public void setChPrimaryStat(ArrayList<Integer> chPrimaryStat) {
+        this.chPrimaryStat = chPrimaryStat;
+    }
+
+    public ArrayList<Integer> getSaveProf() {
+        return saveProf;
+    }
+
+    public void setSaveProf(ArrayList<Integer> saveProf) {
+        this.saveProf = saveProf;
+    }
+
+    public ArrayList<Integer> getChAbilityPro() {
+        return chAbilityPro;
+    }
+
+    public void setChAbilityPro(ArrayList<Integer> chAbilityPro) {
+        this.chAbilityPro = chAbilityPro;
+    }
+
+    public ArrayList<Integer> getChAbilityExp() {
+        return chAbilityExp;
+    }
+
+    public void setChAbilityExp(ArrayList<Integer> chAbilityExp) {
+        this.chAbilityExp = chAbilityExp;
+    }
+
+    public ArrayList<Integer> getAbilityProf() {
+        return AbilityProf;
+    }
+
+    public void setAbilityProf(ArrayList<Integer> abilityProf) {
+        AbilityProf = abilityProf;
+    }
+
+    public ArrayList<Integer> getAbilityExp() {
+        return AbilityExp;
+    }
+
+    public void setAbilityExp(ArrayList<Integer> abilityExp) {
+        AbilityExp = abilityExp;
+    }
+
+    public int getProfPoint() {
+        return profPoint;
+    }
+
+    public void setProfPoint(int profPoint) {
+        this.profPoint = profPoint;
+    }
+
+    public int getAbPoint() {
+        return abPoint;
+    }
+
+    public void setAbPoint(int abPoint) {
+        this.abPoint = abPoint;
     }
 
     @Override

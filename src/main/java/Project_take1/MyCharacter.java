@@ -4,7 +4,6 @@ import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
 import Project_take1.inventory.Inventory;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ public class MyCharacter implements MyCharacterCons{
     UUID uuid;
     String name = "Leario";
     String race = "Human";
-    String claas = "Paladin";
+    String classCh = "Paladin";
     int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
@@ -61,6 +60,17 @@ public class MyCharacter implements MyCharacterCons{
     MyCharacterSheet myCharacterSheet;
     public String getName() {
         return name;
+    }
+    public MyCharacter(String name, String race, String classCh, ArrayList<Integer> intStat, ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
+        this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.race = race;
+        this.classCh = classCh;
+        this.intStat = intStat;
+        this.saveProf = saveProf;
+        this.abilityProfExp = abilityProfExp;
+        abilityInit();
+        charInit();
     }
     public MyCharacter() {
         uuid = UUID.randomUUID();

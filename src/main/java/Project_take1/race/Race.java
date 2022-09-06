@@ -14,12 +14,12 @@ public class Race {
 
     public Race(String name) {
         this.name = name;
-        ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.CONSTITUTION - MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.INTELLIGENCE - MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.WISDOM - MyCharacter.STRENGTH, 0);
-        ability.set(MyCharacter.CHARISMA - MyCharacter.STRENGTH, 0);
+        ability.add(0);
+        ability.add(0);
+        ability.add(0);
+        ability.add(0);
+        ability.add(0);
+        ability.add(0);
         if(name.equalsIgnoreCase("Human")){
             ability.set(MyCharacter.STRENGTH - MyCharacter.STRENGTH, 1);
             ability.set(MyCharacter.DEXTERITY - MyCharacter.STRENGTH, 1);
