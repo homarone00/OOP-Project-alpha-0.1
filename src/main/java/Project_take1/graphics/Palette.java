@@ -185,8 +185,18 @@ public class Palette extends AbstractPalette{
         return imageIcon;
     }
 
-    public Icon getRedCross() {
+    public Icon getUnpressedRedCross() {
         ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/red_cross/red_cross.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
+    public Icon getPressedRedCross() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/red_cross/red_cross_pressed.png")));
+        imageIcon=scale(imageIcon,17,17);
+        return imageIcon;
+    }
+    public Icon getHoveredRedCross() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/red_cross/red_cross_hovered.png")));
         imageIcon=scale(imageIcon,17,17);
         return imageIcon;
     }

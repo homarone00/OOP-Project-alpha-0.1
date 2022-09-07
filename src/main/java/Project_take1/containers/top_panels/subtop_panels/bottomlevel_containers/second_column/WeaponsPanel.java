@@ -18,6 +18,7 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
     JPanel mainGrid;
     boolean editing;
     int addingPosition;
+    boolean settingsButtonhovered=false;
     ArrayList<SingleWeaponPanel> singleWeaponPanelArrayList;
     CircularLabel plusLabel=new CircularLabel("+",-5,9,15);
     public WeaponsPanel(MyCharacter myCharacter){
@@ -38,6 +39,7 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         mainGrid.setOpaque(false);
 
         plusLabel.setPreferredSize(new Dimension(20,20));
+        plusLabel.addMouseListener(this);
 
         setLayout(new BorderLayout());
         GridBagConstraints c=new GridBagConstraints();
@@ -155,7 +157,6 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         for(SingleWeaponPanel i:singleWeaponPanelArrayList){
             if(e.getSource().equals(i.getIconLabel())&&isEditing()){
                 mainGrid.remove(i);
-                System.out.println("hel");
                 revalidate();
 
             }
@@ -164,20 +165,50 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getPressedSettingsButton());
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setPressed(true);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if(e.getSource().equals(settingsButton)){
+            if(settingsButtonhovered){
+                settingsButton.setIcon(getPalette().getHoveredSettingsButton());
+            }
+            if(!settingsButtonhovered){
+                settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+            }
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setPressed(false);
+        }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getHoveredSettingsButton());
+            settingsButtonhovered=true;
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setEntered(true);
+        }
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+            settingsButtonhovered=false;
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setEntered(false);
+        }
 
     }
 

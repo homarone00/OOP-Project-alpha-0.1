@@ -5,14 +5,12 @@ import Project_take1.graphics.RoundedJPanel;
 import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
-import javax.swing.text.Caret;
-import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import java.awt.*;
-import java.util.Objects;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class SingleWeaponPanel extends RoundedJPanel {
+public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
     MyCharacter myCharacter;
     Weapon weapon;
     boolean editable;
@@ -21,6 +19,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
     JTextField damageField;
     boolean isWeapon;
     JLabel iconLabel=new JLabel();
+    boolean crossHovered=false;
     public SingleWeaponPanel(MyCharacter myCharacter, boolean isWeapon) {
         super();
         this.myCharacter=myCharacter;
@@ -102,6 +101,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
 
         iconLabel.setPreferredSize(new Dimension(30,20));
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
+        iconLabel.addMouseListener(this);
         if(isWeapon()){
             iconLabel.setIcon(getPalette().getSwordIcon());
         }
@@ -138,7 +138,7 @@ public class SingleWeaponPanel extends RoundedJPanel {
             nameField.setHighlighter(new DefaultHighlighter());
             bonusField.setHighlighter(new DefaultHighlighter());
             damageField.setHighlighter(new DefaultHighlighter());
-            iconLabel.setIcon(getPalette().getRedCross());
+            iconLabel.setIcon(getPalette().getUnpressedRedCross());
         }
         else{
             nameField.select(0,0);
@@ -184,5 +184,57 @@ public class SingleWeaponPanel extends RoundedJPanel {
 
     public void setIconLabel(JLabel iconLabel) {
         this.iconLabel = iconLabel;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getSource().equals(iconLabel)&&isEditable()){
+            if(isEditable()){
+                iconLabel.setIcon(getPalette().getPressedRedCross());
+            }
+        }
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if(e.getSource().equals(iconLabel)&&isEditable()){
+            if(isEditable()){
+                if(crossHovered){
+                    iconLabel.setIcon(getPalette().getHoveredRedCross());
+                }
+                else{
+                    iconLabel.setIcon(getPalette().getUnpressedRedCross());
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if(e.getSource().equals(iconLabel)&&isEditable()){
+            crossHovered=true;
+            iconLabel.setIcon(getPalette().getHoveredRedCross());
+        }
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if(e.getSource().equals(iconLabel)&&isEditable()){
+            crossHovered=false;
+            iconLabel.setIcon(getPalette().getUnpressedRedCross());
+        }
+
+    }
+
+    public boolean isEditable() {
+        return editable;
     }
 }
