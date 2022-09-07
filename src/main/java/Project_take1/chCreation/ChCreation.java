@@ -43,6 +43,10 @@ public class ChCreation extends JFrame {
                 textArea1.setText(myChar.toStringS());
             }
         });
+        btCreate.addActionListener(e -> {
+            this.dispose();
+            SwingUtilities.invokeLater(ChCreat::new);
+        });
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ChCreation::new);

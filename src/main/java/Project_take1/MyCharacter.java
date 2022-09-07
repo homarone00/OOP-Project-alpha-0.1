@@ -4,7 +4,6 @@ import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
 import Project_take1.inventory.Inventory;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ public class MyCharacter implements MyCharacterCons{
     UUID uuid;
     String name = "Leario";
     String race = "Human";
-
+    String classCh = "Paladin";
     int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
@@ -62,6 +61,17 @@ public class MyCharacter implements MyCharacterCons{
     public String getName() {
         return name;
     }
+    public MyCharacter(String name, String race, String classCh, ArrayList<Integer> intStat, ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
+        this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.race = race;
+        this.classCh = classCh;
+        this.intStat = intStat;
+        this.saveProf = saveProf;
+        this.abilityProfExp = abilityProfExp;
+        abilityInit();
+        charInit();
+    }
     public MyCharacter() {
         uuid = UUID.randomUUID();
         for(int i = 0; i<6; i++)
@@ -78,8 +88,7 @@ public class MyCharacter implements MyCharacterCons{
         charInit();
     }
     public MyCharacter(UUID uuid, String name, String race, int lvl, int maxHp, int currentHp, int temporary_hp,
-                       int initiative,
-                       int profBonus, int ac, int speed, ArrayList<Integer> intStat,
+                       int initiative, int profBonus, int ac, int speed, ArrayList<Integer> intStat,
                        ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
         this.uuid = uuid;
         this.name = name;
@@ -262,7 +271,6 @@ public class MyCharacter implements MyCharacterCons{
         sleight_of_hand.setModifier();
         stealth.setModifier();
         survival.setModifier();
-
     }
     public BaseAbility getBaseAbility(int STAT) {
         if (STAT == STRENGTH) {

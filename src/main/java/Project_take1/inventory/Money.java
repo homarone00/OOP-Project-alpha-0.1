@@ -10,8 +10,7 @@ public class Money extends Currency implements Comparable<Money>{
     int pp;
 
     public Money(int cp, int sp, int ep, int gp, int pp){
-        if(cp < 0 || sp < 0 || ep < 0 || gp < 0 || pp < 0)
-        {
+        if(cp < 0 || sp < 0 || ep < 0 || gp < 0 || pp < 0) {
             throw new IllegalArgumentException("The money must be positive or 0");
         }
         this.cp = cp;
