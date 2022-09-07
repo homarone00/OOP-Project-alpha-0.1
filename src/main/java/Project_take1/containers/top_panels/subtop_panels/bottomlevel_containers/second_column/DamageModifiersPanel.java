@@ -19,6 +19,7 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
     boolean editing;
     int addingPosition;
     ArrayList<SingleWeaponPanel> singleWeaponPanelArrayList;
+    boolean settingsButtonhovered=false;
     CircularLabel plusLabel=new CircularLabel("+",-5,9,15);
     public DamageModifiersPanel(MyCharacter myCharacter){
         super();
@@ -73,6 +74,7 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
         topGrid.add(settingsButton,BorderLayout.EAST);
         topGrid.add(title,BorderLayout.CENTER);
         topGrid.add(plusLabel,BorderLayout.WEST);
+        plusLabel.addMouseListener(this);
 
         add(mainGrid,BorderLayout.CENTER);
         add(topGrid,BorderLayout.NORTH);
@@ -122,6 +124,7 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
             mainGrid.remove(singleWeaponPanel);
             singleWeaponPanelArrayList.remove(singleWeaponPanel);
             length--;
+            revalidate();
         }
 
     }
@@ -155,7 +158,6 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
         for(SingleWeaponPanel i:singleWeaponPanelArrayList){
             if(e.getSource().equals(i.getIconLabel())&&isEditing()){
                 mainGrid.remove(i);
-                System.out.println("hel");
                 revalidate();
 
             }
@@ -164,22 +166,50 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
 
     @Override
     public void mousePressed(MouseEvent e) {
-
-
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getPressedSettingsButton());
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setPressed(true);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if(e.getSource().equals(settingsButton)){
+            if(settingsButtonhovered){
+                settingsButton.setIcon(getPalette().getHoveredSettingsButton());
+            }
+            if(!settingsButtonhovered){
+                settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+            }
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setPressed(false);
+        }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getHoveredSettingsButton());
+            settingsButtonhovered=true;
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setEntered(true);
+        }
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        if(e.getSource().equals(settingsButton)){
+            settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+            settingsButtonhovered=false;
+        }
+        if(e.getSource().equals(plusLabel)){
+            plusLabel.setEntered(false);
+        }
 
     }
 

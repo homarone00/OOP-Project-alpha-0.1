@@ -76,6 +76,7 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
 
     public void setPressed(boolean pressed) {
         this.pressed = pressed;
+        repaint();
     }
 
     public boolean isEntered() {
@@ -84,6 +85,7 @@ public class CircularLabel extends JLabel implements UpdatablePanel {
 
     public void setEntered(boolean entered) {
         this.entered = entered;
+        repaint();
     }
 
     public String getValue() {

@@ -123,12 +123,12 @@ public class DamagePanel extends JPanel implements UpdatablePanel, MouseListener
 
     public void updateListener(){
         for(SingleWeaponPanel i: weaponsPanel.getSingleWeaponPanelArrayList()){
-            if(i.getIconLabel().getListeners(MouseListener.class).length == 0){
+            if(i.getIconLabel().getListeners(MouseListener.class).length <2){
                 i.getIconLabel().addMouseListener(this);
             }
         }
         for(SingleWeaponPanel i: damageModifiersPanel.getSingleWeaponPanelArrayList()){
-            if(i.getIconLabel().getListeners(MouseListener.class).length == 0){
+            if(i.getIconLabel().getListeners(MouseListener.class).length <2){
                 i.getIconLabel().addMouseListener(this);
             }
         }

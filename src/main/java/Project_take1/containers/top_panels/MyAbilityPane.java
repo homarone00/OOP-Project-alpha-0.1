@@ -5,6 +5,7 @@ import Project_take1.containers.MyTabbedPane;
 import Project_take1.containers.top_panels.subtop_panels.SaveThrowPanel;
 import Project_take1.containers.top_panels.subtop_panels.SecondColumn;
 import Project_take1.containers.top_panels.subtop_panels.SkillPanel;
+import Project_take1.containers.top_panels.subtop_panels.ThirdColumn;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.SimpleRoundedPanel;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.first_column.StatPanel;
 import Project_take1.graphics.UpdatablePanel;
@@ -29,6 +30,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
     JTextField nameText;
     JPanel namePanel;
     SecondColumn secondColumn;
+    ThirdColumn thirdColumn;
     SkillPanel skillPanel;
     SaveThrowPanel savePanel;
     SimpleRoundedPanel profPanel;
@@ -108,13 +110,13 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         namePanel.add(profPanel,BorderLayout.EAST);
         //adding all components to the ContentPane
         nameStatAbilityPanel.add(statGrid, BorderLayout.WEST);
-        JPanel placeHolder = new JPanel(new BorderLayout(10,10));
+        JPanel centralPanel = new JPanel(new BorderLayout(10,10));
         JLabel newPlaceHolder=new JLabel("hello");
         newPlaceHolder.setOpaque(false);
-        placeHolder.add(newPlaceHolder,BorderLayout.CENTER);
+        centralPanel.add(newPlaceHolder,BorderLayout.CENTER);
         secondColumn= new SecondColumn(myCharacter);
-        placeHolder.add(secondColumn,BorderLayout.WEST);
-        add(placeHolder, BorderLayout.CENTER);
+        centralPanel.add(secondColumn,BorderLayout.WEST);
+        add(centralPanel, BorderLayout.CENTER);
         nameStatAbilityPanel.add(namePanel, BorderLayout.NORTH);
         //Commento separatorio
         skillPanel = new SkillPanel(myCharacter);
@@ -122,9 +124,18 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         JPanel saveSkillPanel = new JPanel(new GridBagLayout());
         saveSkillPanel.setBackground(getPalette().background());
 
+        thirdColumn=new ThirdColumn(myCharacter);
+        centralPanel.add(thirdColumn,BorderLayout.CENTER);
+        centralPanel.setOpaque(false);
+
+        JPanel placeholder=new JPanel();
+        placeholder.setOpaque(false);
+        placeholder.setPreferredSize(new Dimension(450,800));
+        centralPanel.add(placeholder,BorderLayout.EAST);
+
         GridBagConstraints c=new GridBagConstraints();
         saveSkillPanel.setOpaque(false);
-        c.fill=GridBagConstraints.BOTH;
+
         c.gridx=0;
         c.gridy=0;
         c.weightx=5;
