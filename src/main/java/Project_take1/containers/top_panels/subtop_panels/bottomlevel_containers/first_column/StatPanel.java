@@ -306,6 +306,8 @@ public class StatPanel extends RoundedJPanel implements FocusListener,MouseListe
     @Override
     public void focusLost(FocusEvent e) {
         setValue(getValue());
+        myCharacter.updateIntStat(intLabel, this.getValue());
+        myCharacter.requestUpdate();
     }
 
     /**

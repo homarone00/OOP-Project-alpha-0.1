@@ -13,9 +13,9 @@ import java.util.*;
 public class MyCharacter implements MyCharacterCons{
     //static STATS (STATESTEKS!)
     UUID uuid = UUID.randomUUID();;
-    String name = "Leario";
-    String race = "Human";
-    String classCh = "Paladin";
+    String name;
+    String race;
+    String classCh;
     int lvl = 10;
     int maxHp = 15;
     int currentHp = 15;
@@ -83,6 +83,9 @@ public class MyCharacter implements MyCharacterCons{
         }
     }
     public MyCharacter() {
+        name = "Leario";
+        classCh = "Paladin";
+        race = "Human";
         for(int i = 0; i<6; i++)
         {
             intStat.add(10);
@@ -96,10 +99,12 @@ public class MyCharacter implements MyCharacterCons{
         abilityInit();
         charInit();
     }
-    public MyCharacter(UUID uuid, String name, String race, int lvl, int maxHp, int currentHp, int temporary_hp,
-                       int initiative, int profBonus, int ac, int speed, ArrayList<Integer> intStat,
+    public MyCharacter(UUID uuid, String name, String race, String classCh, int lvl, int maxHp, int currentHp,
+                       int temporary_hp, int initiative, int profBonus, int ac, int speed, ArrayList<Integer> intStat,
                        ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
         this.uuid = uuid;
+        this.race = race;
+        this.classCh = classCh;
         this.name = name;
         this.lvl = lvl;
         this.maxHp = maxHp;
@@ -358,7 +363,6 @@ public class MyCharacter implements MyCharacterCons{
                     " MyCharacter.STRENGTH_SAVE < STAT < MyCharacter.CHARISMA_SAVE");
         }
     }
-
     public ListAbility getListAbility(int STAT) {
         if(STAT == ACROBATICS)
         {
@@ -567,7 +571,6 @@ public class MyCharacter implements MyCharacterCons{
             throw new RuntimeException(e);
         }
     }
-
     public int getMaxHp() {
         return maxHp;
     }
@@ -626,15 +629,6 @@ public class MyCharacter implements MyCharacterCons{
         return race;
     }
 
-    public void setRace(String race) {
-        this.race = race;
-        try {
-            SavingUtils.updateCharacter(this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public String getStringInitiative() {
         if(getInitiative()<0){
             return String.valueOf(getInitiative());
@@ -646,7 +640,7 @@ public class MyCharacter implements MyCharacterCons{
 
     public String toStringS(){
         StringBuilder s =
-                new StringBuilder(uuid.toString()).append("\n").append(name).append("\t").append(race).append("\n");
+                new StringBuilder(uuid.toString()).append("\n").append(name).append("\t").append(race).append("\t").append(classCh).append("\n");
         s.append("Strength:").append(getIntStat(STRENGTH)).append("\t");
         s.append("Dexterity:").append(getIntStat(DEXTERITY)).append("\n");
         s.append("Constitution:").append(getIntStat(CONSTITUTION)).append("\t");

@@ -78,6 +78,7 @@ public class SavingUtils {
             }
             insertCharacter.setString(58, myCharacter.getUuid().toString());
             insertCharacter.setString(59, myCharacter.getRace());
+            insertCharacter.setString(60, myCharacter.getClassCh());
             insertCharacter.executeUpdate();
         }
     }
@@ -123,8 +124,9 @@ public class SavingUtils {
                         boolProfExp.add(rs.getBoolean(Utils.getExpIndex(i)));
                     }
                     allChar.add(new MyCharacter(UUID.fromString(rs.getString("id")), rs.getString("name"),
-                            rs.getString("race") ,
-                            rs.getInt("lv"), rs.getInt("maxHp"), rs.getInt("currentHp"), rs.getInt("tempHp"), rs.getInt("initiative"), rs.getInt("profBonus"), rs.getInt("ac"), rs.getInt("speed"), intStat, boolSave, boolProfExp));
+                            rs.getString("race"), rs.getString("class"), rs.getInt("lv"), rs.getInt("maxHp"), rs.getInt(
+                                    "currentHp"),
+                            rs.getInt("tempHp"), rs.getInt("initiative"), rs.getInt("profBonus"), rs.getInt("ac"), rs.getInt("speed"), intStat, boolSave, boolProfExp));
                 }
                 return allChar;
             }

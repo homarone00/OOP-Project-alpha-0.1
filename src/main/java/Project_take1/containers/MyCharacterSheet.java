@@ -25,6 +25,8 @@ public class MyCharacterSheet extends JFrame implements ActionListener, ChangeLi
     public MyCharacterSheet(MyCharacter myCharacter) {
         myCharacter.assignSheet(this);
         System.out.println(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode());
+        System.out.println(myCharacter.getRace());
+        System.out.println(myCharacter.getClassCh());
 
         palette = Palette.getInstance();
         contentPane = new MyTabbedPane(myCharacter);
