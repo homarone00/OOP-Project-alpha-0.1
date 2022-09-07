@@ -4,7 +4,7 @@ import Project_take1.MyCharacter;
 
 public class ListAbility extends AbstractCompAbility{
     int bonus=0;
-    public ListAbility(MyCharacter myCharacter, String abilityName, boolean proficiency, boolean expertise, int STAT){
+    public ListAbility(MyCharacter myCharacter, String abilityName, Boolean proficiency, Boolean expertise, int STAT){
         this.abilityName=abilityName;
         this.STAT=STAT;
         this.proficiency = proficiency;
@@ -19,6 +19,7 @@ public class ListAbility extends AbstractCompAbility{
 
     public void setExpertise(boolean expertise){
         this.expertise=expertise;
+        myCharacter.updateExpProf(expertise, proficiency, STAT);
     }
 
     @Override

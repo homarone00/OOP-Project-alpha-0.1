@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Inventory {
+
     UUID id;
     ArrayList<Item> items = new ArrayList<>();
     double weight = 0.;
@@ -15,6 +16,7 @@ public class Inventory {
     }
 
     public void insertItem(Item item){
+        item.setId(id);
         if(items.contains(item)){
             items.get(items.indexOf(item)).addQuantity(item.getQuantity());
             try{
@@ -45,5 +47,37 @@ public class Inventory {
     @Override
     public String toString() {
         return "Inventory{" + "items=" + items + ", weight=" + weight + '}';
+    }
+    public Item getItem(int i){
+        if(i >= items.size()){
+            throw new RuntimeException("Non ci sono abbastanza elementi");
+        } else{
+            return items.get(i);
+        }
+    }
+    public Item getItem(Item i){
+        if(!items.contains(i)){
+            throw new RuntimeException("Non è qui dentro");
+        } else{
+            return items.get(items.indexOf(i));
+        }
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+    public void init(){
+        try {
+            for(Item i:SavingUtils.getAllItems(id)){
+                items.add(i);
+                weight += i.getTotalWeight();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

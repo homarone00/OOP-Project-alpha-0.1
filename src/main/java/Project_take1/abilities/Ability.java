@@ -19,7 +19,7 @@ public interface Ability extends MyCharacterCons {
             case INTELLIGENCE_SAVE -> s = "Intelligence Save";
             case WISDOM_SAVE -> s = "Wisdom Save";
             case CHARISMA_SAVE -> s = "Charisma Save";
-            case ACROBATICS -> s = "Acrobatics Save";
+            case ACROBATICS -> s = "Acrobatics";
             case ANIMAL_HANDLING -> s = "Animal Handling";
             case ARCANA -> s = "Arcana";
             case ATHLETICS -> s = "Athletics";

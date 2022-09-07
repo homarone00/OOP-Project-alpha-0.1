@@ -16,7 +16,8 @@ public class SavingUtils {
     public static void createTables() throws SQLException {
         Connection connection = DBManager.getConnection();
         try (PreparedStatement createTable = connection.prepareStatement("CREATE TABLE if not EXISTS character(" +
-                "id TEXT," + "name VARCHAR(50), race TEXT," + "lv INTEGER, " + "maxHp integer," + "currentHp " +
+                "id TEXT," + "name VARCHAR(50), race TEXT, class TEXT," + "lv INTEGER, " + "maxHp integer," +
+                "currentHp " +
                 "integer, " + "tempHp integer, " + "initiative integer, " + "profBonus integer, " + "ac integer, " + "speed integer, " + "strength integer, strengthProf boolean, " + "dexterity integer, dexterityProf boolean, " + "constitution integer, constitutionProf boolean, " + "intelligence integer, intelligenceProf boolean, " + "wisdom integer, wisdomProf boolean, " + "charisma integer, charismaProf boolean, " + "acrobaticsProf BOOLEAN, acrobaticsExp boolean, " + "animal_handlingProf Boolean, animal_handlingExp boolean, " + "arcanaProf boolean, arcanaExp boolean, " + "athleticsProf boolean, athleticsExp boolean, " + "deceptionProf boolean, deceptionExp boolean, " + "historyProf boolean, historyExp Boolean, " + "insightProf boolean, insightExp boolean, " + "intimidationProf boolean, intimidationExp boolean, " + "investigationProf boolean, investigationExp boolean, " + "medicineProf Boolean, medicineExp boolean, " + "natureProf boolean, natureExp Boolean, " + "perceptionProf Boolean, perceptionExp Boolean, " + "performanceProf Boolean, performanceExp Boolean, " + "persuasionProf Boolean, persuasionExp Boolean, " + "religionProf Boolean, religionExp Boolean, " + "sleight_of_handProf Boolean, sleight_of_handExp Boolean, " + "stealthProf Boolean, stealthExp Boolean, " + "survivalProf Boolean, survivalExp Boolean, " + "PRIMARY Key(id))")) {
             createTable.executeUpdate();
         }
@@ -53,9 +54,9 @@ public class SavingUtils {
                              "medicineExp," + "natureProf,  natureExp," + "perceptionProf, perceptionExp," +
                              "performanceProf, performanceExp," + "persuasionProf,  persuasionExp," + "religionProf, " +
                              " religionExp," + "sleight_of_handProf,  sleight_of_handExp," + "stealthProf, " +
-                             "stealthExp," + "survivalProf, survivalExp, id, race)" + "values (?, ?, ?, ?, ?, " +
+                             "stealthExp," + "survivalProf, survivalExp, id, race, class)" + "values (?, ?, ?, ?, ?, " +
                              "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " + "?, ?, ?, ?, " +
-                             "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                             "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             insertCharacter.setString(1, myCharacter.getName());
             insertCharacter.setInt(2, myCharacter.getLvl());
             insertCharacter.setInt(3, myCharacter.getMaxHp());
@@ -81,10 +82,12 @@ public class SavingUtils {
         }
     }
 
-    public static void deleteChar(UUID uuid) throws SQLException {
+    public static void deleteChar(UUID uuid) {
         try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM character WHERE id" + " = ?")) {
             deleteChar.setString(1, uuid.toString());
             deleteChar.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -95,7 +98,8 @@ public class SavingUtils {
     }
 
     public static void dropCharTable() throws SQLException {
-        try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DROP TABLE character")) {
+        try (PreparedStatement deleteChar =
+                     DBManager.getConnection().prepareStatement("DROP TABLE IF EXISTS character")) {
             deleteChar.executeUpdate();
         }
     }
@@ -150,7 +154,7 @@ public class SavingUtils {
                         "religionProf = ?, religionExp = ?," +
                         "sleight_of_handProf = ?, sleight_of_handExp = ?," +
                         "stealthProf = ?, stealthExp = ?," +
-                        "survivalProf = ?,  survivalExp = ? " +
+                        "survivalProf = ?,  survivalExp = ?, class = ?, race = ? " +
                         "WHERE id = ?"))
         {
             update.setString(1, myCharacter.getName());
@@ -172,7 +176,9 @@ public class SavingUtils {
                 update.setBoolean(22 + (2 * (i - MyCharacter.ACROBATICS)), myCharacter.getProficiency(i));
                 update.setBoolean(23 + (2 * (i - MyCharacter.ACROBATICS)), myCharacter.getExpertise(i));
             }
-            update.setString(58, myCharacter.getUuid().toString());
+            update.setString(58, myCharacter.getClassCh());
+            update.setString(59, myCharacter.getRace());
+            update.setString(60, myCharacter.getUuid().toString());
             update.executeUpdate();
         }
     }
@@ -270,7 +276,7 @@ public class SavingUtils {
         }
     }
     public static void dropItemsTable() throws SQLException {
-        try (PreparedStatement deleteItem = DBManager.getConnection().prepareStatement("DROP TABLE items")) {
+        try (PreparedStatement deleteItem = DBManager.getConnection().prepareStatement("DROP TABLE IF EXISTS items")) {
             deleteItem.executeUpdate();
         }
     }
@@ -306,6 +312,9 @@ public class SavingUtils {
                         allItems.add(new Item(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
                                 SavingUtils.stringToArrayList(rs.getString("descr")), category, cost));
                     }
+                }
+                for(Item i:allItems){
+                    i.setId(id);
                 }
                 return allItems;
             }
@@ -395,6 +404,90 @@ public class SavingUtils {
             }
         }
     }
+    public static void updateItem(Item item) throws SQLException {
+        if(item.getCategory().equalsIgnoreCase("weapon")){
+            Weapon weapon = (Weapon) item;
+            try(PreparedStatement update = DBManager.getConnection().prepareStatement(
+                    "UPDATE items " +
+                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
+                            "pp = ?, wp_cat = ?, wp_range = ?, cat_range = ?, prop = ?, dmg_key = ?, dmg = ?" +
+                            "WHERE id = ? AND name = ?"))
+            {
+                update.setInt(1,weapon.getQuantity());
+                update.setDouble(2,weapon.getWeight());
+                update.setString(3,SavingUtils.arrayListToString(weapon.getDescription()));
+                update.setString(4, weapon.getCategory());
+                update.setInt(5, weapon.getPrice().getCp());
+                update.setInt(6, weapon.getPrice().getSp());
+                update.setInt(7, weapon.getPrice().getEp());
+                update.setInt(8, weapon.getPrice().getGp());
+                update.setInt(9, weapon.getPrice().getPp());
+                update.setString(10, weapon.getWeapon_category());
+                update.setString(11, weapon.getWeapon_range());
+                update.setString(12, weapon.getCategory_range());
+                update.setString(13, SavingUtils.arrayListToString(weapon.getArrayListProperties()));
+                StringBuilder key = new StringBuilder();
+                StringBuilder dmgS = new StringBuilder();
+                for(String s:weapon.getDamageMap().keySet()){
+                    key.append(s).append("},{");
+                    Damage dmg = weapon.getDamageMap().get(s);
+                    dmgS.append(dmg.getDamage_dice()).append("/").append(dmg.getDamage_type()).append("},{");
+                }
+                update.setString(14, key.toString());
+                update.setString(15, dmgS.toString());
+                update.setString(16, item.getId().toString());
+                update.setString(17, weapon.getName());
+                update.executeUpdate();
+            }
+        }
+        else if (item.getCategory().equalsIgnoreCase("armor")) {
+            Armor armor = (Armor) item;
+            try(PreparedStatement update = DBManager.getConnection().prepareStatement(
+                    "UPDATE items " +
+                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
+                            "pp = ?, ca = ?, dex_b = ?, min_str = ?, max_bonus = ?, stealth_dis = ?" +
+                            "WHERE id = ? AND name = ?"))
+            {
+                update.setInt(1,armor.getQuantity());
+                update.setDouble(2,armor.getWeight());
+                update.setString(3,SavingUtils.arrayListToString(armor.getDescription()));
+                update.setString(4, armor.getCategory());
+                update.setInt(5, armor.getPrice().getCp());
+                update.setInt(6, armor.getPrice().getSp());
+                update.setInt(7, armor.getPrice().getEp());
+                update.setInt(8, armor.getPrice().getGp());
+                update.setInt(9, armor.getPrice().getPp());
+                update.setInt(10, armor.getCa());
+                update.setBoolean(11, armor.getDex_bonus());
+                update.setInt(12, armor.getMin_str());
+                update.setInt(13, armor.getMax_bonus());
+                update.setBoolean(14,armor.getStealth_dis());
+                update.setString(15, item.getId().toString());
+                update.setString(16, armor.getName());
+                update.executeUpdate();
+            }
+        }
+        else{
+            try(PreparedStatement update = DBManager.getConnection().prepareStatement(
+                    "UPDATE items " +
+                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, pp = ?" +
+                            "WHERE id = ? AND name = ?"))
+            {
+                update.setInt(1,item.getQuantity());
+                update.setDouble(2,item.getWeight());
+                update.setString(3,SavingUtils.arrayListToString(item.getDescription()));
+                update.setString(4, item.getCategory());
+                update.setInt(5, item.getPrice().getCp());
+                update.setInt(6, item.getPrice().getSp());
+                update.setInt(7, item.getPrice().getEp());
+                update.setInt(8, item.getPrice().getGp());
+                update.setInt(9, item.getPrice().getPp());
+                update.setString(10, item.getId().toString());
+                update.setString(11, item.getName());
+                update.executeUpdate();
+            }
+        }
+    }
 
     /**
      * Spells code
@@ -435,16 +528,17 @@ public class SavingUtils {
         }
     }
     public static void dropSpellsTable() throws SQLException {
-        try (PreparedStatement deleteSpell = DBManager.getConnection().prepareStatement("DROP TABLE spells")) {
+        try (PreparedStatement deleteSpell =
+                     DBManager.getConnection().prepareStatement("DROP TABLE IF EXISTS spells")) {
             deleteSpell.executeUpdate();
         }
     }
-    public static ArrayList<Spell> getAllSpell(UUID id) throws SQLException {
+    public static Set<Spell> getAllSpell(UUID id) throws SQLException {
         try (PreparedStatement slItem =
                      DBManager.getConnection().prepareStatement("SELECT * FROM spells WHERE id = '" + id.toString() +
                              "'")) {
             try (ResultSet rs = slItem.executeQuery()) {
-                ArrayList<Spell> allSpells = new ArrayList<>();
+                HashSet<Spell> allSpells = new HashSet<>();
                 while (rs.next()) {
                     allSpells.add(new Spell(rs.getString("name"), stringToArrayList(rs.getString("descr")),
                             stringToArrayList(rs.getString("highLv")), rs.getString("range"),
@@ -497,8 +591,8 @@ public class SavingUtils {
         return new ArrayList<>(Arrays.asList(s.toString().split("},\\{")));
     }
     public static void dropAll() throws SQLException{
-        dropCharTable();
         dropSpellsTable();
         dropItemsTable();
+        dropCharTable();
     }
 }

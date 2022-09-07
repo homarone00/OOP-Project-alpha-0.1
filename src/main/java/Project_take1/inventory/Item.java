@@ -1,9 +1,14 @@
 package Project_take1.inventory;
 
+import Project_take1.utils.SavingUtils;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Item {
+    UUID id;
     String name;
     int quantity;
     double weight;
@@ -26,6 +31,11 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getQuantity() {
@@ -34,10 +44,20 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addQuantity(int quantity) {
         this.quantity += quantity;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public double getWeight() {
@@ -46,6 +66,11 @@ public class Item {
 
     public void setWeight(double weight) {
         this.weight = weight;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public double getTotalWeight() {
@@ -58,6 +83,11 @@ public class Item {
 
     public void setDescription(ArrayList<String> description) {
         this.description = description;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getCategory() {
@@ -66,6 +96,11 @@ public class Item {
 
     public void setCategory(String category) {
         this.category = category;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Money getPrice() {
@@ -74,10 +109,15 @@ public class Item {
 
     public void setPrice(Money price) {
         this.price = price;
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, id);
     }
 
     @Override
@@ -87,11 +127,19 @@ public class Item {
         if (o == null || getClass() != o.getClass())
             return false;
         Item item = (Item) o;
-        return name.equals(item.name);
+        return name.equals(item.name) && id.equals(item.id);
     }
 
     @Override
     public String toString() {
         return "Item{" + "name='" + name + '\'' + ", quantity=" + quantity + ", weight=" + weight + ", description='" + description + '\'' + ", category='" + category + '\'' + ", price=" + price + '}';
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

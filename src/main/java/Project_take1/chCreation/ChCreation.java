@@ -1,9 +1,12 @@
 package Project_take1.chCreation;
 
 import Project_take1.MyCharacter;
+import Project_take1.containers.MyCharacterSheet;
+import Project_take1.utils.SavingUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.Vector;
 
 public class ChCreation extends JFrame {
@@ -12,9 +15,16 @@ public class ChCreation extends JFrame {
     private JButton btDelete;
     private JList<MyCharacter> chList;
     private JTextArea textArea1;
+    private JButton selectButton;
 
     public ChCreation() throws HeadlessException{
         super("D&D Manager");
+        try {
+            SavingUtils.setDB();
+            SavingUtils.createTables();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         textArea1.setBackground(this.getBackground());
         setContentPane(mainPanel);
         pack();
@@ -22,15 +32,13 @@ public class ChCreation extends JFrame {
         setVisible(true);
         this.setSize(new Dimension(400,500));
         Vector<MyCharacter> list = new Vector<>();
-        MyCharacter ch = new MyCharacter();
-        ch.setName("Antonio");
-        list.add(ch);
-        ch = new MyCharacter();
-        ch.setName("Luca");
-        list.add(ch);
-        ch = new MyCharacter();
-        ch.setName("Marcello");
-        list.add(ch);
+        try{
+            for(MyCharacter c: SavingUtils.getAllChar()){
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         chList.setListData(list);
         chList.setCellRenderer(new MyCellRender());
         ListSelectionModel listSelectionModel = chList.getSelectionModel();
@@ -46,6 +54,11 @@ public class ChCreation extends JFrame {
         btCreate.addActionListener(e -> {
             this.dispose();
             SwingUtilities.invokeLater(ChCreat::new);
+        });
+        selectButton.addActionListener(e -> {
+            MyCharacter c = chList.getSelectedValue();
+            SwingUtilities.invokeLater(() ->new MyCharacterSheet(c));
+            this.dispose();
         });
     }
     public static void main(String[] args) {

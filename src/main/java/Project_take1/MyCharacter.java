@@ -3,13 +3,16 @@ package Project_take1;
 import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
 import Project_take1.inventory.Inventory;
+import Project_take1.spells.KnownSpell;
+import Project_take1.spells.Spell;
+import Project_take1.utils.SavingUtils;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.sql.SQLException;
+import java.util.*;
 
 public class MyCharacter implements MyCharacterCons{
     //static STATS (STATESTEKS!)
-    UUID uuid;
+    UUID uuid = UUID.randomUUID();;
     String name = "Leario";
     String race = "Human";
     String classCh = "Paladin";
@@ -21,9 +24,9 @@ public class MyCharacter implements MyCharacterCons{
     int profBonus = 1;
     int ac = 14;
     int speed=9;
-    private ArrayList<Integer> intStat = new ArrayList<>();
-    private ArrayList<Boolean> saveProf = new ArrayList<>();
-    private ArrayList<Boolean> abilityProfExp = new ArrayList<>();
+    public ArrayList<Integer> intStat = new ArrayList<>();
+    public ArrayList<Boolean> saveProf = new ArrayList<>();
+    public ArrayList<Boolean> abilityProfExp = new ArrayList<>();
     BaseAbility strength;
     BaseAbility dexterity;
     BaseAbility constitution;
@@ -56,24 +59,30 @@ public class MyCharacter implements MyCharacterCons{
     ListAbility sleight_of_hand;
     ListAbility stealth;
     ListAbility survival;
-    Inventory inventory;
+    Inventory inventory = new Inventory(uuid);
+    KnownSpell spells = new KnownSpell(uuid);
+
     MyCharacterSheet myCharacterSheet;
     public String getName() {
         return name;
     }
     public MyCharacter(String name, String race, String classCh, ArrayList<Integer> intStat, ArrayList<Boolean> saveProf, ArrayList<Boolean> abilityProfExp) {
-        this.uuid = UUID.randomUUID();
         this.name = name;
         this.race = race;
         this.classCh = classCh;
         this.intStat = intStat;
         this.saveProf = saveProf;
         this.abilityProfExp = abilityProfExp;
+        this.inventory = new Inventory(this.getUuid());
         abilityInit();
         charInit();
+        try {
+            SavingUtils.insertChar(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public MyCharacter() {
-        uuid = UUID.randomUUID();
         for(int i = 0; i<6; i++)
         {
             intStat.add(10);
@@ -104,8 +113,33 @@ public class MyCharacter implements MyCharacterCons{
         this.saveProf = saveProf;
         this.abilityProfExp = abilityProfExp;
         abilityInit();
-        inventory=new Inventory(this.uuid);
-
+        try {
+            spells.setSpells(SavingUtils.getAllSpell(this.uuid));
+            inventory.setId(uuid);
+            inventory.init();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public MyCharacter(String name){
+        for(int i = 0; i<6; i++)
+        {
+            intStat.add(10);
+            saveProf.add(true);
+        }
+        for(int j = ACROBATICS; j <= SURVIVAL; j++)
+        {
+            abilityProfExp.add(Boolean.TRUE);
+            abilityProfExp.add(Boolean.FALSE);
+        }
+        abilityInit();
+        charInit();
+        this.name = name;
+        try {
+            SavingUtils.insertChar(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static int getCorrespondingStat(int STAT){
@@ -197,8 +231,12 @@ public class MyCharacter implements MyCharacterCons{
         }
         this.intStat.set(STAT - 1, value);
         getBaseAbility(STAT).setValue(value);
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
     public Boolean getProfStat(int STAT) {
         if(STAT >= STRENGTH && STAT <= CHARISMA){
             return saveProf.get(STAT - 1);
@@ -474,6 +512,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setLvl(int lvl) {
         this.lvl = lvl;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getAc() {
@@ -482,12 +525,22 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setAc(int ac) {
         this.ac = ac;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public int getInitiative(){
         return initiative;
     }
     public void setInitiative(int initiative){
         this.initiative=initiative;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getSpeed() {
@@ -496,6 +549,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setSpeed(int speed) {
         this.speed = speed;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void assignSheet(MyCharacterSheet myCharacterSheet){
         this.myCharacterSheet=myCharacterSheet;
@@ -503,6 +561,11 @@ public class MyCharacter implements MyCharacterCons{
     public void requestUpdate(){
         abilityUpdate();
         myCharacterSheet.updatePanel();
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getMaxHp() {
@@ -511,6 +574,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getCurrentHp() {
@@ -519,6 +587,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setCurrentHp(int currentHp) {
         this.currentHp = currentHp;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getTemporary_hp() {
@@ -527,6 +600,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setTemporary_hp(int temporary_hp) {
         this.temporary_hp = temporary_hp;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public UUID getUuid() {
@@ -534,6 +612,11 @@ public class MyCharacter implements MyCharacterCons{
     }
     public void setName(String name) {
         this.name = name;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void insertWeapon(){
 
@@ -545,6 +628,11 @@ public class MyCharacter implements MyCharacterCons{
 
     public void setRace(String race) {
         this.race = race;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getStringInitiative() {
@@ -567,4 +655,48 @@ public class MyCharacter implements MyCharacterCons{
         s.append("Charisma:").append(getIntStat(CHARISMA)).append("\n");
         return s.toString();
     }
+
+    public String getClassCh() {
+        return classCh;
+    }
+
+    public void setClassCh(String classCh) {
+        this.classCh = classCh;
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public KnownSpell getSpells() {
+        return spells;
+    }
+
+    public void setSpells(KnownSpell spells) {
+        this.spells = spells;
+    }
+
+    public void insertSpell(Spell spell){
+        spells.insert(spell);
+    }
+
+    public void updateExpProf(Boolean exp, Boolean prof, int STAT){
+        if(STAT >= MyCharacter.ACROBATICS && STAT <= MyCharacter.SURVIVAL){
+            abilityProfExp.set((STAT - ACROBATICS) * 2, prof);
+            abilityProfExp.set((STAT - ACROBATICS) * 2 + 1, exp);
+        } else {
+            saveProf.set(STAT - STRENGTH_SAVE, prof);
+        }
+        try {
+            SavingUtils.updateCharacter(this);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
 }

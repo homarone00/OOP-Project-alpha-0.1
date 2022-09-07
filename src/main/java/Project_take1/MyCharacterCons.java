@@ -32,5 +32,6 @@ public interface MyCharacterCons {
     int RELIGION = 25;
     int SLEIGHT_OF_HAND = 26;
     int STEALTH = 27;
+
     int SURVIVAL = 28;
 }

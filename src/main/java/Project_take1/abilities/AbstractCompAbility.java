@@ -1,22 +1,24 @@
 package Project_take1.abilities;
 
 public abstract class AbstractCompAbility extends AbstractAbility {
-    protected boolean proficiency;
-    boolean expertise;
+    protected Boolean proficiency;
+    Boolean expertise;
 
     public void setProficiency(boolean proficiency) {
         this.proficiency = proficiency;
+        myCharacter.updateExpProf(expertise, this.proficiency, STAT);
     }
 
-    public boolean isProficiency() {
+    public Boolean isProficiency() {
         return proficiency;
     }
 
-    public boolean isExpertise() {
+    public Boolean isExpertise() {
         return expertise;
     }
 
     public void setExpertise(boolean expertise) {
         this.expertise = expertise;
+        myCharacter.updateExpProf(expertise, proficiency, STAT);
     }
 }
