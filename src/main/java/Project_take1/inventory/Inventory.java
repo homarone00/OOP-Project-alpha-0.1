@@ -62,6 +62,25 @@ public class Inventory {
             return items.get(items.indexOf(i));
         }
     }
+    public void removeItem(int i){
+        Item o = items.get(i);
+        items.remove(i);
+        try{
+            SavingUtils.deleteItem(id, o);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void removeItem(Item i){
+        if(items.contains(i)){
+            items.remove(i);
+            try{
+                SavingUtils.deleteItem(id, i);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;

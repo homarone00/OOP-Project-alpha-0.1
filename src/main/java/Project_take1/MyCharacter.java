@@ -675,6 +675,7 @@ public class MyCharacter implements MyCharacterCons{
         spells.insert(spell);
     }
 
+
     public void updateExpProf(Boolean exp, Boolean prof, int STAT){
         if(STAT >= MyCharacter.ACROBATICS && STAT <= MyCharacter.SURVIVAL){
             abilityProfExp.set((STAT - ACROBATICS) * 2, prof);

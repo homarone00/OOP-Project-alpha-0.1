@@ -66,10 +66,12 @@ public class Item {
 
     public void setWeight(double weight) {
         this.weight = weight;
-        try{
-            SavingUtils.updateItem(this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateItem(this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -83,10 +85,12 @@ public class Item {
 
     public void setDescription(ArrayList<String> description) {
         this.description = description;
-        try{
-            SavingUtils.updateItem(this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateItem(this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -96,10 +100,12 @@ public class Item {
 
     public void setCategory(String category) {
         this.category = category;
-        try{
-            SavingUtils.updateItem(this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateItem(this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -109,10 +115,12 @@ public class Item {
 
     public void setPrice(Money price) {
         this.price = price;
-        try{
-            SavingUtils.updateItem(this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateItem(this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     @Override
@@ -127,7 +135,12 @@ public class Item {
         if (o == null || getClass() != o.getClass())
             return false;
         Item item = (Item) o;
-        return name.equals(item.name) && id.equals(item.id);
+        if(id == null || item.id == null){
+            return name.equals(item.name);
+        }
+        else{
+            return name.equals(item.name) && id.equals(item.id);
+        }
     }
 
     @Override

@@ -175,39 +175,47 @@ public class Spell {
 
     public void addDesc(String desc) {
         this.desc.add(desc);
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void addHighLv(String highLv) {
         this.highLv.add(highLv);
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void resetDesc(String desc) {
         this.desc.clear();
         this.desc.add(desc);
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void resetHighLv(String highLv) {
         this.highLv.clear();
         this.highLv.add(highLv);
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -221,10 +229,12 @@ public class Spell {
 
     public void setDesc(ArrayList<String> desc) {
         this.desc = desc;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -234,10 +244,12 @@ public class Spell {
 
     public void setHighLv(ArrayList<String> highLv) {
         this.highLv = highLv;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -247,10 +259,12 @@ public class Spell {
 
     public void setRange(String range) {
         this.range = range;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -260,10 +274,12 @@ public class Spell {
 
     public void setComponents(ArrayList<String> components) {
         this.components = components;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -273,10 +289,12 @@ public class Spell {
 
     public void setMaterial(String material) {
         this.material = material;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -286,10 +304,12 @@ public class Spell {
 
     public void setRitual(Boolean ritual) {
         this.ritual = ritual;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -299,10 +319,12 @@ public class Spell {
 
     public void setDuration(String duration) {
         this.duration = duration;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -312,10 +334,12 @@ public class Spell {
 
     public void setConcentration(Boolean concentration) {
         this.concentration = concentration;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -325,10 +349,12 @@ public class Spell {
 
     public void setLevel(int level) {
         this.level = level;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -338,10 +364,12 @@ public class Spell {
 
     public void setAttType(String attType) {
         this.attType = attType;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -351,10 +379,12 @@ public class Spell {
 
     public void setSchool(String school) {
         this.school = school;
-        try{
-            SavingUtils.updateSpell(id, this);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(id != null){
+            try{
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -383,7 +413,11 @@ public class Spell {
         if (o == null || getClass() != o.getClass())
             return false;
         Spell spell = (Spell) o;
-        return name.equals(spell.name) && id.equals(spell.id);
+        if(id == null){
+            return name.equals(spell.name);
+        } else {
+            return name.equals(spell.name) && id.equals(spell.id);
+        }
     }
 
     @Override

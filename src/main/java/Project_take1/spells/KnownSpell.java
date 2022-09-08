@@ -44,4 +44,22 @@ public class KnownSpell {
         }
         throw new RuntimeException("La spell non c'è");
     }
+    public Spell getSpell(Spell s){
+        Iterator<Spell> spell = spells.iterator();
+        while (spell.hasNext()){
+            Spell sp = spell.next();
+            if(sp.getName().equals(s)){
+                return sp;
+            }
+        }
+        throw new RuntimeException("La spell non c'è");
+    }
+    public void delete(Spell spell){
+        spells.remove(spell);
+        try{
+            SavingUtils.deleteSpell(id, spell);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

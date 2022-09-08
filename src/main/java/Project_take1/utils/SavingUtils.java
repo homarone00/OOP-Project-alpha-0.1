@@ -84,6 +84,20 @@ public class SavingUtils {
     }
 
     public static void deleteChar(UUID uuid) {
+        try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM items WHERE id" +
+                " = ?")) {
+            deleteChar.setString(1, uuid.toString());
+            deleteChar.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM spells WHERE id" +
+                " = ?")) {
+            deleteChar.setString(1, uuid.toString());
+            deleteChar.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try (PreparedStatement deleteChar = DBManager.getConnection().prepareStatement("DELETE FROM character WHERE id" + " = ?")) {
             deleteChar.setString(1, uuid.toString());
             deleteChar.executeUpdate();

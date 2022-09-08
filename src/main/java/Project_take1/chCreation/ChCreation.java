@@ -60,6 +60,18 @@ public class ChCreation extends JFrame {
             SwingUtilities.invokeLater(() ->new MyCharacterSheet(c));
             this.dispose();
         });
+        btDelete.addActionListener(e -> {
+            MyCharacter c = chList.getSelectedValue();
+            try{
+                SavingUtils.deleteChar(c.getUuid());
+                int i = chList.getSelectedIndex();
+                list.remove(i);
+                chList.clearSelection();
+                chList.setListData(list);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ChCreation::new);
