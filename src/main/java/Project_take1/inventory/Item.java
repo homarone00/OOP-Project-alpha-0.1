@@ -15,6 +15,7 @@ public class Item {
     ArrayList<String> description;
     String category;
     Money price;
+    boolean weapon;
 
     public Item(String name, int quantity, double weight, ArrayList<String> description, String category, Money price) {
         this.name = name;
@@ -155,4 +156,14 @@ public class Item {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public boolean isWeapon(){
+        if(category.equals("weapon")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

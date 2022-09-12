@@ -50,7 +50,7 @@ public class Inventory {
     }
     public Item getItem(int i){
         if(i >= items.size()){
-            throw new RuntimeException("Non ci sono abbastanza elementi");
+            throw new IllegalArgumentException("the provided index is out of bounds (inventory.getItem)");
         } else{
             return items.get(i);
         }
@@ -99,4 +99,22 @@ public class Inventory {
     public void setId(UUID id) {
         this.id = id;
     }
+    public int getSize(){
+        return items.size();
+    }
+    public ArrayList<Weapon> getWeapons(){
+        ArrayList<Weapon> weapons=new ArrayList<>();
+        Item item;
+        for(int i=0;i<getSize();i++){
+            item=getItem(i);
+            if(item.isWeapon()){
+                weapons.add((Weapon)item);
+            }
+        }
+        return weapons;
+    }
+    public int getWeaponSize(){
+        return getWeapons().size();
+    }
+
 }

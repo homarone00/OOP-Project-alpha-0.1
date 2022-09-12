@@ -2,19 +2,24 @@ package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers
 
 import Project_take1.MyCharacter;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.first_column.CircularLabel;
+import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.second_column.HPpanels.HealthPanel;
 import Project_take1.graphics.UpdatablePanel;
+import Project_take1.inventory.Inventory;
+import Project_take1.inventory.Item;
+import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener {
     MyCharacter myCharacter;
     JLabel title;
     JLabel settingsButton;
-    int length=4;
+    int length=0;
     JPanel mainGrid;
     boolean editing;
     int addingPosition;
@@ -40,38 +45,38 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
 
         plusLabel.setPreferredSize(new Dimension(20,20));
         plusLabel.addMouseListener(this);
+        plusLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         setLayout(new BorderLayout());
         GridBagConstraints c=new GridBagConstraints();
         Insets insets=new Insets(2,0,2,0);
 
-        c.gridy=0;
+
         c.fill=GridBagConstraints.BOTH;
         c.weightx=10;
         c.weighty=10;
         c.insets=insets;
 
-        SingleWeaponPanel panel1=new SingleWeaponPanel(myCharacter,true);
-        singleWeaponPanelArrayList.add(panel1);
-        mainGrid.add(panel1,c);
+        for(int i=0;i<myCharacter.getInventory().getWeaponSize();i++){
+            if(myCharacter.getInventory().getItem(i).isWeapon()){
+                c.gridy=length;
+                SingleWeaponPanel panel1=new SingleWeaponPanel(myCharacter,true,myCharacter.getInventory().getWeapons().get(i));
+                panel1.setWeapon(myCharacter.getInventory().getWeapons().get(i));
+                singleWeaponPanelArrayList.add(panel1);
+                mainGrid.add(panel1,c);
+                length++;
+                addingPosition++;
+            }
+        }
+        if(length==0){
+            addPanel();
+        }
 
-        c.gridy=1;
-        SingleWeaponPanel panel2=new SingleWeaponPanel(myCharacter,true);
-        singleWeaponPanelArrayList.add(panel2);
-        mainGrid.add(panel2,c);
-
-        c.gridy=2;
-        SingleWeaponPanel panel3=new SingleWeaponPanel(myCharacter,true);
-        singleWeaponPanelArrayList.add(panel3);
-        mainGrid.add(panel3,c);
-
-        c.gridy=3;
-        SingleWeaponPanel panel4=new SingleWeaponPanel(myCharacter,true);
-        singleWeaponPanelArrayList.add(panel4);
-        mainGrid.add(panel4,c);
 
         settingsButton=new JLabel(getPalette().getUnpressedSettingsButton());
         settingsButton.addMouseListener(this);
+        settingsButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         topGrid.add(settingsButton,BorderLayout.EAST);
         topGrid.add(title,BorderLayout.CENTER);
         topGrid.add(plusLabel,BorderLayout.WEST);
@@ -107,13 +112,18 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         c.weighty=10;
         c.weightx=10;
         c.fill=GridBagConstraints.BOTH;
-        SingleWeaponPanel newPanel=new SingleWeaponPanel(myCharacter,true);
+        Random rand=new Random();
+        Weapon weapon=new Weapon("Weapon" + rand.nextInt(9000));
+        myCharacter.getInventory().insertItem(weapon);
+
+        SingleWeaponPanel newPanel=new SingleWeaponPanel(myCharacter,true,weapon);
         mainGrid.add(newPanel,c);
         singleWeaponPanelArrayList.add(newPanel);
         newPanel.setEditable(isEditing());
         revalidate();
         addingPosition++;
         length++;
+
     }
     public void removePanel(int index){
         if(length>1){
@@ -124,6 +134,7 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
             mainGrid.remove(singleWeaponPanel);
             singleWeaponPanelArrayList.remove(singleWeaponPanel);
             length--;
+            myCharacter.getInventory().removeItem(singleWeaponPanel.getWeapon());
         }
 
     }
@@ -219,4 +230,5 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
     public void setSingleWeaponPanelArrayList(ArrayList<SingleWeaponPanel> singleWeaponPanelArrayList) {
         this.singleWeaponPanelArrayList = singleWeaponPanelArrayList;
     }
+
 }

@@ -1,7 +1,10 @@
 package Project_take1.inventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 
 public class Weapon extends Item{
     //Two static value for the hand
@@ -22,6 +25,16 @@ public class Weapon extends Item{
         this.category_range = category_range;
         this.properties = properties;
         this.damage = damage;
+    }
+    public Weapon(String name) {
+        super(name, 1, 1, new ArrayList<String>(), "weapon", new Money());
+        this.weapon_category = "Default category";
+        this.weapon_range = "60 m";
+        this.category_range = "Range category";
+        this.properties = new WeaponProperties(false,false,false,false,false,false,false,false,false,false,false);
+        this.damage = new HashMap<>();
+        Damage weaponDamage=new Damage("1d8","Cringing");
+        damage.put("damage",weaponDamage);
     }
 
     public String getWeapon_category() {
@@ -97,6 +110,10 @@ public class Weapon extends Item{
 
     @Override
     public String toString() {
-        return "Weapon{" + "weapon_category='" + weapon_category + '\'' + ", weapon_range='" + weapon_range + '\'' + ", category_range='" + category_range + '\'' + ", properties=" + properties + ", damage=" + damage + ", name='" + name + '\'' + ", quantity=" + quantity + ", weight=" + weight + ", description=" + description + ", category='" + category + '\'' + ", price=" + price + '}';
+        return "Weapon{" + "weapon_category='" + weapon_category + '\'' +
+                ", weapon_range='" + weapon_range + '\'' + ", category_range='" + category_range + '\'' +
+                ", properties=" + properties + ", damage=" + damage + ", name='" + name + '\'' + ", quantity=" +
+                quantity + ", weight=" + weight + ", description=" + description + ", category='" + category + '\'' +
+                ", price=" + price + '}';
     }
 }

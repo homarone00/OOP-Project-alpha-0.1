@@ -39,6 +39,8 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
         mainGrid.setOpaque(false);
 
         plusLabel.setPreferredSize(new Dimension(20,20));
+        plusLabel.addMouseListener(this);
+        plusLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         setLayout(new BorderLayout());
         GridBagConstraints c=new GridBagConstraints();
@@ -71,10 +73,11 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
 
         settingsButton=new JLabel(getPalette().getUnpressedSettingsButton());
         settingsButton.addMouseListener(this);
+        settingsButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         topGrid.add(settingsButton,BorderLayout.EAST);
         topGrid.add(title,BorderLayout.CENTER);
         topGrid.add(plusLabel,BorderLayout.WEST);
-        plusLabel.addMouseListener(this);
 
         add(mainGrid,BorderLayout.CENTER);
         add(topGrid,BorderLayout.NORTH);

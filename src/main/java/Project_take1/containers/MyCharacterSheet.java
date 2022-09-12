@@ -1,6 +1,7 @@
 package Project_take1.containers;
 
 import Project_take1.MyCharacter;
+import Project_take1.chCreation.ChCreation;
 import Project_take1.graphics.Palette;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 
 /**
@@ -46,7 +49,15 @@ public class MyCharacterSheet extends JFrame implements ActionListener, ChangeLi
         setIconImage(imageIcon.getImage());
         this.setTitle("RollJ Idea");
         updateColors();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                new ChCreation();
+                e.getWindow().dispose();
+            }
+        });
     }
 
 

@@ -20,7 +20,14 @@ public class Money extends Currency implements Comparable<Money>{
         this.pp = pp;
         fixMoney();
     }
+    public Money(){
+        this.cp = 0;
+        this.sp = 0;
+        this.ep = 0;
+        this.gp = 1;
+        this.pp = 0;
 
+    }
     public int getCp() {
         return cp;
     }
