@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class MySpellPane extends JPanel implements UpdatablePanel {
     MyCharacter myCharacter;
+    SpellPanel lvl0;
     SpellPanel lvl1;
     SpellPanel lvl2;
     SpellPanel lvl3;
@@ -37,6 +38,7 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         setBackground(getPalette().background());
         setOpaque(true);
 
+        lvl0=new SpellPanel(0,myCharacter);
         lvl1=new SpellPanel(1,myCharacter);
         lvl2=new SpellPanel(2,myCharacter);
         lvl3=new SpellPanel(3,myCharacter);
@@ -47,10 +49,11 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         lvl8=new SpellPanel(8,myCharacter);
         lvl9=new SpellPanel(9,myCharacter);
 
-        JPanel contentPane=new JPanel(new GridLayout(1,9,5,5));
+        JPanel contentPane=new JPanel(new GridLayout(1,10,5,5));
         searchField.setBorder(null);
         searchLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         searchLabel.setPreferredSize(new Dimension(140,60));
+        contentPane.add(lvl0);
         contentPane.add(lvl1);
         contentPane.add(lvl2);
         contentPane.add(lvl3);
@@ -82,6 +85,7 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         searchField.addActionListener(actionValue -> {
             Spell spell=new Spell(searchField.getText());
             myCharacter.getKnownSpells().insert(spell);
+            lvl0.addSpell(spell);
             lvl1.addSpell(spell);
             lvl2.addSpell(spell);
             lvl3.addSpell(spell);

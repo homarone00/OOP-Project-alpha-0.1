@@ -22,6 +22,10 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
         title=new JLabel();
         contentPane=new JPanel(new GridBagLayout());
         length=0;
+        title.setHorizontalAlignment(JLabel.CENTER);
+        if(level==0){
+            title.setText("CANTRIPS");
+        }
         if(level==1){
             title.setText("1st LEVEL");
         }
@@ -90,7 +94,7 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
             c.gridx=0;
             c.gridy=50;
             c.fill=GridBagConstraints.BOTH;
-            c.weighty=150-length*10;
+            c.weighty=150-length*12;
             c.weightx=10;
             contentPane.add(placeHolderPanel,c);
             revalidate();

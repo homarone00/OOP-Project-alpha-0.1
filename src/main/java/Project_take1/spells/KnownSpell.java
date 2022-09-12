@@ -29,7 +29,7 @@ public class KnownSpell {
         return spells;
     }
     public ArrayList<Spell> getArraySpells(){
-        ArrayList<Spell> arraySpells =new ArrayList<>(spells);
+        ArrayList<Spell> arraySpells =new ArrayList<>(spells.stream().toList());
         return  arraySpells;
     }
     public void setSpells(Set<Spell> spells) {
