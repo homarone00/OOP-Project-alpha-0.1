@@ -111,6 +111,9 @@ public class Spell {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Processing error in spell " + name);
         }
+        if(json.has("errore")){
+            throw new RuntimeException("Spell non trovata");
+        }
         this.name = json.get("name").asText();
         System.out.println(json.get("desc").toString() + "\n\n\n");
         for (JsonNode n : json.get("desc")) {

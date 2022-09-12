@@ -119,6 +119,7 @@ public class MyCharacter implements MyCharacterCons{
         this.abilityProfExp = abilityProfExp;
         abilityInit();
         try {
+            spells = new KnownSpell(uuid);
             spells.setSpells(SavingUtils.getAllSpell(this.uuid));
             inventory.setId(uuid);
             inventory.init();
