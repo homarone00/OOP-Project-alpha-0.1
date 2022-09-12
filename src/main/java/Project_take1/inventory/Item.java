@@ -8,6 +8,16 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Item {
+    UUID idi = UUID.randomUUID();
+
+    public UUID getIdi() {
+        return idi;
+    }
+
+    public void setIdi(UUID idi) {
+        this.idi = idi;
+    }
+
     UUID id;
     String name;
     int quantity;
@@ -165,5 +175,6 @@ public class Item {
             return false;
         }
     }
+
 
 }

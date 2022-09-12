@@ -17,6 +17,7 @@ import kong.unirest.Unirest;
 
 public class Spell {
     UUID id;
+    UUID idi = UUID.randomUUID();
     String name;
     ArrayList<String> desc = new ArrayList<>();
     ArrayList<String> highLv = new ArrayList<>();
@@ -462,5 +463,13 @@ public class Spell {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getIdi() {
+        return idi;
+    }
+
+    public void setIdi(UUID idi) {
+        this.idi = idi;
     }
 }

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class MyCharacter implements MyCharacterCons{
     //static STATS (STATESTEKS!)
-    UUID uuid = UUID.randomUUID();;
+    UUID uuid = UUID.randomUUID();
     String name;
     String race;
     String classCh;
@@ -694,7 +694,7 @@ public class MyCharacter implements MyCharacterCons{
     public Inventory getInventory() {
         return inventory;
     }
-
-
-
+    public void setUuid(UUID id){
+        uuid = id;
+    }
 }

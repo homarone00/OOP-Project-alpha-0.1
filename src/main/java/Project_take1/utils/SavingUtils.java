@@ -22,17 +22,17 @@ public class SavingUtils {
             createTable.executeUpdate();
         }
         try (PreparedStatement createTable =
-                     connection.prepareStatement("CREATE TABLE if not EXISTS spells(id TEXT, name VARCHAR(50), descr " +
-                             "TEXT, " + "highLv TEXT, range TEXT, components TEXT, material TEXT, " + "ritual BOOLEAN, " + "duration TEXT, " + "concentration BOOLEAN, " +
-                             "dc integer, level integer, " + "attType TEXT, school TEXT, " + "PRIMARY Key(id, name))")) {
+                     connection.prepareStatement("CREATE TABLE if not EXISTS spells(id TEXT, idc TEXT," +
+                             "name VARCHAR(50), descr TEXT, highLv TEXT, range TEXT, components TEXT, material TEXT, " + "ritual BOOLEAN, " + "duration TEXT, " + "concentration BOOLEAN, " +
+                             "dc integer, level integer, " + "attType TEXT, school TEXT, " + "PRIMARY Key(id, idc))")) {
             createTable.executeUpdate();
         }
         try (PreparedStatement createTable =
-                     connection.prepareStatement("CREATE TABLE if not EXISTS items(id TEXT," +
+                     connection.prepareStatement("CREATE TABLE if not EXISTS items(id TEXT, idc TEXT," +
                              "name TEXT, quantity INTEGER, weight REAL, descr TEXT, category TEXT, cp INTEGER, sp " +
                              "INTEGER, ep INTEGER, gp INTEGER, pp INTEGER, wp_cat TEXT, wp_range TEXT, cat_range " +
                              "TEXT, prop TEXT, dmg_key TEXT, dmg TEXT, ca INTEGER, dex_b BOOLEAN, min_str INTEGER, " +
-                             "max_bonus Integer, stealth_dis BOOLEAN, PRIMARY Key(id, name))")) {
+                             "max_bonus Integer, stealth_dis BOOLEAN, PRIMARY Key(id, idc))")) {
             createTable.executeUpdate();
         }
 
@@ -206,10 +206,11 @@ public class SavingUtils {
         Connection connection = DBManager.getConnection();
         if(item.getCategory().equalsIgnoreCase("weapon")){
             try (PreparedStatement insertWeapon = connection.prepareStatement("INSERT INTO items (id,name,quantity," +
-                    "weight, descr, category, cp, sp, ep, gp, pp, wp_cat, wp_range, cat_range, prop, dmg_key, dmg) " +
-                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+                    "weight, descr, category, cp, sp, ep, gp, pp, wp_cat, wp_range, cat_range, prop, dmg_key, dmg, " +
+                    "idc) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
                 Weapon weapon = (Weapon) item;
-                insertWeapon.setString(1,id.toString());
+                insertWeapon.setString(1,weapon.getIdi().toString());
                 insertWeapon.setString(2, weapon.getName());
                 insertWeapon.setInt(3, weapon.getQuantity());
                 insertWeapon.setDouble(4, weapon.getWeight());
@@ -233,15 +234,16 @@ public class SavingUtils {
                 }
                 insertWeapon.setString(16, key.toString());
                 insertWeapon.setString(17, dmgS.toString());
+                insertWeapon.setString(18, id.toString());
                 insertWeapon.executeUpdate();
             }
         }
         else if (item.getCategory().equalsIgnoreCase("armor")) {
             try (PreparedStatement insertArmor= connection.prepareStatement("INSERT INTO items (id,name,quantity," +
                     "weight, descr, category, cp, sp, ep, gp, pp, ca, dex_b, min_str, " +
-                    "max_bonus, stealth_dis) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+                    "max_bonus, stealth_dis, idc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?)")){
                 Armor armor = (Armor) item;
-                insertArmor.setString(1,id.toString());
+                insertArmor.setString(1,armor.getIdi().toString());
                 insertArmor.setString(2, armor.getName());
                 insertArmor.setInt(3, armor.getQuantity());
                 insertArmor.setDouble(4, armor.getWeight());
@@ -257,13 +259,14 @@ public class SavingUtils {
                 insertArmor.setInt(14, armor.getMin_str());
                 insertArmor.setInt(15, armor.getMax_bonus());
                 insertArmor.setBoolean(16,armor.getStealth_dis());
+                insertArmor.setString(17, id.toString());
                 insertArmor.executeUpdate();
             }
         }
         else{
             try (PreparedStatement insertItem = connection.prepareStatement("INSERT INTO items (id,name,quantity," +
-                    "weight, descr, category, cp, sp, ep, gp, pp) VALUES (?,?,?,?,?,?,?,?,?,?,?)")){
-                insertItem.setString(1,id.toString());
+                    "weight, descr, category, cp, sp, ep, gp, pp, idc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)")){
+                insertItem.setString(1,item.getIdi().toString());
                 insertItem.setString(2, item.getName());
                 insertItem.setInt(3, item.getQuantity());
                 insertItem.setDouble(4, item.getWeight());
@@ -274,6 +277,7 @@ public class SavingUtils {
                 insertItem.setInt(9, item.getPrice().getEp());
                 insertItem.setInt(10, item.getPrice().getGp());
                 insertItem.setInt(11, item.getPrice().getPp());
+                insertItem.setString(12, id.toString());
                 insertItem.executeUpdate();
             }
         }
@@ -284,10 +288,10 @@ public class SavingUtils {
         }
     }
     public static void deleteItem(UUID uuid, Item item) throws SQLException {
-        try (PreparedStatement deleteItem = DBManager.getConnection().prepareStatement("DELETE FROM character WHERE " +
-                "id = ? AND name = ?")) {
+        try (PreparedStatement deleteItem = DBManager.getConnection().prepareStatement("DELETE FROM items WHERE " +
+                "idc = ? AND id = ?")) {
             deleteItem.setString(1, uuid.toString());
-            deleteItem.setString(2, item.getName());
+            deleteItem.setString(2, item.getIdi().toString());
             deleteItem.executeUpdate();
         }
     }
@@ -298,7 +302,7 @@ public class SavingUtils {
     }
     public static ArrayList<Item> getAllItems(UUID id) throws SQLException {
         try (PreparedStatement slItem =
-                     DBManager.getConnection().prepareStatement("SELECT * FROM items WHERE id = '" + id.toString() + "'")) {
+                     DBManager.getConnection().prepareStatement("SELECT * FROM items WHERE idc = '" + id.toString() + "'")) {
             try (ResultSet rs = slItem.executeQuery()) {
                 ArrayList<Item> allItems = new ArrayList<>();
                 while (rs.next()) {
@@ -313,20 +317,27 @@ public class SavingUtils {
                         for(String s:keyS.split("},\\{")){
                             damage.put(s, new Damage(dmgS.get(i++)));
                         }
-                        allItems.add(new Weapon(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
+                        Weapon w = new Weapon(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
                                 SavingUtils.stringToArrayList(rs.getString("descr")), category, cost,
                                 rs.getString("wp_cat"), rs.getString("wp_range"),
                                 rs.getString("cat_range"),
-                                new WeaponProperties(SavingUtils.stringToArrayList(rs.getString("prop"))), damage));
+                                new WeaponProperties(SavingUtils.stringToArrayList(rs.getString("prop"))), damage);
+                        w.setIdi(UUID.fromString(rs.getString("id")));
+                        allItems.add(w);
                     }
                     else if (category.equalsIgnoreCase("armor")) {
-                        allItems.add(new Armor(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
+                        Armor a = new Armor(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
                                 SavingUtils.stringToArrayList(rs.getString("descr")), category, cost, rs.getInt("ca"),
-                                rs.getBoolean("dex_b"), rs.getInt("min_str"), rs.getInt("max_bonus"), rs.getBoolean("stealth_dis")));
+                                rs.getBoolean("dex_b"), rs.getInt("min_str"), rs.getInt("max_bonus"), rs.getBoolean(
+                                        "stealth_dis"));
+                        a.setIdi(UUID.fromString(rs.getString("id")));
+                        allItems.add(a);
                     }
                     else{
-                        allItems.add(new Item(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
-                                SavingUtils.stringToArrayList(rs.getString("descr")), category, cost));
+                        Item i = new Item(rs.getString("name"), rs.getInt("quantity"), rs.getDouble("weight"),
+                                SavingUtils.stringToArrayList(rs.getString("descr")), category, cost);
+                        i.setIdi(UUID.fromString(rs.getString("id")));
+                        allItems.add(i);
                     }
                 }
                 for(Item i:allItems){
@@ -342,8 +353,9 @@ public class SavingUtils {
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
                             "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
-                            "pp = ?, wp_cat = ?, wp_range = ?, cat_range = ?, prop = ?, dmg_key = ?, dmg = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "pp = ?, wp_cat = ?, wp_range = ?, cat_range = ?, prop = ?, dmg_key = ?, dmg = ?, name = " +
+                            "?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,weapon.getQuantity());
                 update.setDouble(2,weapon.getWeight());
@@ -367,8 +379,9 @@ public class SavingUtils {
                 }
                 update.setString(14, key.toString());
                 update.setString(15, dmgS.toString());
-                update.setString(16, id.toString());
-                update.setString(17, weapon.getName());
+                update.setString(16, weapon.getName());
+                update.setString(17, id.toString());
+                update.setString(18, weapon.getIdi().toString());
                 update.executeUpdate();
             }
         }
@@ -377,8 +390,8 @@ public class SavingUtils {
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
                             "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
-                            "pp = ?, ca = ?, dex_b = ?, min_str = ?, max_bonus = ?, stealth_dis = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "pp = ?, ca = ?, dex_b = ?, min_str = ?, max_bonus = ?, stealth_dis = ?, name = ?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,armor.getQuantity());
                 update.setDouble(2,armor.getWeight());
@@ -394,16 +407,18 @@ public class SavingUtils {
                 update.setInt(12, armor.getMin_str());
                 update.setInt(13, armor.getMax_bonus());
                 update.setBoolean(14,armor.getStealth_dis());
-                update.setString(15, id.toString());
-                update.setString(16, armor.getName());
+                update.setString(16, id.toString());
+                update.setString(15, armor.getName());
+                update.setString(17, armor.getIdi().toString());
                 update.executeUpdate();
             }
         }
         else{
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
-                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, pp = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
+                            "pp = ?, name = ?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,item.getQuantity());
                 update.setDouble(2,item.getWeight());
@@ -414,8 +429,9 @@ public class SavingUtils {
                 update.setInt(7, item.getPrice().getEp());
                 update.setInt(8, item.getPrice().getGp());
                 update.setInt(9, item.getPrice().getPp());
-                update.setString(10, id.toString());
-                update.setString(11, item.getName());
+                update.setString(11, id.toString());
+                update.setString(10, item.getName());
+                update.setString(12, item.getIdi().toString());
                 update.executeUpdate();
             }
         }
@@ -426,8 +442,9 @@ public class SavingUtils {
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
                             "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
-                            "pp = ?, wp_cat = ?, wp_range = ?, cat_range = ?, prop = ?, dmg_key = ?, dmg = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "pp = ?, wp_cat = ?, wp_range = ?, cat_range = ?, prop = ?, dmg_key = ?, dmg = ?, name = " +
+                            "?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,weapon.getQuantity());
                 update.setDouble(2,weapon.getWeight());
@@ -451,8 +468,9 @@ public class SavingUtils {
                 }
                 update.setString(14, key.toString());
                 update.setString(15, dmgS.toString());
-                update.setString(16, item.getId().toString());
-                update.setString(17, weapon.getName());
+                update.setString(16, weapon.getName());
+                update.setString(17, weapon.getId().toString());
+                update.setString(18, weapon.getIdi().toString());
                 update.executeUpdate();
             }
         }
@@ -461,8 +479,8 @@ public class SavingUtils {
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
                             "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
-                            "pp = ?, ca = ?, dex_b = ?, min_str = ?, max_bonus = ?, stealth_dis = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "pp = ?, ca = ?, dex_b = ?, min_str = ?, max_bonus = ?, stealth_dis = ?, name = ?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,armor.getQuantity());
                 update.setDouble(2,armor.getWeight());
@@ -478,16 +496,18 @@ public class SavingUtils {
                 update.setInt(12, armor.getMin_str());
                 update.setInt(13, armor.getMax_bonus());
                 update.setBoolean(14,armor.getStealth_dis());
-                update.setString(15, item.getId().toString());
-                update.setString(16, armor.getName());
+                update.setString(16, armor.getId().toString());
+                update.setString(15, armor.getName());
+                update.setString(17, armor.getIdi().toString());
                 update.executeUpdate();
             }
         }
         else{
             try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                     "UPDATE items " +
-                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, pp = ?" +
-                            "WHERE id = ? AND name = ?"))
+                            "SET quantity = ?, weight = ?, descr = ?, category = ?, cp = ?, sp = ?, ep = ?, gp = ?, " +
+                            "pp = ?, name = ?" +
+                            "WHERE idc = ? AND id = ?"))
             {
                 update.setInt(1,item.getQuantity());
                 update.setDouble(2,item.getWeight());
@@ -498,8 +518,9 @@ public class SavingUtils {
                 update.setInt(7, item.getPrice().getEp());
                 update.setInt(8, item.getPrice().getGp());
                 update.setInt(9, item.getPrice().getPp());
-                update.setString(10, item.getId().toString());
-                update.setString(11, item.getName());
+                update.setString(11, item.getId().toString());
+                update.setString(10, item.getName());
+                update.setString(12, item.getIdi().toString());
                 update.executeUpdate();
             }
         }
@@ -510,9 +531,10 @@ public class SavingUtils {
      */
     public static void insertSpell(UUID id, Spell spell) throws SQLException {
         Connection connection = DBManager.getConnection();
-        try (PreparedStatement insertSpell = connection.prepareStatement("INSERT INTO spells (id, name, descr, " +
-                "highLv, range, components, material, ritual, duration, concentration, dc, level, attType, school) " +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+        try (PreparedStatement insertSpell = connection.prepareStatement("INSERT INTO spells (idc, name, descr, " +
+                "highLv, range, components, material, ritual, duration, concentration, dc, level, attType, school, " +
+                "id) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
             insertSpell.setString(1,id.toString());
             insertSpell.setString(2, spell.getName());
             insertSpell.setString(3, arrayListToString(spell.getDesc()));
@@ -527,14 +549,15 @@ public class SavingUtils {
             insertSpell.setInt(12, spell.getLevel());
             insertSpell.setString(13, spell.getAttType());
             insertSpell.setString(14, spell.getSchool());
+            insertSpell.setString(15, spell.getIdi().toString());
             insertSpell.executeUpdate();
         }
     }
     public static void deleteSpell(UUID uuid, Spell spell) throws SQLException {
         try (PreparedStatement deleteSpell = DBManager.getConnection().prepareStatement("DELETE FROM spells WHERE " +
-                "id = ? AND name = ?")) {
+                "idc = ? AND id = ?")) {
             deleteSpell.setString(1, uuid.toString());
-            deleteSpell.setString(2, spell.getName());
+            deleteSpell.setString(2, spell.getIdi().toString());
             deleteSpell.executeUpdate();
         }
     }
@@ -551,17 +574,19 @@ public class SavingUtils {
     }
     public static Set<Spell> getAllSpell(UUID id) throws SQLException {
         try (PreparedStatement slItem =
-                     DBManager.getConnection().prepareStatement("SELECT * FROM spells WHERE id = '" + id.toString() +
+                     DBManager.getConnection().prepareStatement("SELECT * FROM spells WHERE idc = '" + id.toString() +
                              "'")) {
             try (ResultSet rs = slItem.executeQuery()) {
                 HashSet<Spell> allSpells = new HashSet<>();
                 while (rs.next()) {
-                    allSpells.add(new Spell(rs.getString("name"), stringToArrayList(rs.getString("descr")),
+                    Spell s = new Spell(rs.getString("name"), stringToArrayList(rs.getString("descr")),
                             stringToArrayList(rs.getString("highLv")), rs.getString("range"),
                             stringToArrayList(rs.getString("components")), rs.getString("material"),
                             rs.getBoolean("ritual"), rs.getString("duration"), rs.getBoolean("concentration"),
                             rs.getInt("dc"), rs.getInt("level"), rs.getString("attType"),
-                            rs.getString("school")));
+                            rs.getString("school"));
+                    s.setIdi(UUID.fromString(rs.getString("id")));
+                    allSpells.add(s);
                 }
                 return allSpells;
             }
@@ -571,8 +596,8 @@ public class SavingUtils {
         try(PreparedStatement update = DBManager.getConnection().prepareStatement(
                 "UPDATE spells " +
                         "SET descr = ?, highLv = ?, range = ?, components = ?, material = ?, ritual = ?, " +
-                        "duration = ?, concentration = ?, dc = ?, level = ?, attType = ?, school = ?" +
-                        "WHERE id = ? AND name = ?"))
+                        "duration = ?, concentration = ?, dc = ?, level = ?, attType = ?, school = ?, name = ?" +
+                        "WHERE idc = ? AND id = ?"))
         {
             update.setString(1, arrayListToString(spell.getDesc()));
             update.setString(2, arrayListToString(spell.getHighLv()));
@@ -586,8 +611,9 @@ public class SavingUtils {
             update.setInt(10, spell.getLevel());
             update.setString(11, spell.getAttType());
             update.setString(12, spell.getSchool());
-            update.setString(13, id.toString());
-            update.setString(14, spell.getName());
+            update.setString(14, id.toString());
+            update.setString(13, spell.getName());
+            update.setString(15, spell.getIdi().toString());
             update.executeUpdate();
         }
     }
