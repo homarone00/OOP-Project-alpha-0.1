@@ -211,9 +211,14 @@ public class ChCreat extends JFrame{
             for(JTextField tf:txStat){
                 abPoint.add(Integer.valueOf(tf.getText()));
             }
-            MyCharacter myCharacter = new MyCharacter(name, race.getName(), (String) cbClasses.getSelectedItem(), abPoint,
-                    pan.getSaveProf(), pan.getAbilityProf());
-            SwingUtilities.invokeLater(() -> new MyCharacterSheet(myCharacter));
+            try{
+                MyCharacter myCharacter = new MyCharacter(name, race.getName(), (String) cbClasses.getSelectedItem(),
+                        abPoint, pan.getSaveProf(), pan.getAbilityProf());
+                SwingUtilities.invokeLater(() -> new MyCharacterSheet(myCharacter));
+                this.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "All comp. points have to be spent", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         /*
