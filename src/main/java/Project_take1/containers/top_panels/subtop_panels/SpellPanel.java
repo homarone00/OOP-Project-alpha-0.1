@@ -26,7 +26,7 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
         if(level==0){
             title.setText("CANTRIPS");
         }
-        if(level==1){
+        else if(level==1){
             title.setText("1st LEVEL");
         }
         else if(level==2){
