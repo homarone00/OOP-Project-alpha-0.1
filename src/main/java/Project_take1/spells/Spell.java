@@ -472,4 +472,15 @@ public class Spell {
     public void setIdi(UUID idi) {
         this.idi = idi;
     }
+
+    public void setName(String name) {
+        this.name = name;
+        if (id != null) {
+            try {
+                SavingUtils.updateSpell(id, this);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
