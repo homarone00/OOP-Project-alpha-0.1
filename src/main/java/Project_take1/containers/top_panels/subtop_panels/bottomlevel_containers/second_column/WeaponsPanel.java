@@ -88,7 +88,11 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
     }
     @Override
     public void updateColors() {
-
+        title.setForeground(getPalette().text());
+        settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+        for(SingleWeaponPanel s:singleWeaponPanelArrayList){
+            s.updateColors();
+        }
     }
 
     @Override
@@ -158,6 +162,9 @@ public class WeaponsPanel extends JPanel implements UpdatablePanel,MouseListener
         if(e.getSource().equals(settingsButton)){
             if(isEditing()){
                 settingsButton.requestFocus();
+                for(SingleWeaponPanel i:singleWeaponPanelArrayList){
+                    i.updateDB();
+                }
                 setEditing(false);
             }
             else{

@@ -2,15 +2,18 @@ package Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers
 
 import Project_take1.MyCharacter;
 import Project_take1.graphics.RoundedJPanel;
+import Project_take1.inventory.Damage;
 import Project_take1.inventory.Weapon;
 
 import javax.swing.*;
 import javax.swing.text.DefaultHighlighter;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
+public class SingleWeaponPanel extends RoundedJPanel implements MouseListener{
     MyCharacter myCharacter;
     Weapon weapon;
     boolean editable;
@@ -149,7 +152,7 @@ public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
                 g.setColor(oldColor);
             }
         };
-        damageField =new JTextField("1d8 + 6"){
+        damageField =new JTextField(weapon.getDamage().getDamage_dice()){
 
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -208,6 +211,7 @@ public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
         add(contentPanel,BorderLayout.CENTER);
         add(iconLabel,BorderLayout.WEST);
         setEditable(false);
+
     }
 
 
@@ -219,7 +223,15 @@ public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
 
     @Override
     public void updateColors() {
-
+        nameField.setForeground(getPalette().text());
+        damageField.setForeground(getPalette().text());
+        bonusField.setForeground(getPalette().text());
+        if(isWeapon){
+            iconLabel.setIcon(getPalette().getSwordIcon());
+        }
+        else{
+            iconLabel.setIcon(getPalette().getDamageIcon());
+        }
     }
 
     @Override
@@ -344,5 +356,13 @@ public class SingleWeaponPanel extends RoundedJPanel implements MouseListener {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public void updateDB(){
+        weapon.setName(nameField.getText());
+        Damage damage=new Damage(damageField.getText(),"damage type");
+        weapon.getDamageMap().replace("damage",damage);
+        System.out.println(weapon.getDamageMap().get("damage"));
+
     }
 }

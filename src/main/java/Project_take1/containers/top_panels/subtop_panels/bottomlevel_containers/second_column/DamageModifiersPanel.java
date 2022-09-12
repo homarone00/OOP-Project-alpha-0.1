@@ -86,7 +86,11 @@ public class DamageModifiersPanel extends JPanel implements UpdatablePanel, Mous
     }
     @Override
     public void updateColors() {
-
+        title.setForeground(getPalette().text());
+        settingsButton.setIcon(getPalette().getUnpressedSettingsButton());
+        for(SingleWeaponPanel s:singleWeaponPanelArrayList){
+            s.updateColors();
+        }
     }
 
     @Override

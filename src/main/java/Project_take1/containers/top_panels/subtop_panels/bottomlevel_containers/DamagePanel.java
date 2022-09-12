@@ -47,7 +47,8 @@ public class DamagePanel extends JPanel implements UpdatablePanel, MouseListener
 
     @Override
     public void updateColors() {
-
+        weaponsPanel.updateColors();
+        damageModifiersPanel.updateColors();
     }
 
     @Override

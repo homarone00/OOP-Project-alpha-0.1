@@ -17,7 +17,7 @@ public class ClassAbilityPanel extends RoundedJPanel {
     JLabel source;
     JLabel iconLabel;
     boolean editing=false;
-    public ClassAbilityPanel(MyCharacter myCharacter) {
+    public ClassAbilityPanel(MyCharacter myCharacter, String title, String source) {
         super();
         this.myCharacter=myCharacter;
         setLayout(new GridBagLayout());
@@ -26,11 +26,11 @@ public class ClassAbilityPanel extends RoundedJPanel {
         //if true, the ability has infinite uses
         abilityInitFinite();
 
-        this.title=new JLabel("Titolo");
-        this.source=new JLabel("Classe: kappa gay");
+        this.title=new JLabel(title);
+        this.source=new JLabel(source);
         this.title.setOpaque(false);
         this.source.setOpaque(false);
-
+        setOpaque(false);
         this.title.setHorizontalAlignment(JLabel.LEFT);
         this.source.setHorizontalAlignment(JLabel.LEFT);
 
@@ -47,7 +47,7 @@ public class ClassAbilityPanel extends RoundedJPanel {
         c.gridx=1;
         c.gridy=0;
         c.fill=GridBagConstraints.BOTH;
-        add(title,c);
+        add(this.title,c);
 
         c.insets=i;
         c.weightx=2;
@@ -62,7 +62,7 @@ public class ClassAbilityPanel extends RoundedJPanel {
         c.weightx=10;
         c.weighty=2;
         c.gridheight=1;
-        add(source,c);
+        add(this.source,c);
 
         JPanel fillerPanel=new JPanel();
         fillerPanel.setOpaque(false);
@@ -88,7 +88,8 @@ public class ClassAbilityPanel extends RoundedJPanel {
 
     @Override
     public void updateColors() {
-
+        title.setForeground(getPalette().text());
+        source.setForeground(getPalette().text());
     }
 
     @Override

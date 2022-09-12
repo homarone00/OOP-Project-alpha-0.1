@@ -175,13 +175,28 @@ public class Palette extends AbstractPalette{
         return imageIcon;
     }
     public Icon getSwordIcon(){
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/swords/sword_black.png")));
-        imageIcon=scale(imageIcon,17,17);
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/swords/sword_black.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/swords/sword_white.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
         return imageIcon;
+
     }
     public Icon getDamageIcon(){
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/damage/damage.png")));
-        imageIcon=scale(imageIcon,17,17);
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/damage/damage_black.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/swords/damage_white.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
         return imageIcon;
     }
 

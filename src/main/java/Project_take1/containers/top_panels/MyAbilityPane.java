@@ -183,7 +183,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
         this.setBackground(getPalette().background());
         nameText.setCaretColor(getPalette().text());
         profPanel.updateColors();
-
+        thirdColumn.updateColors();
     }
 
     @Override

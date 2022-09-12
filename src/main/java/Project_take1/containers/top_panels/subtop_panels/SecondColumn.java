@@ -89,6 +89,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
         speedPanel.updateColors();
         initPanel.updateColors();
         setBackground(getPalette().background());
+        damagePanel.updateColors();
     }
 
     @Override
