@@ -176,5 +176,10 @@ public class Item {
         }
     }
 
-
+    public void update(){
+        try{
+            SavingUtils.updateItem(this);
+        } catch (SQLException ignored){
+        }
+    }
 }

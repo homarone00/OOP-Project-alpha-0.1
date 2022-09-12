@@ -1,5 +1,8 @@
 package Project_take1.inventory;
 
+import Project_take1.utils.SavingUtils;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +46,7 @@ public class Weapon extends Item{
 
     public void setWeapon_category(String weapon_category) {
         this.weapon_category = weapon_category;
+        this.update();
     }
 
     public String getWeapon_range() {
@@ -51,6 +55,7 @@ public class Weapon extends Item{
 
     public void setWeapon_range(String weapon_range) {
         this.weapon_range = weapon_range;
+        this.update();
     }
 
     public String getCategory_range() {
@@ -59,6 +64,7 @@ public class Weapon extends Item{
 
     public void setCategory_range(String category_range) {
         this.category_range = category_range;
+        this.update();
     }
 
     public WeaponProperties getProperties() {
@@ -70,6 +76,7 @@ public class Weapon extends Item{
 
     public void setProperties(WeaponProperties properties) {
         this.properties = properties;
+        this.update();
     }
 
     public Map<String, Damage> getDamageMap() {
@@ -78,6 +85,7 @@ public class Weapon extends Item{
 
     public void setDamageMap(Map<String, Damage> damage) {
         this.damage = damage;
+        this.update();
     }
 
     /**
