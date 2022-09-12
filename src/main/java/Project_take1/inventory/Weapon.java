@@ -76,8 +76,9 @@ public class Weapon extends Item{
 
     public void setProperties(WeaponProperties properties) {
         this.properties = properties;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     public Map<String, Damage> getDamageMap() {
         return damage;
@@ -85,8 +86,9 @@ public class Weapon extends Item{
 
     public void setDamageMap(Map<String, Damage> damage) {
         this.damage = damage;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     /**
      * A method for the base damage

@@ -25,7 +25,9 @@ public class Armor extends Item{
 
     public void setCa(int ca) {
         this.ca = ca;
-        this.update();
+        if(id != null){
+            this.update();
+        }
     }
 
     public Boolean getDex_bonus() {
@@ -34,8 +36,9 @@ public class Armor extends Item{
 
     public void setDex_bonus(Boolean dex_bonus) {
         this.dex_bonus = dex_bonus;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     public int getMin_str() {
         return min_str;
@@ -43,8 +46,9 @@ public class Armor extends Item{
 
     public void setMin_str(int min_str) {
         this.min_str = min_str;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     public int getMax_bonus() {
         return max_bonus;
@@ -52,8 +56,9 @@ public class Armor extends Item{
 
     public void setMax_bonus(int max_bonus) {
         this.max_bonus = max_bonus;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     public Boolean getStealth_dis() {
         return stealth_dis;
@@ -61,8 +66,9 @@ public class Armor extends Item{
 
     public void setStealth_dis(Boolean stealth_dis) {
         this.stealth_dis = stealth_dis;
-        this.update();
-    }
+        if(id != null){
+            this.update();
+        }    }
 
     @Override
     public String toString() {
