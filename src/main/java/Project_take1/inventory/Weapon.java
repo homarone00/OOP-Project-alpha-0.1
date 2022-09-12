@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Weapon extends Item{
-    final static int ONE_HANDED = 0;
-    final static int TWO_HANDED = 1;
+    //Two static value for the hand
+    final public static int ONE_HANDED = 0;
+    final public static int TWO_HANDED = 1;
     String weapon_category;
     String weapon_range;
     String category_range;
@@ -66,16 +67,28 @@ public class Weapon extends Item{
         this.damage = damage;
     }
 
+    /**
+     * A method for the base damage
+     * @return The base weapon's damage, Key damage
+     */
     public Damage getDamage(){
-        return damage.get("icons/damage");
+        return damage.get("damage");
     }
 
+    /**
+     * A method for a specific damage
+     * @param HAND One of the static integer of Weapon, it represents the principal characteristic of the damage
+     * (Grip elemental etc)
+     * @ONE_HANDED Base Damage
+     * @TWO_HANDED Two-Handed Damage
+     * @return The selected damage
+     */
     public Damage getDamage(int HAND){
         if(HAND == ONE_HANDED || !properties.isVersatile()){
-            return damage.get("icons/damage");
+            return damage.get("damage");
         }
         if(HAND == TWO_HANDED){
-            return damage.get("two_handed_damage");
+            return damage.get("two hand");
         }
         else {
             throw new IllegalArgumentException("Il valore inserito non ha significato");
