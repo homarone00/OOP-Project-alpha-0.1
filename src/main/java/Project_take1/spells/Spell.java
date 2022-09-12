@@ -483,4 +483,18 @@ public class Spell {
             }
         }
     }
+
+    public String getStringComponents() {
+        StringBuilder sb=new StringBuilder();
+        if(components.contains("V")||components.contains("v")){
+            sb.append('V');
+        }
+        if(components.contains("S")||components.contains("s")){
+            sb.append('S');
+        }
+        if(components.contains("M")||components.contains("m")){
+            sb.append('M');
+        }
+        return sb.toString();
+    }
 }

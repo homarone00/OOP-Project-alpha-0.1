@@ -1,6 +1,8 @@
 package Project_take1.containers;
 
 import Project_take1.MyCharacter;
+import Project_take1.containers.top_panels.MySpellPane;
+import Project_take1.containers.top_panels.subtop_panels.SpellPanel;
 import Project_take1.containers.top_panels.subtop_panels.bottomlevel_containers.JTabPanel;
 import Project_take1.graphics.UpdatablePanel;
 import Project_take1.graphics.Palette;
@@ -13,7 +15,7 @@ import java.awt.event.MouseListener;
 
 public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePanel {
     MyAbilityPane abilityTab;
-    JPanel spellTab;
+    MySpellPane spellTab;
     boolean hasSpells;
     JPanel bioTab;
     JPanel bookTab;
@@ -24,13 +26,12 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
 
     public MyTabbedPane(MyCharacter myCharacter){
         setLayout(new BorderLayout());
-        abilityTab=new MyAbilityPane(myCharacter,this);
+        abilityTab=new MyAbilityPane(myCharacter);
         add(abilityTab,BorderLayout.CENTER);
 
 
-        //placeholders
-        spellTab=new JPanel();
-        //add(spelltab (somehow)
+
+        spellTab=new MySpellPane(myCharacter);
 
 
         //graphics
@@ -98,7 +99,7 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
         c.gridx=2;
         tabsPanel.add(placeHolderPanel,c);
         //spelltab
-        spellTab=new JPanel();
+        spellTab=new MySpellPane(myCharacter);
         spellTab.setBackground(getPalette().background());
 
     }

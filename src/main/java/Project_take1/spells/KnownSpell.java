@@ -3,10 +3,7 @@ package Project_take1.spells;
 import Project_take1.utils.SavingUtils;
 
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class KnownSpell {
     Set<Spell> spells = new HashSet<>();
@@ -30,6 +27,10 @@ public class KnownSpell {
     }
     public Set<Spell> getSpells() {
         return spells;
+    }
+    public ArrayList<Spell> getArraySpells(){
+        ArrayList<Spell> arraySpells =new ArrayList<>(spells);
+        return  arraySpells;
     }
     public void setSpells(Set<Spell> spells) {
         this.spells = spells;

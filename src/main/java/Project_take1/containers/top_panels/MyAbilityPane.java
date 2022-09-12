@@ -35,7 +35,7 @@ public class MyAbilityPane extends JPanel implements KeyListener, UpdatablePanel
     SaveThrowPanel savePanel;
     SimpleRoundedPanel profPanel;
 
-    public MyAbilityPane(MyCharacter myCharacter, MyTabbedPane myTabbedPane){
+    public MyAbilityPane(MyCharacter myCharacter){
         super();
         this.myCharacter=myCharacter;
         this.setLayout(new BorderLayout(10,10));

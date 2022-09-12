@@ -3,7 +3,6 @@ package Project_take1;
 import Project_take1.abilities.*;
 import Project_take1.containers.MyCharacterSheet;
 import Project_take1.inventory.Inventory;
-import Project_take1.inventory.Weapon;
 import Project_take1.spells.KnownSpell;
 import Project_take1.spells.Spell;
 import Project_take1.utils.SavingUtils;
@@ -664,7 +663,7 @@ public class MyCharacter implements MyCharacterCons{
         }
     }
 
-    public KnownSpell getSpells() {
+    public KnownSpell getKnownSpells() {
         return spells;
     }
 
