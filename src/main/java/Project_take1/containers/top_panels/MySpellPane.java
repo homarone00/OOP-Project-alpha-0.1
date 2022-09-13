@@ -6,6 +6,7 @@ import Project_take1.graphics.UpdatablePanel;
 import Project_take1.spells.Spell;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class MySpellPane extends JPanel implements UpdatablePanel {
@@ -20,17 +21,18 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
     SpellPanel lvl7;
     SpellPanel lvl8;
     SpellPanel lvl9;
+    JPanel bottomPanel=new JPanel();
     JTextField searchField=new JTextField(){
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Color oldColor=g.getColor();
             g.setColor((getPalette().border()));
-            g.drawRoundRect(0,1,searchField.getSize().width-1,searchField.getSize().height-4,20,20);
+            g.drawRoundRect(0,9,searchField.getSize().width-1,searchField.getSize().height-20,20,20);
             g.setColor(oldColor);
         }
     };
-    JLabel searchLabel=new JLabel("SEARCH:");
+    JLabel searchLabel=new JLabel("  SEARCH:");
 
     public MySpellPane(MyCharacter myCharacter) {
         super(new BorderLayout());
@@ -49,9 +51,9 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         lvl8=new SpellPanel(8,myCharacter);
         lvl9=new SpellPanel(9,myCharacter);
 
-        JPanel contentPane=new JPanel(new GridLayout(1,10,5,5));
-        searchField.setBorder(null);
-        searchLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
+        JPanel contentPane=new JPanel(new GridLayout(2,5,5,5));
+        searchField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        searchLabel.setFont(new Font("Comic Sans",Font.BOLD,26));
         searchLabel.setPreferredSize(new Dimension(140,60));
         contentPane.add(lvl0);
         contentPane.add(lvl1);
@@ -66,15 +68,25 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         contentPane.setOpaque(false);
         add(contentPane,BorderLayout.CENTER);
 
-        JPanel bottomPanel=new JPanel(new BorderLayout(25,0));
+        bottomPanel=new JPanel(new BorderLayout(25,0)){
+            @Override
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                Color oldColor =g.getColor();
+                g.setColor(getPalette().panel());
+                Graphics2D g2d=(Graphics2D)g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g.fillRoundRect(3,2,bottomPanel.getSize().width-6,bottomPanel.getSize().height-5,30,30);
+                g.setColor(oldColor);
+            }
+        };
 
-        bottomPanel.setOpaque(true);
-        bottomPanel.setBackground(getPalette().panel());
+        bottomPanel.setOpaque(false);
         bottomPanel.add(searchLabel,BorderLayout.WEST);
         bottomPanel.add(searchField,BorderLayout.CENTER);
 
         searchField.setOpaque(false);
-        searchField.setFont(new Font("Comic Sans",Font.BOLD,30));
+        searchField.setFont(new Font("Comic Sans",Font.BOLD,26));
         JPanel placeHolderPanel= new JPanel();
         placeHolderPanel.setOpaque(false);
         placeHolderPanel.setPreferredSize(new Dimension(500,40));
@@ -96,7 +108,6 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
             lvl8.addSpell(spell);
             lvl9.addSpell(spell);
         });
-
     }
 
     @Override
