@@ -3,13 +3,16 @@ package Project_take1.containers.top_panels;
 import Project_take1.MyCharacter;
 import Project_take1.containers.top_panels.subtop_panels.SpellPanel;
 import Project_take1.graphics.UpdatablePanel;
+import Project_take1.spells.KnownSpell;
 import Project_take1.spells.Spell;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class MySpellPane extends JPanel implements UpdatablePanel {
+public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
     MyCharacter myCharacter;
     SpellPanel lvl0;
     SpellPanel lvl1;
@@ -93,6 +96,8 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
         bottomPanel.setPreferredSize(new Dimension(1000,60));
         bottomPanel.add(placeHolderPanel,BorderLayout.EAST);
 
+        searchField.addKeyListener(this);
+
         add(bottomPanel,BorderLayout.SOUTH);
         searchField.addActionListener(actionValue -> {
             Spell spell=new Spell(searchField.getText());
@@ -107,6 +112,7 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
             lvl7.addSpell(spell);
             lvl8.addSpell(spell);
             lvl9.addSpell(spell);
+
         });
     }
 
@@ -118,5 +124,30 @@ public class MySpellPane extends JPanel implements UpdatablePanel {
     @Override
     public void updatePanel() {
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if(e.getSource().equals(searchField)){
+            if(Character.isAlphabetic(e.getKeyChar())||Character.isDigit(e.getKeyChar())){
+                searchField.setForeground(getPalette().text());
+            }
+
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getSource().equals(searchField)){
+            if(e.getKeyCode()==KeyEvent.VK_DELETE||e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                searchField.setForeground(getPalette().text());
+            }
+
+        }
     }
 }

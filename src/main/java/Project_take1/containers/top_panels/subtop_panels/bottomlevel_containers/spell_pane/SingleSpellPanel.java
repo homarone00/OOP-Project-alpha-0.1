@@ -10,6 +10,7 @@ public class SingleSpellPanel extends RoundedJPanel {
     JLabel spellName;
     Spell spell;
     JLabel components;
+    JLabel iconLabel;
 
     public SingleSpellPanel(Spell spell) {
         super();
@@ -35,14 +36,14 @@ public class SingleSpellPanel extends RoundedJPanel {
 
         c.fill=GridBagConstraints.BOTH;
         c.gridy=0;
-        c.gridx=1;
+        c.gridx=2;
         c.gridheight=2;
         c.weighty=20;
         c.weightx=10;
         add(spellName,c);
 
         c.gridy=1;
-        c.gridx=2;
+        c.gridx=3;
         c.gridheight=1;
         c.weighty=2;
         c.weightx=1;
@@ -51,11 +52,23 @@ public class SingleSpellPanel extends RoundedJPanel {
         JPanel placeHolderPanel=new JPanel();
         placeHolderPanel.setOpaque(false);
         c.gridy=0;
-        c.gridx=2;
+        c.gridx=3;
         c.gridheight=1;
         c.weighty=2;
         c.weightx=9;
         add(placeHolderPanel,c);
+
+        iconLabel =new JLabel();
+        iconLabel.setOpaque(false);
+        c.gridy=0;
+        c.gridx=1;
+        c.gridheight=2;
+        c.weighty=2;
+        c.weightx=3;
+
+        updateIcon();
+
+        add(iconLabel,c);
 
         JPanel placeHolderPanel2=new JPanel();
         placeHolderPanel2.setOpaque(false);
@@ -64,8 +77,27 @@ public class SingleSpellPanel extends RoundedJPanel {
         c.gridheight=2;
         c.weighty=2;
         c.weightx=1;
-        add(placeHolderPanel,c);
+        add(placeHolderPanel2,c);
+    }
 
+    private void updateIcon() {
+        if(spell.getName().contains("heal")||spell.getName().contains("Heal")
+        ||spell.getName().contains("Cure")||spell.getName().contains("cure")){
+            iconLabel.setIcon(getPalette().getHealIcon());
+            return;
+        }
+        for(String i:spell.getDesc()){
+            String j=spell.getHighLv().get(0);
+            if((i.contains("damage")||i.contains("Damage"))&&(j.contains("increases")&&j.contains("damage"))){
+                iconLabel.setIcon(getPalette().getFireballIcon());
+                return;
+            }
+        }
+        if(!spell.getAttType().equals("None")){
+            iconLabel.setIcon(getPalette().getFireballIcon());
+            return;
+        }
+        iconLabel.setIcon(getPalette().getSupportIcon());
     }
 
     @Override

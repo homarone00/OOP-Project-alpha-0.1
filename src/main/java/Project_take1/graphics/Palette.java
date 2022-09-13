@@ -215,4 +215,22 @@ public class Palette extends AbstractPalette{
         imageIcon=scale(imageIcon,17,17);
         return imageIcon;
     }
+
+    public Icon getHealIcon() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/heal_icon.png")));
+        imageIcon=scale(imageIcon,25,25);
+        return imageIcon;
+    }
+
+    public Icon getFireballIcon() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/fireball_icon.png")));
+        imageIcon=scale(imageIcon,25,25);
+        return imageIcon;
+    }
+    public Icon getSupportIcon() {
+        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/support_icon.png")));
+        imageIcon=scale(imageIcon,25,25);
+        return imageIcon;
+    }
+
 }
