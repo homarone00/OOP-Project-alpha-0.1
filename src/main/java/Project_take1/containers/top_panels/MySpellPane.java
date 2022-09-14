@@ -2,15 +2,16 @@ package Project_take1.containers.top_panels;
 
 import Project_take1.MyCharacter;
 import Project_take1.containers.top_panels.subtop_panels.SpellPanel;
+import Project_take1.graphics.TransparentPanel;
 import Project_take1.graphics.UpdatablePanel;
-import Project_take1.spells.KnownSpell;
 import Project_take1.spells.Spell;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
     MyCharacter myCharacter;
@@ -25,16 +26,9 @@ public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
     SpellPanel lvl8;
     SpellPanel lvl9;
     JPanel bottomPanel=new JPanel();
-    JTextField searchField=new JTextField(){
-        @Override
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Color oldColor=g.getColor();
-            g.setColor((getPalette().border()));
-            g.drawRoundRect(0,9,searchField.getSize().width-1,searchField.getSize().height-20,20,20);
-            g.setColor(oldColor);
-        }
-    };
+    JPanel searchFieldBox;
+    JTextField searchField=new JTextField();
+
     JLabel searchLabel=new JLabel("  SEARCH:");
 
     public MySpellPane(MyCharacter myCharacter) {
@@ -71,6 +65,17 @@ public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
         contentPane.setOpaque(false);
         add(contentPane,BorderLayout.CENTER);
 
+        searchFieldBox = new JPanel(new BorderLayout()) {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Color oldColor = g.getColor();
+                g.setColor((getPalette().border()));
+                g.drawRoundRect(0, 9, searchFieldBox.getSize().width - 1, searchFieldBox.getSize().height - 20, 20, 20);
+                g.setColor(oldColor);
+            }
+        };
+
         bottomPanel=new JPanel(new BorderLayout(25,0)){
             @Override
             public void paintComponent(Graphics g){
@@ -84,9 +89,14 @@ public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
             }
         };
 
+        searchFieldBox.add(searchField,BorderLayout.CENTER);
+        searchFieldBox.add(new TransparentPanel(new Dimension(5,5)),BorderLayout.WEST);
+        searchFieldBox.add(new TransparentPanel(new Dimension(5,5)),BorderLayout.EAST);
+
         bottomPanel.setOpaque(false);
         bottomPanel.add(searchLabel,BorderLayout.WEST);
-        bottomPanel.add(searchField,BorderLayout.CENTER);
+        searchFieldBox.setOpaque(false);
+        bottomPanel.add(searchFieldBox,BorderLayout.CENTER);
 
         searchField.setOpaque(false);
         searchField.setFont(new Font("Comic Sans",Font.BOLD,26));
@@ -100,24 +110,103 @@ public class MySpellPane extends JPanel implements UpdatablePanel, KeyListener {
 
         add(bottomPanel,BorderLayout.SOUTH);
         searchField.addActionListener(actionValue -> {
-            Spell spell=new Spell(searchField.getText());
-            myCharacter.getKnownSpells().insert(spell);
-            lvl0.addSpell(spell);
-            lvl1.addSpell(spell);
-            lvl2.addSpell(spell);
-            lvl3.addSpell(spell);
-            lvl4.addSpell(spell);
-            lvl5.addSpell(spell);
-            lvl6.addSpell(spell);
-            lvl7.addSpell(spell);
-            lvl8.addSpell(spell);
-            lvl9.addSpell(spell);
+            if(searchField.getText().equals("nico bico")){
+                JFrame NICOBICOFRAME=new JFrame();
+                JLabel NICOBICOLABEL=new JLabel("NICOBICO");
+                JTextArea NICOBICOTEXTAREA1 =new JTextArea();
+                JTextArea NICOBICOTEXTAREA2 =new JTextArea();
+                NICOBICOTEXTAREA2.setRows(15);
+                NICOBICOTEXTAREA1.setRows(15);
+                Thread t=new Thread(()->{
+                    NICOBICOFRAME.setSize(new Dimension(1000,800));
+                    NICOBICOLABEL.setFont(new Font("Comic Sans",Font.BOLD,150));
+                    NICOBICOTEXTAREA1.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+                    NICOBICOTEXTAREA2.setBorder(new EmptyBorder(new Insets(0,0,0,0)));
+                    NICOBICOTEXTAREA1.setFont(new Font("Comic Sans",Font.BOLD,15));
+                    NICOBICOTEXTAREA2.setFont(new Font("Comic Sans",Font.BOLD,15));
+                    NICOBICOFRAME.setLayout(new BorderLayout());
+                    NICOBICOFRAME.add(NICOBICOTEXTAREA1,BorderLayout.NORTH);
+                    NICOBICOFRAME.add(NICOBICOLABEL,BorderLayout.CENTER);
+                    NICOBICOFRAME.add(NICOBICOTEXTAREA2,BorderLayout.SOUTH);
+                    NICOBICOFRAME.setTitle("NICOBICONICOBICONICOBICONICOBICO");
+                    NICOBICOFRAME.setVisible(true);
+                    NICOBICOFRAME.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                });
+                t.start();
+                Thread t3=new Thread(()->{
+                    Random rand=new Random();
+                    for(int i=0;;i++){
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        int R=rand.nextInt(0,255);
+                        int G=rand.nextInt(0,255);
+                        int B=rand.nextInt(0,255);
+                        NICOBICOLABEL.setForeground(new Color(R,G,B));
+                        NICOBICOTEXTAREA1.setForeground(new Color(R,G,B));
+                        NICOBICOTEXTAREA2.setForeground(new Color(R,G,B));
+                        NICOBICOFRAME.revalidate();
+                        if(i==1000){
+                            NICOBICOTEXTAREA1.setText("NICO BICO");
+                            NICOBICOTEXTAREA2.setText("NICO BICO");
+                            i=0;
+                        }
+                        else if(i%50==0){
+                            NICOBICOTEXTAREA1.append("\n");
+                            NICOBICOTEXTAREA2.append("\n");
+                        }
+                        else{
+                            NICOBICOTEXTAREA1.append(" NICO BICO");
+                            NICOBICOTEXTAREA2.setText(NICOBICOTEXTAREA1.getText()+" NICO BICO");
+                        }
+                        R=rand.nextInt(0,255);
+                        G=rand.nextInt(0,255);
+                        B=rand.nextInt(0,255);
+                        NICOBICOTEXTAREA1.setBackground(new Color(R,G,B));
+                        NICOBICOTEXTAREA2.setBackground(new Color(R,B,G));
+                        NICOBICOLABEL.setBackground(new Color(G,B,R));
+                    }
+
+                });
+                t3.start();
+            }
+            Thread t2=new Thread(()->{
+                Spell spell=new Spell(searchField.getText());
+                myCharacter.getKnownSpells().insert(spell);
+                lvl0.addSpell(spell);
+                lvl1.addSpell(spell);
+                lvl2.addSpell(spell);
+                lvl3.addSpell(spell);
+                lvl4.addSpell(spell);
+                lvl5.addSpell(spell);
+                lvl6.addSpell(spell);
+                lvl7.addSpell(spell);
+                lvl8.addSpell(spell);
+                lvl9.addSpell(spell);
+            });
+            t2.start();
 
         });
     }
 
     @Override
     public void updateColors() {
+        setBackground(getPalette().background());
+        searchField.setForeground(getPalette().text());
+        searchLabel.setForeground(getPalette().text());
+        searchField.setCaretColor(getPalette().text());
+        lvl0.updateColors();
+        lvl1.updateColors();
+        lvl2.updateColors();
+        lvl3.updateColors();
+        lvl4.updateColors();
+        lvl5.updateColors();
+        lvl6.updateColors();
+        lvl7.updateColors();
+        lvl8.updateColors();
+        lvl9.updateColors();
 
     }
 

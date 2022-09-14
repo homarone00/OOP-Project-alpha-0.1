@@ -64,6 +64,7 @@ public class MyCharacterSheet extends JFrame implements ActionListener, ChangeLi
     public void updateColors() {
         this.repaint();
         contentPane.updateColors();
+
     }
 
     @Override

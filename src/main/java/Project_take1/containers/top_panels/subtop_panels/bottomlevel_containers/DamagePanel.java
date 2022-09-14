@@ -43,6 +43,7 @@ public class DamagePanel extends JPanel implements UpdatablePanel, MouseListener
         damageModifiersPanel.getPlusLabel().addMouseListener(this);
 
         updateListener();
+        updateSizes();
     }
 
     @Override

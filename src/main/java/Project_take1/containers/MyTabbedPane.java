@@ -106,7 +106,7 @@ public class MyTabbedPane extends JPanel implements MouseListener, UpdatablePane
 
     public void updateColors(){
         abilityTab.updateColors();
-        spellTab.setBackground(getPalette().background());
+        spellTab.updateColors();
         tabsPanel.setBackground(getPalette().darker_background());
         placeHolderPanel.setBackground(getPalette().darker_background());
         this.setBackground(getPalette().background());

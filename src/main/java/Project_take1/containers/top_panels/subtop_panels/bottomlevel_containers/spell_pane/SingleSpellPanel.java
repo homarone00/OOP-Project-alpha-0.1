@@ -87,11 +87,14 @@ public class SingleSpellPanel extends RoundedJPanel {
             return;
         }
         for(String i:spell.getDesc()){
-            String j=spell.getHighLv().get(0);
-            if((i.contains("damage")||i.contains("Damage"))&&(j.contains("increases")&&j.contains("damage"))){
-                iconLabel.setIcon(getPalette().getFireballIcon());
-                return;
+            try{String j=spell.getHighLv().get(0);
+                if((i.contains("damage")||i.contains("Damage"))&&(j.contains("increases")&&j.contains("damage"))){
+                    iconLabel.setIcon(getPalette().getFireballIcon());
+                    return;
+                }
             }
+            catch (IndexOutOfBoundsException ignored){}
+
         }
         if(!spell.getAttType().equals("None")){
             iconLabel.setIcon(getPalette().getFireballIcon());
@@ -102,6 +105,9 @@ public class SingleSpellPanel extends RoundedJPanel {
 
     @Override
     public void updateColors() {
+        updateIcon();
+        spellName.setForeground(getPalette().text());
+        components.setForeground(getPalette().text());
 
     }
 

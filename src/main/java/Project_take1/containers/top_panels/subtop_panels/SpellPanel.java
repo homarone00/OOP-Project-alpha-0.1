@@ -23,6 +23,7 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
         contentPane=new JPanel(new GridBagLayout());
         length=0;
         title.setHorizontalAlignment(JLabel.CENTER);
+        singleSpellPanels=new ArrayList<>();
         if(level==0){
             title.setText("CANTRIPS");
         }
@@ -67,6 +68,10 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
     }
     @Override
     public void updateColors() {
+        title.setForeground(getPalette().text());
+        for(SingleSpellPanel i:singleSpellPanels){
+            i.updateColors();
+        }
 
     }
 
@@ -76,29 +81,34 @@ public class SpellPanel extends JPanel implements UpdatablePanel {
     }
 
     public void addSpell(Spell spell){
-        if(spell.getLevel()==level){
+        Thread t= new Thread(() -> {
+            if(spell.getLevel()==level){
 
-            GridBagConstraints c=new GridBagConstraints();
-            Insets i=new Insets(3,3,3,3);
-            c.insets=i;
-            c.gridx=0;
-            c.gridy=length;
-            c.fill=GridBagConstraints.BOTH;
-            c.weighty=10;
-            c.weightx=100;
+                GridBagConstraints c=new GridBagConstraints();
+                c.insets= new Insets(3,3,3,3);
+                c.gridx=0;
+                c.gridy=length;
+                c.fill=GridBagConstraints.BOTH;
+                c.weighty=10;
+                c.weightx=100;
 
-            contentPane.add(new SingleSpellPanel(spell),c);
-            length++;
+                SingleSpellPanel singleSpellPanel=new SingleSpellPanel(spell);
+                contentPane.add(singleSpellPanel,c);
+                singleSpellPanels.add(singleSpellPanel);
+                length++;
 
-            contentPane.remove(placeHolderPanel);
-            c.gridx=0;
-            c.gridy=50;
-            c.fill=GridBagConstraints.BOTH;
-            c.weighty=150-length*12;
-            c.weightx=10;
-            contentPane.add(placeHolderPanel,c);
-            revalidate();
-        }
+                contentPane.remove(placeHolderPanel);
+                c.gridx=0;
+                c.gridy=50;
+                c.fill=GridBagConstraints.BOTH;
+                c.weighty=150-length*12;
+                c.weightx=10;
+                contentPane.add(placeHolderPanel,c);
+                revalidate();
+            }
+        });
+        t.start();
+
 
     }
 }

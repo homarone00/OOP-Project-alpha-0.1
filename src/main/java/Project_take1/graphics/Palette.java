@@ -217,19 +217,40 @@ public class Palette extends AbstractPalette{
     }
 
     public Icon getHealIcon() {
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/heal_icon.png")));
-        imageIcon=scale(imageIcon,25,25);
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/heal_icon_black.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/heal_icon_white.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
         return imageIcon;
     }
 
     public Icon getFireballIcon() {
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/fireball_icon.png")));
-        imageIcon=scale(imageIcon,25,25);
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/fireball_icon_black.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/fireball_icon_white.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
         return imageIcon;
     }
     public Icon getSupportIcon() {
-        ImageIcon imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/support_icon.png")));
-        imageIcon=scale(imageIcon,25,25);
+        ImageIcon imageIcon;
+        if(getWhiteness(text())<40){
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/support_icon_black.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
+        else{
+            imageIcon=new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/icons/spells/support_icon_white.png")));
+            imageIcon=scale(imageIcon,17,17);
+        }
         return imageIcon;
     }
 
