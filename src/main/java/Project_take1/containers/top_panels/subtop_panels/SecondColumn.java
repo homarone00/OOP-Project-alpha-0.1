@@ -33,7 +33,7 @@ public class SecondColumn extends JPanel implements UpdatablePanel {
 
         JPanel grid_1=new JPanel(new GridBagLayout());
         grid_1.setOpaque(false);
-        className=new SimpleRoundedPanel("Oath of the homosexual","Kappa", 30,30);
+        className=new SimpleRoundedPanel("Oath of the Calamity","Paladin", 30,30);
         className.setOpaque(false);
         level=new SimpleRoundedPanel("LVL",Integer.toString(myCharacter.getLvl()),30,30);
         level.setOpaque(false);
